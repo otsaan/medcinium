@@ -9,6 +9,6 @@ package models.DAO;
  *
  * @author zianwar
  */
-public class PaiementDAO {
+public class AllergyDAO {
     
 }

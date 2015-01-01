@@ -9,6 +9,6 @@ package models;
  *
  * @author zianwar
  */
-public class Allergie {
+public class Allergy {
     
 }

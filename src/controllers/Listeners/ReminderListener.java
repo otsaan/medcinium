@@ -5,14 +5,14 @@
  */
 package controllers.Listeners;
 
-import models.Rappel;
+import models.Reminder;
 
 /**
  *
  * @author zianwar
  */
-public interface RappelListener {
-    public void onRappelCreated(Rappel rappel);
-    public void onRappelUpdated(Rappel rappel);
-    public void onRappelDeleted(Rappel rappel);
+public interface ReminderListener {
+    public void onRappelCreated(Reminder rappel);
+    public void onRappelUpdated(Reminder rappel);
+    public void onRappelDeleted(Reminder rappel);
 }

@@ -5,10 +5,20 @@
  */
 package models;
 
+import java.sql.Date;
+
 /**
  *
  * @author zianwar
  */
 public class Patient {
-    
+
+    private int patientId;
+    private String name;
+    private String lastName;
+    private String telephone;
+    private Date birthDate;
+    private String address;
+    private String sexe;
+    private int credit;
 }
