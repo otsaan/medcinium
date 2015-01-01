@@ -15,7 +15,7 @@ public class Reminder {
     
     int id;
     String description;
-    Date rappel;
+    Date date;
     Patient patient;
     
 
@@ -27,8 +27,8 @@ public class Reminder {
         return description;
     }
 
-    public Date getRappel() {
-        return rappel;
+    public Date getDate() {
+        return date;
     }
 
     public Patient getPatient() {
@@ -43,13 +43,16 @@ public class Reminder {
         this.description = description;
     }
 
-    public void setRappel(Date rappel) {
-        this.rappel = rappel;
+    public void setDate(Date rappel) {
+        this.date = rappel;
     }
 
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Reminder(" + "id=" + id + ", description=" + description + ", date=" + date + ", patient=" + patient + ')';
+    }
 }
