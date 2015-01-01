@@ -52,6 +52,13 @@ public class PatientInfo {
     public void setConsultation(Consultation consultation) {
         this.consultation = consultation;
     }
+
+    @Override
+    public String toString() {
+        return "PatientInfo(" + "id=" + id + ", info=" + info + ", dateAdded=" + dateAdded + ", consultation=" + consultation + ')';
+    }
+    
+    
     
     
 }

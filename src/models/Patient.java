@@ -85,6 +85,13 @@ public class Patient {
     public void setCredit(int credit) {
         this.credit = credit;
     }
+
+    @Override
+    public String toString() {
+        return "Patient(" + "patientId=" + patientId + ", name=" + name + ", lastName=" + lastName + ", telephone=" + telephone + ", birthDate=" + birthDate + ", address=" + address + ", sexe=" + sexe + ", credit=" + credit + ')';
+    }
+    
+    
     
     
 }
