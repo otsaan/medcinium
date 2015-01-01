@@ -5,12 +5,14 @@
  */
 package controllers.Listeners;
 
-import models.User;
+import models.Patient;
 
 /**
  *
  * @author zianwar
  */
-public interface LoginListener {
-    public void loginPerformed(User user);
+public interface PatientListener {
+    public void onPatientCreated(Patient patient);
+    public void onPatientUpdated(Patient patient);
+    public void onPatientDeleted(Patient patient);
 }

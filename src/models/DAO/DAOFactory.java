@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package models.DAO;
 
 /**
  *
  * @author zianwar
  */
-public class PatientInfoDAO {
+public class DAOFactory {
     
 }

@@ -5,8 +5,8 @@
  */
 package controllers;
 
+import controllers.Listeners.AppListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import models.Model;
 import views.View;
 
@@ -14,18 +14,27 @@ import views.View;
  * Controller must listen to the view using the observer design pattern
  * @author zianwarq
  */
-public class Controller implements ActionListener{
+public class Controller implements AppListener {
     
     private View view;
     private Model model;
-    
-    Controller(Model model, View view) {
+
+    public Controller(View view, Model model) {
+        this.view = view;
+        this.model = model;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onOpen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void onClose() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

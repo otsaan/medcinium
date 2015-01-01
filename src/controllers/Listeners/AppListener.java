@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package controllers.Listeners;
 
 /**
  *
  * @author zianwar
  */
-public class ConsulationDAO {
-    
+public interface AppListener {
+    public void onOpen();
+    public void onClose();
 }

@@ -5,20 +5,26 @@
  */
 package controllers;
 
-import DAO.UserDAO;
-import controllers.listeners.LoginListener;
+import models.DAO.UserDAO;
+import controllers.Listeners.LoginListener;
 import models.User;
 
 /**
  *
  * @author zianwar
  */
-public class UserController implements LoginListener{
+public class UserController implements LoginListener {
 
+    public UserController() {
+        
+    }
+
+    
     @Override
     public void loginPerformed(User user) {
-        UserDAO userDao = new UserDAO();
+        // UserDAO userDao = new UserDAO();
         // userDao.signIn(user);
+        System.out.println("Event triggered!");
     }
     
 }

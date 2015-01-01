@@ -5,12 +5,14 @@
  */
 package controllers.Listeners;
 
-import models.User;
+import models.Rappel;
 
 /**
  *
  * @author zianwar
  */
-public interface LoginListener {
-    public void loginPerformed(User user);
+public interface RappelListener {
+    public void onRappelCreated(Rappel rappel);
+    public void onRappelUpdated(Rappel rappel);
+    public void onRappelDeleted(Rappel rappel);
 }
