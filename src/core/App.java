@@ -37,6 +37,7 @@ public class App {
         });
     }
     
+    
     public static void runApp() {
 
         Model model = new Model();
@@ -49,18 +50,7 @@ public class App {
         loginFrame.setVisible(true);
         loginFrame.setLoginListener(userController);
         
-        
-        
-
-        /*
-         * In this implementation of MVC, the view listens
-         * to the model and updates itself if the model
-         * changes. Some people say that the view should not
-         * touch the model, but that the controller should
-         * listen to the model and tell the view to change
-         * instead (by calling methods in the view package).
-         */
-//        model.setPeopleChangedListener(view);
+ 
     }
     
 }
