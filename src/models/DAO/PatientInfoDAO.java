@@ -22,7 +22,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public PatientInfo find(String id) {
         
         PatientInfo patientInfo = new PatientInfo();
-        ConsultationDAO consultationDAO = new ConsultationDAO();
+        ConsultationDAO consultationDAO = DAOFactory.getConsultationDAO();
        
         
         String findQuery = "SELECT * "
@@ -89,7 +89,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public Vector<PatientInfo> all() {
         
         Vector<PatientInfo> patientInfos = new Vector<PatientInfo>();
-        ConsultationDAO consultationDAO = new ConsultationDAO();
+        ConsultationDAO consultationDAO = DAOFactory.getConsultationDAO();
 
         String findQuery = "SELECT * "
                         + "FROM infos;";

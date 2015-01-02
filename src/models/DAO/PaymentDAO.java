@@ -23,7 +23,7 @@ public class PaymentDAO implements DAO<Payment> {
     public Payment find(String id) {
         
         Payment payment = new Payment();
-        PatientDAO patientDAO = new PatientDAO();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
         
         String findQuery = "SELECT * "
                         + "FROM paiements "
@@ -86,7 +86,7 @@ public class PaymentDAO implements DAO<Payment> {
     public Vector<Payment> all() {
         
         Vector<Payment> payments = new Vector<Payment>();
-        PatientDAO patientDAO = new PatientDAO();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
         
 
         String findQuery = "SELECT * "

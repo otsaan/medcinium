@@ -22,7 +22,7 @@ public class ReminderDAO implements DAO<Reminder>{
     public Reminder find(String id) {
         
         Reminder reminder = new Reminder();
-        PatientDAO patientDAO = new PatientDAO();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
         
         String findQuery = "SELECT * "
                         + "FROM rappels "
@@ -86,7 +86,7 @@ public class ReminderDAO implements DAO<Reminder>{
     public Vector<Reminder> all() {
         
         Vector<Reminder> reminders = new Vector<Reminder>();
-        PatientDAO patientDAO = new PatientDAO();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
 
         String findQuery = "SELECT * "
                         + "FROM rappels;";
