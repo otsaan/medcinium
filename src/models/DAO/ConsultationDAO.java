@@ -16,13 +16,15 @@ import models.Consultation;
  */
 public class ConsultationDAO implements DAO<Consultation>{
 
+    DAOFactory dao = new DAOFactory();
     
     @Override
     public Consultation find(String id) {
         
         Consultation con = new Consultation();
-        PatientDAO patientDAO = new PatientDAO();
-        PatientInfoDAO patientInfoDAO = new PatientInfoDAO();
+        
+        PatientDAO patientDAO = dao.getPatientDAO();
+        PatientInfoDAO patientInfoDAO = dao.getPatientInfoDAO();
         
         String findQuery = "SELECT * FROM consultations"
                         + " WHERE id_consultation =" + id + ";";
@@ -50,8 +52,8 @@ public class ConsultationDAO implements DAO<Consultation>{
     public Vector<Consultation> all() {
         
         Vector<Consultation> consultations = new Vector<Consultation>();
-        PatientDAO patientDAO = new PatientDAO();
-        PatientInfoDAO patientInfoDAO = new PatientInfoDAO();
+        PatientDAO patientDAO = dao.getPatientDAO();
+        PatientInfoDAO patientInfoDAO = dao.getPatientInfoDAO();
         
         String findAllQuery = "SELECT * FROM consultations;";
         ResultSet rs = Database.getInstance().query(findAllQuery);

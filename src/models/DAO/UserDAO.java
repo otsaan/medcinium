@@ -78,7 +78,7 @@ public class UserDAO implements DAO<User>{
                             + "'" + user.getName()       + "', "
                             + "'" + user.getUsername()   + "', "
                             + "'" + user.getPassword()   + "', "
-                            + "'" + user.getRole()       + ");";
+                            + "'" + user.getRole()       + "');";
         
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }

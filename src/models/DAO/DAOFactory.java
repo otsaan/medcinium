@@ -24,9 +24,9 @@ public class DAOFactory {
         return new ConsultationDAO();
     }
     
-     public PatientInfo getPatientInfo(){
+     public PatientInfoDAO getPatientInfoDAO(){
         
-        return new PatientInfo();
+        return new PatientInfoDAO();
     }
      
       public PaymentDAO getPaymentDAO(){
