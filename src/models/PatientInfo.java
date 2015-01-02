@@ -6,7 +6,6 @@
 package models;
 
 import java.sql.Date;
-import java.util.Map;
 
 
 /**
@@ -16,7 +15,8 @@ import java.util.Map;
 public class PatientInfo {
     
     int id;
-    Map<String,String> info;
+    String property;
+    String value;
     Date dateAdded;
     Consultation consultation;
 
@@ -25,8 +25,12 @@ public class PatientInfo {
         return id;
     }
 
-    public Map<String, String> getInfo() {
-        return info;
+    public String getProperty() {
+        return property;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     public Date getDateAdded() {
@@ -41,8 +45,12 @@ public class PatientInfo {
         this.id = id;
     }
 
-    public void setInfo(Map<String, String> info) {
-        this.info = info;
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public void setDateAdded(Date dateAdded) {
@@ -55,10 +63,8 @@ public class PatientInfo {
 
     @Override
     public String toString() {
-        return "PatientInfo(" + "id=" + id + ", info=" + info + ", dateAdded=" + dateAdded + ", consultation=" + consultation + ')';
+        return "PatientInfo{" + "id=" + id + ", property=" + property + ", value=" + value + ", dateAdded=" + dateAdded + ", consultation=" + consultation + '}';
     }
-    
-    
-    
+
     
 }
