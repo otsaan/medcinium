@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.util.Vector;
+
 /**
  *
  * @author zianwar
@@ -12,39 +14,50 @@ package models;
 public class Drug {
 
     
-    int id;
-    String nom;
-    String description;
+    int drugId;
+    String drugName;
+    String drugDescription;
+    Vector<Consultation> consultationListe;
 
-    public int getId() {
-        return id;
+    public int getDrugId() {
+        return drugId;
     }
 
-    public String getNom() {
-        return nom;
+    public String getDrugName() {
+        return drugName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDrugDescription() {
+        return drugDescription;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Vector<Consultation> getConsultationListe() {
+        return consultationListe;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setDrugId(int drugId) {
+        this.drugId = drugId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
+    }
+
+    public void setDrugDescription(String drugDescription) {
+        this.drugDescription = drugDescription;
+    }
+
+    public void setConsultationListe(Vector<Consultation> consultationListe) {
+        this.consultationListe = consultationListe;
     }
 
     @Override
     public String toString() {
-        return "Drug(" + "id=" + id + ", nom=" + nom + ", description=" + description + ')';
+        return "Drug{" + "drugId=" + drugId + ", drugName=" + drugName + ", drugDescription=" + drugDescription + ", consultationListe=" + consultationListe + '}';
     }
-    
+   
+   
+   
     
 
 }

@@ -5,10 +5,96 @@
  */
 package models.DAO;
 
+import database.Database;
+import java.sql.ResultSet;
+import java.util.Vector;
+import models.Drug;
+
 /**
  *
  * @author zianwar
  */
-public class DrugDAO {
+public class DrugDAO implements DAO<Drug> {
+        public Drug find(String id) {
+     Drug drug = new Drug();
+        
+        String findQuery = "SELECT * FROM medicaments"
+                        + " WHERE id_medicament =" + id + ";";
+        
+        ResultSet rs = Database.getInstance().query(findQuery);
+        
+        try {
+            rs.next();
+            drug.setDrugId(rs.getInt("id_medicament"));
+            drug.setDrugName(rs.getString("nom_medicament"));
+            drug.setDrugDescription(rs.getString("desc_medicament"));
+            
+        } catch (Exception ex) {
+            System.out.println("DrugDAO find " + ex);
+        } 
+        return drug;
+    }
+
+    @Override
+    public Vector<Drug> all() {
+    Vector<Drug> medicaments = new  Vector<Drug>();
+        
+        String findQuery = "SELECT * FROM medicaments";
+        
+        ResultSet rs = Database.getInstance().query(findQuery);
+        
+        try {
+           while(rs.next())
+           {
+               Drug drug= new Drug();
+               drug.setDrugId(rs.getInt("id_medicament"));
+               drug.setDrugName(rs.getString("nom_medicament"));
+               drug.setDrugDescription("desc_medicament");
+               medicaments.add(drug);
+           }
+           
+        } catch (Exception ex) {
+            System.out.println("DrugDAO all " +ex);
+        } 
+        return medicaments;    
+    
+    }
+     
+
+    @Override
+    public boolean create(Drug drug) {
+         String insertQuery = "INSERT INTO medicaments(nom_medicament,desc_medicament) "
+                            + "VALUES("
+                            + "'" + drug.getDrugName() + "', "
+                            + "'" +drug.getDrugDescription()
+                            + "'); ";
+        
+        return (Database.getInstance().dmlQuery(insertQuery) == 0) ? false : true;
+
+        
+    }
+
+    @Override
+    public boolean update(Drug drug) {
+        String insertQuery = "UPDATE medicaments "
+                           + " set nom_medicament = '" + drug.getDrugName()+ "', "
+                           + " desc_medicament = '" + drug.getDrugDescription()+ "'"
+                           + " WHERE id_medicament = "+drug.getDrugId()+ ";";
+                           
+        return (Database.getInstance().dmlQuery(insertQuery) == 0) ? false : true;
+
+    }
+
+    @Override
+    public boolean delete(Drug drug) {
+           
+        String deleteQuery = "DELETE FROM medicaments "
+                           + "WHERE id_medicament = "+drug.getDrugId() + ";";
+        
+        
+        return (Database.getInstance().dmlQuery(deleteQuery) == 0) ? false : true;
+    }
+    
+    
     
 }
