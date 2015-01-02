@@ -40,7 +40,7 @@ CREATE TABLE infos (id_info INT  AUTO_INCREMENT NOT NULL,
 propriete VARCHAR(45),
 valeur VARCHAR(45),
 date_info DATETIME,
-consultations_id_consultation INT,
+id_consultation INT,
 PRIMARY KEY (id_info) ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS allergies ;
@@ -80,7 +80,7 @@ ALTER TABLE consultations ADD CONSTRAINT FK_consultations_id_patient FOREIGN KEY
 ALTER TABLE consultations ADD CONSTRAINT FK_consultations_infos_id_info FOREIGN KEY (infos_id_info) REFERENCES infos (id_info);
 ALTER TABLE rappels ADD CONSTRAINT FK_rappels_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
 ALTER TABLE paiements ADD CONSTRAINT FK_paiements_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
-ALTER TABLE infos ADD CONSTRAINT FK_infos_consultations_id_consultation FOREIGN KEY (consultations_id_consultation) REFERENCES consultations (id_consultation);
+ALTER TABLE infos ADD CONSTRAINT FK_infos_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
 ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
 ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_medicament FOREIGN KEY (id_medicament) REFERENCES medicaments (id_medicament);
 ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
