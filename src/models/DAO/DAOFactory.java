@@ -14,42 +14,42 @@ import models.PatientInfo;
 public class DAOFactory {
     
     
-    public PatientDAO getPatientDAO(){
+    public static PatientDAO getPatientDAO(){
         
         return new PatientDAO();
     }
     
-    public ConsultationDAO getConsultationDAO(){
+    public static ConsultationDAO getConsultationDAO(){
         
         return new ConsultationDAO();
     }
     
-     public PatientInfoDAO getPatientInfoDAO(){
+     public static PatientInfoDAO getPatientInfoDAO(){
         
         return new PatientInfoDAO();
     }
      
-      public PaymentDAO getPaymentDAO(){
+      public static PaymentDAO getPaymentDAO(){
         
         return new PaymentDAO();
     }
     
-     public ReminderDAO getReminderDAO(){
+     public static ReminderDAO getReminderDAO(){
         
         return new ReminderDAO();
     }
      
-     public UserDAO getUserDAO(){
+     public static UserDAO getUserDAO(){
         
         return new UserDAO();
     }
      
-     public DrugDAO getDrugDAO(){
+     public static DrugDAO getDrugDAO(){
         
         return new DrugDAO();
     }
       
-     public AllergyDAO getAllergyDAO(){
+     public static AllergyDAO getAllergyDAO(){
         
         return new AllergyDAO();
     }
