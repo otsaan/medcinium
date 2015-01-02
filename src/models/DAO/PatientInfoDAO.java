@@ -111,7 +111,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
             }
             
         } catch (SQLException ex) {
-            System.out.println("Error : ReminderDAO.all()" + ex);
+            System.out.println("Error : PatientInfo.all()" + ex);
         }
         
         return patientInfos;
