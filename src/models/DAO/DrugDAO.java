@@ -15,6 +15,7 @@ import models.Drug;
  * @author zianwar
  */
 public class DrugDAO implements DAO<Drug> {
+        @Override
         public Drug find(String id) {
      Drug drug = new Drug();
         
@@ -69,7 +70,7 @@ public class DrugDAO implements DAO<Drug> {
                             + "'" +drug.getDrugDescription()
                             + "'); ";
         
-        return (Database.getInstance().dmlQuery(insertQuery) == 0) ? false : true;
+        return (Database.getInstance().dmlQuery(insertQuery) != 0);
 
         
     }
@@ -81,7 +82,7 @@ public class DrugDAO implements DAO<Drug> {
                            + " desc_medicament = '" + drug.getDrugDescription()+ "'"
                            + " WHERE id_medicament = "+drug.getDrugId()+ ";";
                            
-        return (Database.getInstance().dmlQuery(insertQuery) == 0) ? false : true;
+        return (Database.getInstance().dmlQuery(insertQuery) != 0);
 
     }
 
@@ -92,7 +93,7 @@ public class DrugDAO implements DAO<Drug> {
                            + "WHERE id_medicament = "+drug.getDrugId() + ";";
         
         
-        return (Database.getInstance().dmlQuery(deleteQuery) == 0) ? false : true;
+        return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
     
     
