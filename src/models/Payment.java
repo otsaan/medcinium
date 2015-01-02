@@ -49,6 +49,11 @@ public class Payment {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" + "id=" + id + ", amount=" + amount + ", date=" + date + ", patient=" + patient + '}';
+    }
     
     
 }
