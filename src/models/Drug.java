@@ -10,5 +10,5 @@ package models;
  * @author zianwar
  */
 public class Drug {
-    
+      
 }
