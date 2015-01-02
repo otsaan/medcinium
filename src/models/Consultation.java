@@ -85,5 +85,9 @@ public class Consultation {
         this.patientInfo = patientInfo;
     }
     
+    @Override
+    public String toString() {
+        return "Consultation(" + "consultationId=" + consultationId + ", desc=" + description + ", date=" + consultationDate + ", status=" + status + ", prix=" + prix + ", \npatient= (" + patient + ") , \npatientInfo= (" + patientInfo + ") )";
+    }
     
 }
