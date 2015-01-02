@@ -16,7 +16,7 @@ public class Allergy {
     
      private int allergyId;
      private String allergyName;
-     private Vector<Consultation> CunsultationListe;
+     private Vector<Consultation> consultationListe;
 
     public void setAllergyId(int allergyId) {
         this.allergyId = allergyId;
@@ -26,8 +26,8 @@ public class Allergy {
         this.allergyName = allergyName;
     }
 
-    public void setCunsultationListe(Vector<Consultation> CunsultationListe) {
-        this.CunsultationListe = CunsultationListe;
+    public void setConsultationListe(Vector<Consultation> consultationListe) {
+        this.consultationListe = consultationListe;
     }
 
     public int getAllergyId() {
@@ -38,8 +38,8 @@ public class Allergy {
         return allergyName;
     }
 
-    public Vector<Consultation> getCunsultationListe() {
-        return CunsultationListe;
+    public Vector<Consultation> getConsultationListe() {
+        return consultationListe;
     }
 
     @Override
