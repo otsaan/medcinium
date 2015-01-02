@@ -22,6 +22,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public PatientInfo find(String id) {
         
         PatientInfo patientInfo = new PatientInfo();
+        ConsultationDAO consultationDAO = new ConsultationDAO();
        
         
         String findQuery = "SELECT * "
@@ -37,7 +38,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
             patientInfo.setProperty(rs.getString("propriete"));
             patientInfo.setValue(rs.getString("valeur"));
             patientInfo.setDateAdded(rs.getDate("date_info"));
-            patientInfo.setConsultation(null);
+            patientInfo.setConsultation(consultationDAO.find(rs.getString("id_consultation")));
             
         } catch (SQLException ex) {
             System.out.println("Error : PatientInfo.find()" + ex);
@@ -54,7 +55,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
                            + "'" + p.getProperty() + "', "
                            + "'" + p.getValue() + "', "
                            + "'" + p.getDateAdded() + "', "
-                           + p.getConsultation().getConsultationId() + ");";
+                           + p.getConsultation().getConsultationId()+ ");";
         
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }
@@ -88,7 +89,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public Vector<PatientInfo> all() {
         
         Vector<PatientInfo> patientInfos = new Vector<PatientInfo>();
-        
+        ConsultationDAO consultationDAO = new ConsultationDAO();
 
         String findQuery = "SELECT * "
                         + "FROM infos;";
@@ -105,7 +106,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
                 p.setProperty(rs.getString("propriete"));
                 p.setValue(rs.getString("valeur"));
                 p.setDateAdded(rs.getDate("date_info"));
-                p.setConsultation(null);
+                p.setConsultation(consultationDAO.find(rs.getString("id_consultation")));
             
                 patientInfos.add(p);
             }
