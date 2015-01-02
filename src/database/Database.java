@@ -19,21 +19,21 @@ public class Database {
 	
     private static Database instance = new Database();
 
-    private static Connection conn;
-    private static ResultSet rs;
-    private static Statement st;
+    private  Connection conn;
+    private  ResultSet rs;
+    private  Statement st;
 
 
     private Database() {}
 
-    public static Database getInstance() {
+    public static  Database getInstance() {
         return instance;
     }	
 
     /*
      * Add whatever methods you like to your singleton class.
      */
-    public static void connect() throws Exception {
+    public  void connect() throws Exception {
         if (conn != null)
             return;
 
@@ -53,7 +53,7 @@ public class Database {
      * Executer une requete SELECT
      * @param q la requete
      */
-    public static ResultSet query(String q) {
+    public  ResultSet query(String q) {
         
         try {
             connect();
@@ -73,7 +73,7 @@ public class Database {
      * comme INSERT, UPDATE ou DELETE 
      * @param q la requete
      */
-    public static int dmlQuery(String q) {
+    public  int dmlQuery(String q) {
         try {
             connect();
             st = conn.createStatement();
