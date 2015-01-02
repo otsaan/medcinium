@@ -68,7 +68,7 @@ public class ReminderDAO implements DAO<Reminder>{
                           + "id_patient = " + r.getPatient().getPatientId() + " "
                           + "WHERE id_rappel = " + r.getId() + ";";
         
-        return (Database.getInstance().dmlQuery(updateQuery) == 0);
+        return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
     
@@ -78,7 +78,7 @@ public class ReminderDAO implements DAO<Reminder>{
         String deleteQuery = "DELETE FROM rappels "
                           + "WHERE id_rappel = " + r.getId() + ";";
         
-        return (Database.getInstance().dmlQuery(deleteQuery) == 0);
+        return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
     
     

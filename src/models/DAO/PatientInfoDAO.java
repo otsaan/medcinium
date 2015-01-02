@@ -71,7 +71,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
                           + "id_consulation = " + p.getConsultation().getConsultationId() + " "
                           + "WHERE id_info = " + p.getId() + ";";
         
-        return (Database.getInstance().dmlQuery(updateQuery) == 0);
+        return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
     
@@ -81,7 +81,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         String deleteQuery = "DELETE FROM infos "
                           + "WHERE id_info = " + p.getId() + ";";
         
-        return (Database.getInstance().dmlQuery(deleteQuery) == 0);
+        return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
     
     

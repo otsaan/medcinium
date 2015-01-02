@@ -112,7 +112,7 @@ public class PatientDAO implements DAO<Patient>{
                            + "credit = '" + p.getCredit()+ "' "
                            + "WHERE id_patient = '" + p.getPatientId()+ "';";
         
-        return (Database.getInstance().dmlQuery(updateQuery) == 0);
+        return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class PatientDAO implements DAO<Patient>{
         String deleteQuery = "DELETE FROM patients "
                            + "WHERE id_patient = " + p.getPatientId()+ ";";
         
-        return (Database.getInstance().dmlQuery(deleteQuery) == 0);
+        return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
     
 }

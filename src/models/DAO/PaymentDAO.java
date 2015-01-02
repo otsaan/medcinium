@@ -68,7 +68,7 @@ public class PaymentDAO implements DAO<Payment> {
                           + "id_patient = " + p.getPatient().getPatientId() + " "
                           + "WHERE id_paiement = " + p.getId() + ";";
         
-        return (Database.getInstance().dmlQuery(updateQuery) == 0);
+        return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
     
@@ -78,7 +78,7 @@ public class PaymentDAO implements DAO<Payment> {
         String deleteQuery = "DELETE FROM paiements "
                           + "WHERE id_paiement = " + p.getId() + ";";
         
-        return (Database.getInstance().dmlQuery(deleteQuery) == 0);
+        return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
     
     
