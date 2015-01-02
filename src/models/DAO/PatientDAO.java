@@ -18,7 +18,7 @@ public class PatientDAO implements DAO<Patient>{
     
     @Override
     public Patient find(String id) {
-         Patient p = new Patient();
+        Patient p = new Patient();
         
         String findQuery = "SELECT * FROM patients"
                         + " WHERE id_patient =" + id + ";";
@@ -46,7 +46,7 @@ public class PatientDAO implements DAO<Patient>{
 
     @Override
     public Vector<Patient> all() {
-         Vector<Patient> patients = new Vector<Patient>();
+        Vector<Patient> patients = new Vector<Patient>();
         
         String findAllQuery = "SELECT * FROM patients;";
         ResultSet rs = Database.getInstance().query(findAllQuery);
@@ -86,7 +86,8 @@ public class PatientDAO implements DAO<Patient>{
     
     @Override
     public boolean create(Patient p) {
-        String insertQuery = "INSERT INTO patients(nom_patient, prenom_patient, date_naissance, telephone, adresse, sexe, credit) VALUES("
+        String insertQuery = "INSERT INTO patients(nom_patient, prenom_patient, "
+                            + "date_naissance, telephone, adresse, sexe, credit) VALUES("
                             + "'" + p.getLastName()      + "', "
                             + "'" + p.getName()          + "', "
                             + "'" + p.getBirthDate()     + "', "

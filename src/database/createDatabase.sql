@@ -14,6 +14,7 @@ PRIMARY KEY (id_patient) ) ENGINE=InnoDB;
 DROP TABLE IF EXISTS consultations ;
 CREATE TABLE consultations (id_consultation INT  AUTO_INCREMENT NOT NULL,
 desc_consultation VARCHAR(70),
+type_consultation VARCHAR(45),
 date_consultation DATETIME,
 status VARCHAR(45),
 prix INT,

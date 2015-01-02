@@ -13,6 +13,7 @@ import java.sql.Date;
  */
 public class Consultation {
     private int consultationId;
+    private String type;
     private String description;
     private Date consultationDate;
     private String status;
@@ -28,12 +29,20 @@ public class Consultation {
         this.consultationId = consultationId;
     }
 
-    public String getConsultationDesc() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-    public void setConsultationDesc(String consultationDesc) {
-        this.description = consultationDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getConsultationDate() {
