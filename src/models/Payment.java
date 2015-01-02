@@ -12,17 +12,18 @@ import java.sql.Date;
  * @author zianwar
  */
 public class Payment {
-    private int paymentId;
+    
+    private int id;
     private int amount;
-    private Date paymentDate;
+    private Date date;
     private Patient patient;
 
-    public int getPaymentId() {
-        return paymentId;
+    public int getId() {
+        return id;
     }
 
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getAmount() {
@@ -33,12 +34,12 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Date getPaymentDate() {
-        return paymentDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Patient getPatient() {
