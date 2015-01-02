@@ -5,10 +5,53 @@
  */
 package models.DAO;
 
+import models.PatientInfo;
+
 /**
  *
  * @author zianwar
  */
 public class DAOFactory {
+    
+    
+    public PatientDAO getPatientDAO(){
+        
+        return new PatientDAO();
+    }
+    
+    public ConsultationDAO getConsultationDAO(){
+        
+        return new ConsultationDAO();
+    }
+    
+     public PatientInfo getPatientInfo(){
+        
+        return new PatientInfo();
+    }
+     
+      public PaymentDAO getPaymentDAO(){
+        
+        return new PaymentDAO();
+    }
+    
+     public ReminderDAO getReminderDAO(){
+        
+        return new ReminderDAO();
+    }
+     
+     public UserDAO getUserDAO(){
+        
+        return new UserDAO();
+    }
+     
+     public DrugDAO getDrugDAO(){
+        
+        return new DrugDAO();
+    }
+      
+     public AllergyDAO getAllergyDAO(){
+        
+        return new AllergyDAO();
+    }
     
 }
