@@ -47,14 +47,8 @@ public class App {
         
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
-<<<<<<< HEAD
+
 //        loginFrame.setLoginListener(userController);
-        
-        
-        
-=======
-        loginFrame.setLoginListener(userController);
->>>>>>> FETCH_HEAD
 
     }
     
