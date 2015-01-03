@@ -32,7 +32,7 @@ public class App {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                    runApp();
+                runApp();
             }
         });
     }
@@ -49,8 +49,7 @@ public class App {
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
         loginFrame.setLoginListener(userController);
-        
- 
+
     }
     
 }
