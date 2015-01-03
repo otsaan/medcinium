@@ -48,7 +48,7 @@ public class UserController implements Observer{
     @Override
     public void execute(Object view, Object dataObj, String action) {
        
-        if (view instanceof LoginFrame) {
+        if ((view instanceof LoginFrame) && (dataObj instanceof User)) {
             
             if (action.equalsIgnoreCase("create")) {
                 this.onCreate((User)dataObj);
