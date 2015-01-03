@@ -39,16 +39,17 @@ public class App {
     
     public static void runApp() {
 
-        Model model = new Model();
-        View view = new View(model);
-        Controller controller = new Controller(view, model);
+//        Model model = new Model();
+//        View view = new View(model);
+//        Controller controller = new Controller(view, model);
         
         UserController userController = new UserController();
         
         LoginFrame loginFrame = new LoginFrame();
+        loginFrame.addObserver(userController);
+        
         loginFrame.setVisible(true);
-
-//        loginFrame.setLoginListener(userController);
+        
 
     }
     
