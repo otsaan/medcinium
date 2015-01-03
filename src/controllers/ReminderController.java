@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import models.DAO.DAOFactory;
 import models.Reminder;
 
 /**
@@ -16,16 +17,19 @@ public class ReminderController implements Observer{
     
     private void onCreate(Reminder reminder) {
         System.out.println("Reminder Created!");
+        DAOFactory.getReminderDAO().create(reminder);
     }
     
     
     private void onUpdate(Reminder reminder) {
         System.out.println("Reminder Updated!");
+        DAOFactory.getReminderDAO().update(reminder);
     }
     
     
     private void onDelete(Reminder reminder) { 
         System.out.println("Reminder Deleted!");
+        DAOFactory.getReminderDAO().delete(reminder);
     }
     
     @Override
