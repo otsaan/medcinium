@@ -18,7 +18,7 @@ import models.Model;
  *
  * @author zianwar
  */
-public class Starter extends JFrame implements ActionListener {
+public class Starter extends JFrame {
     
     
     public Starter() {
@@ -55,11 +55,5 @@ public class Starter extends JFrame implements ActionListener {
         setVisible(true);
     }
     
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
     
 }
