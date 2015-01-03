@@ -6,7 +6,7 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import models.DAO.DAOFactory;
 import models.Patient;
 import views.PatientsTable;
 
@@ -14,22 +14,44 @@ import views.PatientsTable;
  *
  * @author zianwar
  */
-public class PatientController{
+public class PatientController implements Observer {
+
     
-    private Patient patient;
-    private PatientsTable patientsTable;
-
-    public void onPatientCreated(Patient patient) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void onCreate(Patient Patient) {
+        System.out.println("Patient Created!");
+        DAOFactory.getPatientDAO().create(Patient);
     }
-
-    public void onPatientUpdated(Patient patient) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    
+    private void onUpdate(Patient Patient) {
+        System.out.println("Patient Updated!");
+        DAOFactory.getPatientDAO().update(Patient);
     }
-
-    public void onPatientDeleted(Patient patient) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    
+    private void onDelete(Patient Patient) { 
+        System.out.println("Patient Deleted!");
+        DAOFactory.getPatientDAO().delete(Patient);
     }
+    
+    @Override
+    public void execute(Object view, Object dataObj, String action) {
+        
+        if ((view instanceof Object) && (dataObj instanceof Patient)) {
+            
+            if (action.equalsIgnoreCase("create")) {
+                this.onCreate((Patient)dataObj);
+            }
 
+            if (action.equalsIgnoreCase("update")) {
+                this.onUpdate((Patient)dataObj);
+            }
+
+            if (action.equalsIgnoreCase("delete")) {
+                this.onDelete((Patient)dataObj);
+            }
+            
+        }
+    }
    
 }
