@@ -10,5 +10,7 @@ package controllers;
  * @author zianwar
  */
 public interface Observer {
+
     public void execute(Object view, Object dataObj ,String action );
+
 }
