@@ -5,7 +5,6 @@
  */
 package views;
 
-import controllers.Listeners.LoginListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import models.Model;

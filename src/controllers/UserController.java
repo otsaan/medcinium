@@ -6,21 +6,19 @@
 package controllers;
 
 import models.DAO.UserDAO;
-import controllers.Listeners.LoginListener;
 import models.User;
 
 /**
  *
  * @author zianwar
  */
-public class UserController implements LoginListener {
+public class UserController {
 
     public UserController() {
         
     }
 
     
-    @Override
     public void loginPerformed(User user) {
         // UserDAO userDao = new UserDAO();
         // userDao.signIn(user);

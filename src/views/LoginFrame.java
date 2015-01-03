@@ -5,7 +5,6 @@
  */
 package views;
 
-import controllers.Listeners.LoginListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import models.User;
@@ -16,7 +15,7 @@ import models.User;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
-    private LoginListener loginListener;
+//    private LoginListener loginListener;
     private User user;
     /**
      * Creates new form LoginFrame
@@ -110,24 +109,24 @@ public class LoginFrame extends javax.swing.JFrame {
         System.out.println(usernameTextField.getText());
         System.out.println(loginPasswordField.getPassword());
 
-        fireLoginEvent(user); 
+//        fireLoginEvent(user); 
     }                                           
     
     // just a simple setter to the loginListener attribute
-    public void setLoginListener(LoginListener loginListener) {
-        System.out.println(loginListener);
-        this.loginListener = loginListener;
-        System.out.println("ok");
-    }
+//    public void setLoginListener(LoginListener loginListener) {
+//        System.out.println(loginListener);
+//        this.loginListener = loginListener;
+//        System.out.println("ok");
+//    }
     
     // this methode can be used elsewhere 
-    public void fireLoginEvent(User user) {
-        
-        if (loginListener != null) {
-            loginListener.loginPerformed(user);
-        }
-    }
-    
+//    public void fireLoginEvent(User user) {
+//        
+//        if (loginListener != null) {
+//            loginListener.loginPerformed(user);
+//        }
+//    }
+//    
     private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // TODO add your handling code here:
     }                                                 

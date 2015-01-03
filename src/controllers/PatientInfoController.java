@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers.Listeners;
+package controllers;
 
 /**
  *
  * @author zianwar
  */
-public interface AppListener {
-    public void onOpen();
-    public void onClose();
+public class PatientInfoController {
+    
 }

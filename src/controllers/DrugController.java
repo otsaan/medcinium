@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package controllers;
 
 /**
  *
  * @author zianwar
  */
-public class BuildTableModel {
+public class DrugController {
     
 }

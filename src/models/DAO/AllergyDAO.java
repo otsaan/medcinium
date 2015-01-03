@@ -16,9 +16,11 @@ import models.Allergy;
  */
 public class AllergyDAO implements DAO<Allergy> {
 
+    
     @Override
     public Allergy find(String id) {
-     Allergy allergy = new Allergy();
+        
+        Allergy allergy = new Allergy();
         
         String findQuery = "SELECT * FROM allergies"
                         + " WHERE id_allergie =" + id + ";";
@@ -31,14 +33,17 @@ public class AllergyDAO implements DAO<Allergy> {
             allergy.setAllergyName(rs.getString("nom_allergie"));
             
         } catch (Exception ex) {
-            System.out.println("AllergyDAO find " + ex);
+            System.out.println("Error : AllergyDAO.find() " + ex);
         } 
+        
         return allergy;
     }
 
+    
     @Override
     public Vector<Allergy> all() {
-    Vector<Allergy> allergies = new  Vector<Allergy>();
+        
+        Vector<Allergy> allergies = new  Vector<Allergy>();
         
         String findQuery = "SELECT * FROM allergies";
         
@@ -48,54 +53,49 @@ public class AllergyDAO implements DAO<Allergy> {
            while(rs.next())
            {
                Allergy allergy= new Allergy();
+               
                allergy.setAllergyId(rs.getInt("Id_allergie"));
                allergy.setAllergyName(rs.getString("nom_allergie"));
                allergies.add(allergy);
            }
            
         } catch (Exception ex) {
-            System.out.println("AllergyDAO all " +ex);
+            System.out.println("Error : AllergyDAO.all() " + ex);
         } 
+        
         return allergies;    
-    
     }
      
 
     @Override
     public boolean create(Allergy allergy) {
-         String insertQuery = "INSERT INTO allergies(nom_allergie) VALUES("
+        
+        String insertQuery = "INSERT INTO allergies(nom_allergie) VALUES("
                             + "'" + allergy.getAllergyName() + "'); ";
         
-        return (Database.getInstance().dmlQuery(insertQuery) == 0) ? false : true;
-
-        
+        return (Database.getInstance().dmlQuery(insertQuery) != 0);  
     }
 
+    
     @Override
     public boolean update(Allergy allergy) {
-        String insertQuery = "UPDATE allergies set nom_allergie="
-                           + "'" + allergy.getAllergyName()+ "'"
-                           + "WHERE id_allergie="
-                           +allergy.getAllergyId()+ ";";
-                           
         
-        return (Database.getInstance().dmlQuery(insertQuery) == 0) ? false : true;
-
+        String insertQuery = "UPDATE allergies "
+                           + "SET nom_allergie = '" + allergy.getAllergyName() + "' "
+                           + "WHERE id_allergie = " + allergy.getAllergyId() + ";";      
+        
+        return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }
 
+    
     @Override
     public boolean delete(Allergy allergy) {
            
         String deleteQuery = "DELETE FROM allergies "
-                           + "WHERE id_allergie = " 
-                           +  allergy.getAllergyId() + ";";
+                           + "WHERE id_allergie = " +  allergy.getAllergyId() + ";";
         
-        
-        return (Database.getInstance().dmlQuery(deleteQuery) == 0) ? false : true;
+        return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
-    
-    
-    
     
     
 }
