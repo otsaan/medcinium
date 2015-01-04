@@ -7,7 +7,7 @@ package models;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class User {
     

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class ReminderDAO implements DAO<Reminder>{
 

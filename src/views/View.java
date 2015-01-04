@@ -12,7 +12,7 @@ import models.User;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class View extends javax.swing.JFrame implements ActionListener {
     

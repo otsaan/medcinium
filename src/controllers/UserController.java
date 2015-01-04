@@ -11,7 +11,7 @@ import views.LoginFrame;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class UserController implements Observer{
     

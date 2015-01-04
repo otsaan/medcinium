@@ -16,7 +16,7 @@ import views.View;
 /**
  * This class creates and manages other controllers, It does the database connection stuff,
  * constructs the MainFrame, and displays the GUI of the app.
- * @author zianwar
+ * @author otsaan
  */
 public class App {
 

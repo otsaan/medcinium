@@ -12,7 +12,7 @@ import views.PatientsTable;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class PatientController implements Observer {
 

@@ -10,7 +10,7 @@ import models.Drug;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class DrugController implements Observer {
    

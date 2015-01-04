@@ -11,7 +11,7 @@ import models.DAO.DAOFactory;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class AllergyController implements Observer  {
  

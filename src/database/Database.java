@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class Database {
 	

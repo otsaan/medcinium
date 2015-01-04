@@ -12,7 +12,7 @@ import models.Consultation;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class ConsultationDAO implements DAO<Consultation>{
     

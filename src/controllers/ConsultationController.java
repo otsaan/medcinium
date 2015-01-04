@@ -10,7 +10,7 @@ import models.DAO.DAOFactory;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class ConsultationController implements Observer {
 

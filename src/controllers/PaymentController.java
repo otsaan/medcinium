@@ -10,7 +10,7 @@ import models.Payment;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class PaymentController implements Observer {
     

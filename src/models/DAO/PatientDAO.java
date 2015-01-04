@@ -12,7 +12,7 @@ import models.Patient;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class PatientDAO implements DAO<Patient>{
     

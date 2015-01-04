@@ -15,7 +15,7 @@ import models.Model;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class Starter extends JFrame {
     

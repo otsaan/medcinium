@@ -7,7 +7,7 @@ package models;
 
 /**
  * Model doesn't import anything 
- * @author zianwar
+ * @author otsaan
  */
 public class Model {
     

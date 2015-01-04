@@ -7,7 +7,7 @@ package controllers;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public interface Observer {
 

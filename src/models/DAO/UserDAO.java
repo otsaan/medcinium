@@ -13,7 +13,7 @@ import models.User;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class UserDAO implements DAO<User>{
 

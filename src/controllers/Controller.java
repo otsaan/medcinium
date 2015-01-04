@@ -11,7 +11,7 @@ import views.View;
 
 /**
  * Controller must listen to the view using the observer design pattern
- * @author zianwarq
+ * @author otsaan
  */
 public class Controller{
     

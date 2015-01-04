@@ -14,7 +14,7 @@ import models.Payment;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class PaymentDAO implements DAO<Payment> {
     

@@ -9,7 +9,7 @@ import java.sql.Date;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class Reminder {
     

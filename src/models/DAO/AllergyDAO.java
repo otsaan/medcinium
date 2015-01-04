@@ -12,7 +12,7 @@ import models.Allergy;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class AllergyDAO implements DAO<Allergy> {
 

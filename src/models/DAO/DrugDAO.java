@@ -12,7 +12,7 @@ import models.Drug;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class DrugDAO implements DAO<Drug> {
     

@@ -9,7 +9,7 @@ import java.util.Vector;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class Allergy {
     

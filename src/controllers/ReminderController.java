@@ -10,7 +10,7 @@ import models.Reminder;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class ReminderController implements Observer{
     

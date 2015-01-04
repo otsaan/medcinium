@@ -9,7 +9,7 @@ import models.PatientInfo;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class DAOFactory {
     

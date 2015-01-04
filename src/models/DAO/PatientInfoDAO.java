@@ -13,7 +13,7 @@ import models.PatientInfo;
 
 /**
  *
- * @author zianwar
+ * @author otsaan
  */
 public class PatientInfoDAO implements DAO<PatientInfo>{
 
