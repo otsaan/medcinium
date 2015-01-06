@@ -19,7 +19,9 @@ public class Patient {
     private String telephone;
     private Date birthDate;
     private String address;
+    private String city;
     private String sexe;
+    private String cin;
     private int credit;
 
     public int getPatientId() {
@@ -68,6 +70,22 @@ public class Patient {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getSexe() {

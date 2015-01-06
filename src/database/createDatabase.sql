@@ -7,7 +7,9 @@ prenom_patient VARCHAR(30),
 date_naissance DATE,
 telephone VARCHAR(10),
 adresse VARCHAR(70),
+ville VARCHAR(30),
 sexe VARCHAR(10),
+cin VARCHAR(10),
 credit INT,
 PRIMARY KEY (id_patient) ) ENGINE=InnoDB;
 

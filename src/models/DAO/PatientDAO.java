@@ -32,6 +32,8 @@ public class PatientDAO implements DAO<Patient>{
             p.setName(rs.getString("prenom_patient"));
             p.setBirthDate(rs.getDate("date_naissance"));
             p.setAddress(rs.getString("adresse"));
+            p.setCity(rs.getString("ville"));
+            p.setCin(rs.getString("cin"));
             p.setSexe(rs.getString("sexe"));
             p.setTelephone(rs.getString("telephone"));
             p.setCredit(rs.getInt("credit"));
@@ -62,7 +64,9 @@ public class PatientDAO implements DAO<Patient>{
                 p.setName(rs.getString("prenom_patient"));
                 p.setBirthDate(rs.getDate("date_naissance"));
                 p.setAddress(rs.getString("adresse"));
+                p.setCity(rs.getString("ville"));
                 p.setSexe(rs.getString("sexe"));
+                p.setCin(rs.getString("cin"));
                 p.setTelephone(rs.getString("telephone"));
                 p.setCredit(rs.getInt("credit"));
                 
@@ -93,7 +97,9 @@ public class PatientDAO implements DAO<Patient>{
                             + "'" + p.getBirthDate()     + "', "
                             + "'" + p.getTelephone()     + "', "
                             + "'" + p.getAddress()       + "', "
+                            + "'" + p.getCity()          + "', "
                             + "'" + p.getSexe()          + "', "
+                            + "'" + p.getCin()           + "', "
                             + p.getCredit()              + ");";
         
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
@@ -108,7 +114,9 @@ public class PatientDAO implements DAO<Patient>{
                            + "date_naissance = '" + p.getBirthDate()+ "', "
                            + "telephone = '" + p.getTelephone()+ "', "
                            + "adresse = '" + p.getAddress()+ "', "
+                           + "ville = '" + p.getCity()+ "', "
                            + "sexe = '" + p.getSexe()+ "', "
+                           + "cin = '" + p.getCin()+ "', "
                            + "credit = '" + p.getCredit()+ "' "
                            + "WHERE id_patient = '" + p.getPatientId()+ "';";
         
