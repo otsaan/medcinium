@@ -38,10 +38,6 @@ public class App {
     
     
     public static void runApp() {
-
-//        Model model = new Model();
-//        View view = new View(model);
-//        Controller controller = new Controller(view, model);
         
         UserController userController = new UserController();
         
@@ -49,6 +45,12 @@ public class App {
         loginFrame.addObserver(userController);
         
         loginFrame.setVisible(true);
+        
+        // once the user logged in successfully then >> View.setVisible(true)
+        Model model = new Model();
+        View view = new View(model);
+        Controller controller = new Controller(view, model);
+        
         
 
     }
