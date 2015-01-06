@@ -5,6 +5,7 @@
  */
 package views;
 
+import com.sun.j3d.loaders.Loader;
 import controllers.Observer;
 import java.util.Vector;
 import java.util.logging.Level;
