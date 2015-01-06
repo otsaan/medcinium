@@ -53,7 +53,7 @@ public class Model {
     /**
      * Loades all data using the DAOs
      */
-    private void load() {
+    public void load() {
         
     }
 
