@@ -5,19 +5,68 @@
  */
 package views;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import models.DAO.DAOFactory;
+import models.Patient;
+
 /**
  *
  * @author zianwar
  */
-public class PatientPanel extends javax.swing.JPanel {
+public class PatientPanel extends javax.swing.JPanel implements ListSelectionListener{
 
     /**
      * Creates new form PatientPanel
      */
     public PatientPanel() {
         initComponents();
+        ResultSet rs = DAOFactory.getPatientDAO().allToResultSet();
+        refreshTable(rs);
     }
 
+    public void refreshTable(ResultSet rs) {
+        try {
+            patientsTable.setModel(buildTableModel(rs));
+        } catch (Exception ex) {
+            System.out.println("Error in setting table model.");
+        }
+    }
+    
+    public  DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+
+    ResultSetMetaData metaData = rs.getMetaData();
+
+    // names of columns
+    Vector<String> columnNames = new Vector<String>();
+    int columnCount = metaData.getColumnCount();
+//    for (int column = 1; column <= columnCount; column++) {
+//        columnNames.add(metaData.getColumnName(column).toUpperCase());
+//    }
+//    
+    columnNames.add("N˚ Patient");
+    columnNames.add("Nom");
+    columnNames.add("Prénom");
+    
+    // data of the table
+    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+    while (rs.next()) {
+        Vector<Object> vector = new Vector<Object>();
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+            vector.add(rs.getObject(columnIndex));
+        }
+        data.add(vector);
+    }
+
+    return new DefaultTableModel(data, columnNames);
+
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +78,7 @@ public class PatientPanel extends javax.swing.JPanel {
 
         patientsListPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        patientsTable = new javax.swing.JTable();
         addPatientButton = new javax.swing.JButton();
         patientInfoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -44,19 +93,19 @@ public class PatientPanel extends javax.swing.JPanel {
         displayProfileButton = new javax.swing.JButton();
         modifyPatientButton = new javax.swing.JButton();
         deletePatientButton = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        lastNameLabel = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        ageLabel = new javax.swing.JLabel();
+        genderLabel = new javax.swing.JLabel();
+        cinLabel = new javax.swing.JLabel();
+        birthDateLabel = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
+        cityLabel = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
         patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        patientsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -67,7 +116,7 @@ public class PatientPanel extends javax.swing.JPanel {
                 "N˚ Patient", "Nom", "Prénom"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(patientsTable);
 
         javax.swing.GroupLayout patientsListPanelLayout = new javax.swing.GroupLayout(patientsListPanel);
         patientsListPanel.setLayout(patientsListPanelLayout);
@@ -115,21 +164,21 @@ public class PatientPanel extends javax.swing.JPanel {
 
         deletePatientButton.setText("Supprimer");
 
-        jLabel10.setText("jLabel10");
+        lastNameLabel.setText("jLabel10");
 
-        jLabel11.setText("jLabel10");
+        nameLabel.setText("jLabel10");
 
-        jLabel12.setText("jLabel10");
+        ageLabel.setText("jLabel10");
 
-        jLabel13.setText("jLabel10");
+        genderLabel.setText("jLabel10");
 
-        jLabel14.setText("jLabel10");
+        cinLabel.setText("jLabel10");
 
-        jLabel15.setText("jLabel10");
+        birthDateLabel.setText("jLabel10");
 
-        jLabel16.setText("jLabel10");
+        addressLabel.setText("jLabel10");
 
-        jLabel17.setText("jLabel10");
+        cityLabel.setText("jLabel10");
 
         javax.swing.GroupLayout patientInfoPanelLayout = new javax.swing.GroupLayout(patientInfoPanel);
         patientInfoPanel.setLayout(patientInfoPanelLayout);
@@ -148,35 +197,35 @@ public class PatientPanel extends javax.swing.JPanel {
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel10))
+                                .addComponent(lastNameLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel11))
+                                .addComponent(nameLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12))
+                                .addComponent(ageLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel13))
+                                .addComponent(genderLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel17))
+                                .addComponent(cityLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14))
+                                .addComponent(cinLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel15))
+                                .addComponent(birthDateLabel))
                             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel16)))))
+                                .addComponent(addressLabel)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deletePatientButton)
                 .addContainerGap())
@@ -193,35 +242,35 @@ public class PatientPanel extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel10))
+                    .addComponent(lastNameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel11))
+                    .addComponent(nameLabel))
                 .addGap(18, 18, 18)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel12))
+                    .addComponent(ageLabel))
                 .addGap(18, 18, 18)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel13))
+                    .addComponent(genderLabel))
                 .addGap(18, 18, 18)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel15))
+                    .addComponent(birthDateLabel))
                 .addGap(18, 18, 18)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel14))
+                    .addComponent(cinLabel))
                 .addGap(18, 18, 18)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel16))
+                    .addComponent(addressLabel))
                 .addGap(18, 18, 18)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel17))
+                    .addComponent(cityLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(displayProfileButton)
@@ -271,18 +320,16 @@ public class PatientPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatientButton;
+    private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel ageLabel;
+    private javax.swing.JLabel birthDateLabel;
+    private javax.swing.JLabel cinLabel;
+    private javax.swing.JLabel cityLabel;
     private javax.swing.JButton deletePatientButton;
     private javax.swing.JButton displayProfileButton;
+    private javax.swing.JLabel genderLabel;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -292,9 +339,35 @@ public class PatientPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lastNameLabel;
     private javax.swing.JButton modifyPatientButton;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JPanel patientInfoPanel;
     private javax.swing.JPanel patientsListPanel;
+    private javax.swing.JTable patientsTable;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent event) {
+         if (event.getSource() == patientsTable.getSelectionModel() && event.getValueIsAdjusting()) {
+            
+           TableModel model = (TableModel)patientsTable.getModel();
+           String num = (String)model.getValueAt(patientsTable.getSelectedRow(), 0);
+           
+//           EleveDAO ed = new EleveDAO();
+//           Eleve e = ed.find(cne);
+             Patient patientSelected = DAOFactory.getPatientDAO().find(num);
+             
+             lastNameLabel.setText(patientSelected.getLastName());
+             nameLabel.setText(patientSelected.getName());
+//             LocalDate now = new LocalDate();
+//             Years age = Years.yearsBetween(birthdate, now);
+             ageLabel.setText("22");
+             genderLabel.setText(patientSelected.getSexe());
+             birthDateLabel.setText(patientSelected.getBirthDate().toString());
+//           new UpdateEleveFrame(e).setVisible(true);
+//           setVisible(false);
+//           dispose();
+        }
+    }
 }
