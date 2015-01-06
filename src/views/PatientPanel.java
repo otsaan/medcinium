@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +30,9 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         initComponents();
         ResultSet rs = DAOFactory.getPatientDAO().allToResultSet();
         refreshTable(rs);
+        
+        ListSelectionModel selectionModel = patientsTable.getSelectionModel();
+        selectionModel.addListSelectionListener(this);
     }
 
     public void refreshTable(ResultSet rs) {
@@ -46,10 +50,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     // names of columns
     Vector<String> columnNames = new Vector<String>();
     int columnCount = metaData.getColumnCount();
-//    for (int column = 1; column <= columnCount; column++) {
-//        columnNames.add(metaData.getColumnName(column).toUpperCase());
-//    }
-//    
     columnNames.add("N˚ Patient");
     columnNames.add("Nom");
     columnNames.add("Prénom");
@@ -81,7 +81,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         patientsTable = new javax.swing.JTable();
         addPatientButton = new javax.swing.JButton();
         patientInfoPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        patientNumberLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -139,8 +139,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
         patientInfoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        jLabel1.setText("Patient N˚");
+        patientNumberLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        patientNumberLabel.setText("Patient N˚");
 
         jLabel2.setText("Nom");
 
@@ -164,22 +164,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
         deletePatientButton.setText("Supprimer");
 
-        lastNameLabel.setText("jLabel10");
-
-        nameLabel.setText("jLabel10");
-
-        ageLabel.setText("jLabel10");
-
-        genderLabel.setText("jLabel10");
-
-        cinLabel.setText("jLabel10");
-
-        birthDateLabel.setText("jLabel10");
-
-        addressLabel.setText("jLabel10");
-
-        cityLabel.setText("jLabel10");
-
         javax.swing.GroupLayout patientInfoPanelLayout = new javax.swing.GroupLayout(patientInfoPanel);
         patientInfoPanel.setLayout(patientInfoPanelLayout);
         patientInfoPanelLayout.setHorizontalGroup(
@@ -194,51 +178,37 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                     .addGroup(patientInfoPanelLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lastNameLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(nameLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ageLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(genderLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cityLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cinLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(birthDateLabel))
-                            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(addressLabel)))))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(deletePatientButton)
+                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deletePatientButton)
+                    .addComponent(lastNameLabel)
+                    .addComponent(nameLabel)
+                    .addComponent(ageLabel)
+                    .addComponent(genderLabel)
+                    .addComponent(cityLabel)
+                    .addComponent(cinLabel)
+                    .addComponent(birthDateLabel)
+                    .addComponent(addressLabel))
                 .addContainerGap())
             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                 .addGap(148, 148, 148)
-                .addComponent(jLabel1)
+                .addComponent(patientNumberLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         patientInfoPanelLayout.setVerticalGroup(
             patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(patientInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(patientNumberLabel)
                 .addGap(43, 43, 43)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -329,7 +299,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JButton displayProfileButton;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -343,31 +312,31 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JButton modifyPatientButton;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JPanel patientInfoPanel;
+    private javax.swing.JLabel patientNumberLabel;
     private javax.swing.JPanel patientsListPanel;
     private javax.swing.JTable patientsTable;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void valueChanged(ListSelectionEvent event) {
-         if (event.getSource() == patientsTable.getSelectionModel() && event.getValueIsAdjusting()) {
+        if (event.getSource() == patientsTable.getSelectionModel() && event.getValueIsAdjusting()) {
             
-           TableModel model = (TableModel)patientsTable.getModel();
-           String num = (String)model.getValueAt(patientsTable.getSelectedRow(), 0);
+            TableModel model = (TableModel)patientsTable.getModel();
+            String num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
            
-//           EleveDAO ed = new EleveDAO();
-//           Eleve e = ed.find(cne);
-             Patient patientSelected = DAOFactory.getPatientDAO().find(num);
-             
-             lastNameLabel.setText(patientSelected.getLastName());
-             nameLabel.setText(patientSelected.getName());
-//             LocalDate now = new LocalDate();
-//             Years age = Years.yearsBetween(birthdate, now);
-             ageLabel.setText("22");
-             genderLabel.setText(patientSelected.getSexe());
-             birthDateLabel.setText(patientSelected.getBirthDate().toString());
-//           new UpdateEleveFrame(e).setVisible(true);
-//           setVisible(false);
-//           dispose();
+            Patient patientSelected = DAOFactory.getPatientDAO().find(num);
+            
+            patientNumberLabel.setText("Patient N˚ " + num);
+            lastNameLabel.setText(patientSelected.getLastName());
+            nameLabel.setText(patientSelected.getName());
+            //             LocalDate now = new LocalDate();
+            //             Years age = Years.yearsBetween(birthdate, now);
+            ageLabel.setText("22");
+            genderLabel.setText(patientSelected.getSexe());
+            birthDateLabel.setText(patientSelected.getBirthDate().toString());
+            cinLabel.setText(patientSelected.getCin());
+            addressLabel.setText(patientSelected.getAddress());
+            cityLabel.setText(patientSelected.getCity());
         }
     }
 }
