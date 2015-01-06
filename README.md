@@ -1,4 +1,4 @@
 medcinium
 =========
 
-Logiciel de gestion de cabinet médical.
+Logiciel de gestion d'un cabinet médical.
