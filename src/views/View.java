@@ -37,8 +37,6 @@ public class View extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -65,36 +63,6 @@ public class View extends javax.swing.JFrame {
         );
 
         jPanel3.add(jPanel1, "card2");
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 102));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(jPanel4, "card2");
-
-        jPanel5.setBackground(new java.awt.Color(0, 153, 0));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(jPanel5, "card2");
 
         jPanel6.setLayout(new java.awt.BorderLayout());
 
@@ -163,7 +131,7 @@ public class View extends javax.swing.JFrame {
         jPanel3.repaint();
         jPanel3.revalidate();
         // adding panels
-        jPanel3.add(jPanel1);
+        jPanel3.add(new AccueilPanel());
         jPanel3.repaint();
         jPanel3.revalidate();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -174,7 +142,7 @@ public class View extends javax.swing.JFrame {
         jPanel3.repaint();
         jPanel3.revalidate();
         // adding panels
-        jPanel3.add(jPanel4);
+        jPanel3.add(new PatientPanel());
         jPanel3.repaint();
         jPanel3.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -185,7 +153,7 @@ public class View extends javax.swing.JFrame {
         jPanel3.repaint();
         jPanel3.revalidate();
         // adding panels
-        jPanel3.add(jPanel5);
+        jPanel3.add(new ConsultationPanel());
         jPanel3.repaint();
         jPanel3.revalidate();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -232,8 +200,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }
