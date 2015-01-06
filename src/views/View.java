@@ -23,6 +23,9 @@ public class View extends javax.swing.JFrame {
      */
     public View() {
         initComponents();
+        rightPanel.add(new AccueilPanel());
+        rightPanel.repaint();
+        rightPanel.revalidate();
     }
 
     /**
@@ -36,7 +39,6 @@ public class View extends javax.swing.JFrame {
 
         mainPanel = new javax.swing.JPanel();
         rightPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         leftPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -49,20 +51,7 @@ public class View extends javax.swing.JFrame {
         rightPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
         rightPanel.setLayout(new java.awt.CardLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
-        );
-
-        rightPanel.add(jPanel1, "card2");
+        leftPanel.setMinimumSize(new java.awt.Dimension(132, 461));
 
         jButton1.setText("Patients");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +199,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel rightPanel;
