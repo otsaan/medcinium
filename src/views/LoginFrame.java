@@ -5,8 +5,10 @@
  */
 package views;
 
-import com.sun.j3d.loaders.Loader;
+
+
 import controllers.Observer;
+import java.util.Arrays;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,11 +27,7 @@ public class LoginFrame extends javax.swing.JFrame {
         
         observers = new Vector<Observer>();
         
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Loader.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         initComponents();
     }
 
@@ -56,6 +54,11 @@ public class LoginFrame extends javax.swing.JFrame {
         setTitle("Medcinium");
 
         loginButton.setText("Se connecter");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
         username.setColumns(12);
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -144,10 +147,10 @@ public class LoginFrame extends javax.swing.JFrame {
         
         User user = new User();
         user.setUsername(username.getText());
-        user.setPassword(password.getPassword().toString());
-        
+        user.setPassword(new String(password.getPassword()));
+        System.out.println(user.getPassword());
         System.out.println("Login Button Clicked!");
-        notifyObservers(user);
+        notifyObservers(user,"login");
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -164,10 +167,10 @@ public class LoginFrame extends javax.swing.JFrame {
        System.out.println("Observer added!");
     }
     
-    public void notifyObservers(User user) {
+    public void notifyObservers(User user, String action ) {
         System.out.println("Notifying this user: " + user);
         for (Observer observer : observers) {
-            observer.execute(this, user,"create");
+            observer.execute(this, user,action);
         }
     }
     

@@ -5,6 +5,8 @@
  */
 package controllers;
 
+import javax.swing.JOptionPane;
+import models.DAO.DAOFactory;
 import models.DAO.UserDAO;
 import models.User;
 import views.LoginFrame;
@@ -20,8 +22,9 @@ public class UserController implements Observer{
     }
     
 
-    private void logIn(User user) {
+    private int logIn(User user) {
         System.out.println("logIn!");
+       return DAOFactory.getUserDAO().findUser(user);
     }
     
     
@@ -63,7 +66,19 @@ public class UserController implements Observer{
             }
 
             if (action.equalsIgnoreCase("login")) {
-                this.logIn((User)dataObj);
+                if(this.logIn((User)dataObj)>0)
+                {
+                    //user found and id returnd 
+                     JOptionPane.showMessageDialog((LoginFrame)view, "AccueilPannel doit etre instancier");
+                    //((LoginFrame)view).dispose();
+                    
+                    
+                }else
+                {
+                    //user not found 
+                    JOptionPane.showMessageDialog((LoginFrame)view, "L'utilisateur n'existe pas");
+ 
+                }
             }
 
             if (action.equalsIgnoreCase("logout")) {

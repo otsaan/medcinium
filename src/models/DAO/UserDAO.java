@@ -42,6 +42,32 @@ public class UserDAO implements DAO<User>{
         
         return user;
     }
+    
+    
+    
+    public int findUser(User user) {
+        
+        int id=-1;
+        String findQuery = "SELECT * "
+                        + "FROM utilisateurs "
+                        + "WHERE username = '" + user.getUsername() + "'"
+                        + " and password='"+user.getPassword()+"';";
+
+        ResultSet rs = database.Database.getInstance().query(findQuery);
+            
+        try {
+            
+            rs.first();
+            id=rs.getInt("id_utilisateur");
+        } catch (SQLException ex) {
+            System.out.println("Error : UserDAO.find()" + ex);
+        }
+        
+        return id;
+    }
+    
+    
+    
 
     @Override
     public Vector<User> all() {
