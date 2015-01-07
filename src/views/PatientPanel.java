@@ -5,9 +5,12 @@
  */
 package views;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -159,6 +162,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         jLabel9.setText("Ville");
 
         displayProfileButton.setText("Afficher le profil");
+        displayProfileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayProfileButtonActionPerformed(evt);
+            }
+        });
 
         modifyPatientButton.setText("Modifier");
 
@@ -287,6 +295,25 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void displayProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProfileButtonActionPerformed
+        String num = null;
+            TableModel model = (TableModel)patientsTable.getModel();
+            num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
+         if(num != null) {
+            try {      
+//            Eleves elv = new Eleves();
+                Patient currentPatient = DAOFactory.getPatientDAO().find(num);
+//            Eleve e = elv.recupererEleve(cne);
+//            setVisible(false);
+//            dispose();
+            new JPatient(currentPatient).setVisible(true);
+        
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la modification");
+        }
+         }
+    }//GEN-LAST:event_displayProfileButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatientButton;
@@ -331,9 +358,19 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             nameLabel.setText(patientSelected.getName());
             //             LocalDate now = new LocalDate();
             //             Years age = Years.yearsBetween(birthdate, now);
-            ageLabel.setText("22");
+            String dob = String.valueOf(patientSelected.getBirthDate());
+            
+            int yearDOB = Integer.parseInt(dob.substring(0, 4));
+//            int monthDOB = Integer.parseInt(dob.substring(5, 7));
+//            int dayDOB = Integer.parseInt(dob.substring(8, 10));
+            
+            int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+            
+//            System.out.println("year:" + yearDOB + " month: " + monthDOB + "  day: " + dayDOB);
+            
+            ageLabel.setText(String.valueOf(thisYear-yearDOB));
             genderLabel.setText(patientSelected.getSexe());
-            birthDateLabel.setText(patientSelected.getBirthDate().toString());
+            birthDateLabel.setText(dob);
             cinLabel.setText(patientSelected.getCin());
             addressLabel.setText(patientSelected.getAddress());
             cityLabel.setText(patientSelected.getCity());

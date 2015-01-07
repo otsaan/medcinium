@@ -5,6 +5,8 @@
  */
 package views;
 
+import models.Patient;
+
 /**
  *
  * @author otm
@@ -18,6 +20,10 @@ public class JPatient extends javax.swing.JFrame {
         initComponents();
     }
 
+    public JPatient(Patient currentPatient) {
+        initComponents();
+        patientName.setText(currentPatient.getLastName() + " " + currentPatient.getName());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
