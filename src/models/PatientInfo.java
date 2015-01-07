@@ -18,7 +18,6 @@ public class PatientInfo {
     String property;
     String value;
     Date dateAdded;
-    Consultation consultation;
 
     
     public int getId() {
@@ -37,10 +36,6 @@ public class PatientInfo {
         return dateAdded;
     }
 
-    public Consultation getConsultation() {
-        return consultation;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -57,13 +52,10 @@ public class PatientInfo {
         this.dateAdded = dateAdded;
     }
 
-    public void setConsultation(Consultation consultation) {
-        this.consultation = consultation;
-    }
 
     @Override
     public String toString() {
-        return "PatientInfo{" + "id=" + id + ", property=" + property + ", value=" + value + ", dateAdded=" + dateAdded + ", consultation=" + consultation + '}';
+        return "PatientInfo{" + "id=" + id + ", property=" + property + ", value=" + value + ", dateAdded=" + dateAdded + '}';
     }
 
     
