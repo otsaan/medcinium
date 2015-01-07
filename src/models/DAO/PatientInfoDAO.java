@@ -25,9 +25,10 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         ConsultationDAO consultationDAO = DAOFactory.getConsultationDAO();
        
         
-        String findQuery = "SELECT * "
-                        + "FROM infos "
-                        + "WHERE id_info = " + Integer.parseInt(id) + ";";
+        String findQuery = "SELECT id_info, propriete, valeur, date_info "
+                         + "FROM infos, contient "
+                         + "WHERE infos.id_info = " + Integer.parseInt(id) + " "
+                         + "AND contient.id_info = "+ Integer.parseInt(id) +";";
 
         ResultSet rs = database.Database.getInstance().query(findQuery);
             
@@ -38,7 +39,6 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
             patientInfo.setProperty(rs.getString("propriete"));
             patientInfo.setValue(rs.getString("valeur"));
             patientInfo.setDateAdded(rs.getDate("date_info"));
-            patientInfo.setConsultation(consultationDAO.find(rs.getString("id_consultation")));
             
         } catch (SQLException ex) {
             System.out.println("Error : PatientInfo.find()" + ex);
@@ -51,11 +51,10 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     @Override
     public boolean create(PatientInfo p) {
         
-        String insertQuery = "INSERT INTO infos(id_info, propriete,valeur,date_info,id_consulation) VALUES("
-                           + "'" + p.getProperty() + "', "
-                           + "'" + p.getValue() + "', "
-                           + "'" + p.getDateAdded() + "', "
-                           + p.getConsultation().getConsultationId()+ ");";
+        String insertQuery = "INSERT INTO infos(propriete) VALUES('"
+                                  + p.getProperty() + "');";
+                
+        p.setId(Database.getInstance().dmlQuery2(insertQuery));
         
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }
@@ -65,10 +64,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public boolean update(PatientInfo p) {
         
         String updateQuery = "UPDATE infos "
-                          + "SET propriete = '" + p.getProperty() + "', "
-                          + "valeur = '" + p.getValue() + "', "
-                          + "date_info = '" + p.getDateAdded() + "' "
-                          + "id_consulation = " + p.getConsultation().getConsultationId() + " "
+                          + "SET propriete = '" + p.getProperty() + "' "
                           + "WHERE id_info = " + p.getId() + ";";
         
         return (Database.getInstance().dmlQuery(updateQuery) != 0);
@@ -89,7 +85,6 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public Vector<PatientInfo> all() {
         
         Vector<PatientInfo> patientInfos = new Vector<PatientInfo>();
-        ConsultationDAO consultationDAO = DAOFactory.getConsultationDAO();
 
         String findQuery = "SELECT * "
                         + "FROM infos;";
@@ -106,7 +101,6 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
                 p.setProperty(rs.getString("propriete"));
                 p.setValue(rs.getString("valeur"));
                 p.setDateAdded(rs.getDate("date_info"));
-                p.setConsultation(consultationDAO.find(rs.getString("id_consultation")));
             
                 patientInfos.add(p);
             }
