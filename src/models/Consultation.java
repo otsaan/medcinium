@@ -117,7 +117,26 @@ public class Consultation {
     
     @Override
     public String toString() {
-        return "Consultation(" + "consultationId=" + consultationId + ", desc=" + description + ", date=" + consultationDate + ", status=" + status + ", prix=" + prix + ", \npatient= (" + patient + "))";
+        String str = "Consultation(" + "consultationId=" + consultationId + ", desc=" + description + ", date=" + consultationDate + ", status=" + status + ", prix=" + prix + ", \npatient= (" + patient + ")" 
+                + "\ndrugList:[ ";
+        for(Drug drug: drugList) {
+            str += "_ " + drug + "\n";
+        }
+        
+        str += "]\npatientInfoList:[ ";
+        
+        for(PatientInfo pInfo: patientInfoList) {
+            str += "_ " + pInfo + "\n";
+        }
+        
+        str += "]\nallergyList:[ ";
+        
+        for(Allergy allergy: allergyList) {
+            str += "_ " + allergy + "\n";
+        }
+        str += "])";
+        
+        return str;
     }
     
 }

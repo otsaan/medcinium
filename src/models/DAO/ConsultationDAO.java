@@ -41,9 +41,9 @@ public class ConsultationDAO implements DAO<Consultation>{
             con.setStatus(rs.getString("status"));
             con.setPrix(rs.getInt("prix"));
             con.setPatient(patientDAO.find(rs.getString("id_patient")));
-            con.setDrugList(null);
-            con.setPatientInfoList(null);
-            con.setAllergyList(null);
+            con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
+            con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
+            con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
         } catch (Exception ex) {
             System.out.println("Problem in find - ConsultationDAO"+ex);
         } 
@@ -74,9 +74,9 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
-                con.setDrugList(null);
-                con.setPatientInfoList(null);
-                con.setAllergyList(null);
+                con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
+                con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
+                con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
                 consultations.add(con);
             }
             
@@ -100,7 +100,6 @@ public class ConsultationDAO implements DAO<Consultation>{
                             + con.getPatient().getPatientId()   + ");";
         
         con.setConsultationId(Database.getInstance().dmlQuery2(insertQuery));
-        System.out.println(con);
         return (Database.getInstance().dmlQuery2(insertQuery) != 0);
     }
 
@@ -127,7 +126,18 @@ public class ConsultationDAO implements DAO<Consultation>{
         String deleteInfosQuery = "DELETE FROM contient "
                            + "WHERE id_consultation = " + con.getConsultationId()+ ";";
         
-        return (Database.getInstance().dmlQuery(deleteQuery) != 0 && Database.getInstance().dmlQuery(deleteInfosQuery) != 0);
+        String deleteRensQuery = "DELETE FROM renseigne "
+                           + "WHERE id_consultation = " + con.getConsultationId()+ ";";
+        
+        String deleteIntroQuery = "DELETE FROM introduit "
+                           + "WHERE id_consultation = " + con.getConsultationId()+ ";";
+        
+        int del = Database.getInstance().dmlQuery(deleteQuery);
+        int delInf = Database.getInstance().dmlQuery(deleteInfosQuery);
+        int delRen = Database.getInstance().dmlQuery(deleteRensQuery);
+        int delIntro = Database.getInstance().dmlQuery(deleteIntroQuery);
+        
+        return (del != 0 && delInf != 0 && delRen != 0 && delIntro != 0);
     }
 
     
