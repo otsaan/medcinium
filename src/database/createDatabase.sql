@@ -1,5 +1,3 @@
-
-
 DROP TABLE IF EXISTS patients ;
 CREATE TABLE patients (id_patient INT  AUTO_INCREMENT NOT NULL,
 nom_patient VARCHAR(30),
@@ -15,13 +13,13 @@ PRIMARY KEY (id_patient) ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS consultations ;
 CREATE TABLE consultations (id_consultation INT  AUTO_INCREMENT NOT NULL,
+type_consultation VARCHAR(60),
 desc_consultation VARCHAR(70),
-type_consultation VARCHAR(45),
+diagnostics VARCHAR(70),
 date_consultation DATETIME,
 status VARCHAR(45),
 prix INT,
-id_patient INT,
-infos_id_info INT,
+id_patient INT NOT NULL,
 PRIMARY KEY (id_consultation) ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS rappels ;
@@ -41,9 +39,6 @@ PRIMARY KEY (id_paiement) ) ENGINE=InnoDB;
 DROP TABLE IF EXISTS infos ;
 CREATE TABLE infos (id_info INT  AUTO_INCREMENT NOT NULL,
 propriete VARCHAR(45),
-valeur VARCHAR(45),
-date_info DATETIME,
-id_consultation INT,
 PRIMARY KEY (id_info) ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS allergies ;
@@ -54,7 +49,6 @@ PRIMARY KEY (id_allergie) ) ENGINE=InnoDB;
 DROP TABLE IF EXISTS medicaments ;
 CREATE TABLE medicaments (id_medicament INT  AUTO_INCREMENT NOT NULL,
 nom_medicament VARCHAR(45),
-desc_medicament VARCHAR(70),
 PRIMARY KEY (id_medicament) ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS utilisateurs ;
@@ -66,9 +60,18 @@ password VARCHAR(60),
 role VARCHAR(30),
 PRIMARY KEY (id_utilisateur) ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS contient ;
+CREATE TABLE contient (id_consultation INT  AUTO_INCREMENT NOT NULL,
+id_info INT NOT NULL,
+valeur VARCHAR(45),
+date_info DATETIME,
+PRIMARY KEY (id_consultation,
+ id_info) ) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS introduit ;
 CREATE TABLE introduit (id_consultation INT  AUTO_INCREMENT NOT NULL,
 id_medicament INT NOT NULL,
+desc_medicament VARCHAR(70),
 PRIMARY KEY (id_consultation,
  id_medicament) ) ENGINE=InnoDB;
 
@@ -80,12 +83,11 @@ PRIMARY KEY (id_consultation,
 
 ALTER TABLE consultations ADD CONSTRAINT FK_consultations_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
 
-ALTER TABLE consultations ADD CONSTRAINT FK_consultations_infos_id_info FOREIGN KEY (infos_id_info) REFERENCES infos (id_info);
 ALTER TABLE rappels ADD CONSTRAINT FK_rappels_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
 ALTER TABLE paiements ADD CONSTRAINT FK_paiements_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
-ALTER TABLE infos ADD CONSTRAINT FK_infos_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
+ALTER TABLE contient ADD CONSTRAINT FK_contient_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
+ALTER TABLE contient ADD CONSTRAINT FK_contient_id_info FOREIGN KEY (id_info) REFERENCES infos (id_info);
 ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
 ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_medicament FOREIGN KEY (id_medicament) REFERENCES medicaments (id_medicament);
 ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
 ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_allergie FOREIGN KEY (id_allergie) REFERENCES allergies (id_allergie);
-
