@@ -7,6 +7,8 @@ package models.DAO;
 
 import database.Database;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 import models.Consultation;
 
@@ -40,7 +42,7 @@ public class ConsultationDAO implements DAO<Consultation>{
             con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
             
         } catch (Exception ex) {
-            System.out.println("Problem in find - ConsultationDAO");
+            System.out.println("Problem in find - ConsultationDAO"+ex);
         } 
         
         return con;
@@ -69,8 +71,10 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
+                if(rs.getString("infos_id_info") != null)
+                {
                 con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-                
+                }
                 consultations.add(con);
             }
             
@@ -122,4 +126,80 @@ public class ConsultationDAO implements DAO<Consultation>{
         return (Database.getInstance().dmlQuery(deleteQuery) != 0 && Database.getInstance().dmlQuery(deleteInfosQuery) != 0);
     }
 
+    public Vector<Consultation> pendingConsultations() {
+        
+        Vector<Consultation> consultations = new Vector<Consultation>();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
+        PatientInfoDAO patientInfoDAO = DAOFactory.getPatientInfoDAO();
+        String DayStart = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(Calendar.getInstance().getTime());
+        String DayEnd = new SimpleDateFormat("yyyy-MM-dd 23:59:59").format(Calendar.getInstance().getTime());
+
+        String findAllQuery = "select * from consultations " +
+                              "where date_consultation between "+
+                              " '"+DayStart+"' and '"+DayEnd+"' ";
+        ResultSet rs = Database.getInstance().query(findAllQuery);
+        
+        try {
+            
+            while(rs.next()) {
+                
+                Consultation con = new Consultation();
+                System.out.println(rs.getInt("id_consultation"));
+                con.setConsultationId(rs.getInt("id_consultation"));
+                con.setType(rs.getString("type_consultation"));
+                con.setDescription(rs.getString("desc_consultation"));
+                con.setConsultationDate(rs.getDate("date_consultation"));
+                con.setStatus(rs.getString("status"));
+                con.setPrix(rs.getInt("prix"));
+                con.setPatient(patientDAO.find(rs.getString("id_patient")));
+                if(rs.getString("infos_id_info") != null)
+                {
+                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
+                }
+                consultations.add(con);
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Problem in pendingConsultations - ConsultationDAO "+ex);
+        }
+        
+        return consultations;
+    }
+    //finishedConsultations
+     public Vector<Consultation> byStaus(String status) {
+        
+        Vector<Consultation> consultations = new Vector<Consultation>();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
+        PatientInfoDAO patientInfoDAO = DAOFactory.getPatientInfoDAO();
+       
+        String findAllQuery = "select * from consultations " +
+                              "where status='"+status+"';";
+        ResultSet rs = Database.getInstance().query(findAllQuery);
+        
+        try {
+            
+            while(rs.next()) {
+                
+                Consultation con = new Consultation();
+                System.out.println(rs.getInt("id_consultation"));
+                con.setConsultationId(rs.getInt("id_consultation"));
+                con.setType(rs.getString("type_consultation"));
+                con.setDescription(rs.getString("desc_consultation"));
+                con.setConsultationDate(rs.getDate("date_consultation"));
+                con.setStatus(rs.getString("status"));
+                con.setPrix(rs.getInt("prix"));
+                con.setPatient(patientDAO.find(rs.getString("id_patient")));
+                if(rs.getString("infos_id_info") != null)
+                {
+                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
+                }
+                consultations.add(con);
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Problem in pendingConsultations - ConsultationDAO "+ex);
+        }
+        
+        return consultations;
+    }
 }
