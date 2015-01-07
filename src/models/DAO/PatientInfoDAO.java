@@ -86,8 +86,8 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         
         Vector<PatientInfo> patientInfos = new Vector<PatientInfo>();
 
-        String findQuery = "SELECT * "
-                        + "FROM infos;";
+        String findQuery = "SELECT id_info, propriete, valeur, date_info "
+                         + "FROM infos, contient;";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
