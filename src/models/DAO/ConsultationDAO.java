@@ -176,7 +176,6 @@ public class ConsultationDAO implements DAO<Consultation>{
             while(rs.next()) {
                 
                 Consultation con = new Consultation();
-                System.out.println(rs.getInt("id_consultation"));
                 con.setConsultationId(rs.getInt("id_consultation"));
                 con.setType(rs.getString("type_consultation"));
                 con.setDescription(rs.getString("desc_consultation"));
@@ -184,10 +183,9 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
-//                if(rs.getString("infos_id_info") != null)
-//                {
-//                    con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-//                }
+                con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
+                con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
+                con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
                 consultations.add(con);
             }
             
@@ -213,7 +211,6 @@ public class ConsultationDAO implements DAO<Consultation>{
             while(rs.next()) {
                 
                 Consultation con = new Consultation();
-                System.out.println(rs.getInt("id_consultation"));
                 con.setConsultationId(rs.getInt("id_consultation"));
                 con.setType(rs.getString("type_consultation"));
                 con.setDescription(rs.getString("desc_consultation"));
@@ -221,10 +218,9 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
-//                if(rs.getString("infos_id_info") != null)
-//                {
-//                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-//                }
+                con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
+                con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
+                con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
                 consultations.add(con);
             }
             
