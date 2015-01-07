@@ -86,7 +86,26 @@ public class Database {
         } 
         return 0;
     }
-        
+   
+    public  int dmlQuery2(String q) {
+        try {
+            connect();
+            int insertedId = 0;
+            st = conn.createStatement();
+            int num = st.executeUpdate(q, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()){
+                insertedId=rs.getInt(1);
+               }
+            return insertedId;
+            
+        } catch (Exception e) {
+            
+            System.err.println("Error Message : problem in dmlQuery() method.");
+            System.out.println(e);
+        } 
+        return 0;
+    }
 	
     public void disconnect() {
         if (conn != null) {
