@@ -39,7 +39,7 @@ public class PatientDAO implements DAO<Patient>{
             p.setCredit(rs.getInt("credit"));
             
         } catch (Exception ex) {
-            System.out.println("Problem in find - PatientDAO");
+            System.out.println("Problem in find - PatientDAO" + ex);
         } 
         
         return p;
