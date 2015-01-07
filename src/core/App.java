@@ -47,9 +47,9 @@ public class App {
         loginFrame.setVisible(true);
         
         // once the user logged in successfully then >> View.setVisible(true)
-        Model model = new Model();
-        View view = new View(model);
-        Controller controller = new Controller(view, model);
+        
+        
+        //Controller controller = new Controller(view, model);
         
         
 

@@ -8,8 +8,10 @@ package controllers;
 import javax.swing.JOptionPane;
 import models.DAO.DAOFactory;
 import models.DAO.UserDAO;
+import models.Model;
 import models.User;
 import views.LoginFrame;
+import views.View;
 
 /**
  *
@@ -69,8 +71,10 @@ public class UserController implements Observer{
                 if(this.logIn((User)dataObj)>0)
                 {
                     //user found and id returnd 
-                     JOptionPane.showMessageDialog((LoginFrame)view, "AccueilPannel doit etre instancier");
-                    //((LoginFrame)view).dispose();
+//                     JOptionPane.showMessageDialog((LoginFrame)view, "AccueilPannel doit etre instancier");
+                    ((LoginFrame)view).dispose();
+                    Model model = new Model();
+                    View mainView = new View(model);
                     
                     
                 }else

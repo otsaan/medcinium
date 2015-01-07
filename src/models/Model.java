@@ -6,6 +6,7 @@
 package models;
 
 import java.util.Vector;
+import models.DAO.DAOFactory;
 
 /**
  * Model doesn't import anything 
@@ -54,7 +55,8 @@ public class Model {
      * Loades all data using the DAOs
      */
     public void load() {
-        
+        this.pendingConsultations = DAOFactory.getConsultationDAO().pendingConsultations();
+        this.finishedConsultations = DAOFactory.getConsultationDAO().byStaus("finished");
     }
 
     
