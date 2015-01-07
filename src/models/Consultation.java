@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.Vector;
 
 /**
  *
@@ -15,11 +16,14 @@ public class Consultation {
     private int consultationId;
     private String type;
     private String description;
+    private String diagnostics;
     private Date consultationDate;
     private String status;
     private int prix;
     private Patient patient;
-    private PatientInfo patientInfo;
+    private Vector<PatientInfo> patientInfoList;
+    private Vector<Drug> drugList;
+    private Vector<Allergy> allergyList;
 
     public int getConsultationId() {
         return consultationId;
@@ -43,6 +47,14 @@ public class Consultation {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDiagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(String diagnostics) {
+        this.diagnostics = diagnostics;
     }
 
     public Date getConsultationDate() {
@@ -77,17 +89,35 @@ public class Consultation {
         this.patient = patient;
     }
 
-    public PatientInfo getPatientInfo() {
-        return patientInfo;
+    public Vector<PatientInfo> getPatientInfoList() {
+        return patientInfoList;
     }
 
-    public void setPatientInfo(PatientInfo patientInfo) {
-        this.patientInfo = patientInfo;
+    public void setPatientInfoList(Vector<PatientInfo> patientInfoList) {
+        this.patientInfoList = patientInfoList;
     }
+
+    public Vector<Drug> getDrugList() {
+        return drugList;
+    }
+
+    public void setDrugList(Vector<Drug> drugList) {
+        this.drugList = drugList;
+    }
+
+    public Vector<Allergy> getAllergyList() {
+        return allergyList;
+    }
+
+    public void setAllergyList(Vector<Allergy> allergyList) {
+        this.allergyList = allergyList;
+    }
+
+
     
     @Override
     public String toString() {
-        return "Consultation(" + "consultationId=" + consultationId + ", desc=" + description + ", date=" + consultationDate + ", status=" + status + ", prix=" + prix + ", \npatient= (" + patient + ") , \npatientInfo= (" + patientInfo + ") )";
+        return "Consultation(" + "consultationId=" + consultationId + ", desc=" + description + ", date=" + consultationDate + ", status=" + status + ", prix=" + prix + ", \npatient= (" + patient + "))";
     }
     
 }

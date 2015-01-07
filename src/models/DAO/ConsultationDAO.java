@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
 import models.Consultation;
+import models.Drug;
+import models.PatientInfo;
 
 /**
  *
@@ -39,8 +41,9 @@ public class ConsultationDAO implements DAO<Consultation>{
             con.setStatus(rs.getString("status"));
             con.setPrix(rs.getInt("prix"));
             con.setPatient(patientDAO.find(rs.getString("id_patient")));
-            con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-            
+            con.setDrugList(null);
+            con.setPatientInfoList(null);
+            con.setAllergyList(null);
         } catch (Exception ex) {
             System.out.println("Problem in find - ConsultationDAO"+ex);
         } 
@@ -71,10 +74,9 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
-                if(rs.getString("infos_id_info") != null)
-                {
-                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-                }
+                con.setDrugList(null);
+                con.setPatientInfoList(null);
+                con.setAllergyList(null);
                 consultations.add(con);
             }
             
@@ -88,16 +90,18 @@ public class ConsultationDAO implements DAO<Consultation>{
     @Override
     public boolean create(Consultation con) {
         String insertQuery = "INSERT INTO consultations(type_consultation, desc_consultation, "
-                + "date_consultation, status, prix, id_patient, infos_id_info) VALUES("
+                + "diagnostics, date_consultation, status, prix, id_patient) VALUES("
                             + "'" + con.getType()               + "', "
                             + "'" + con.getDescription()        + "', "
+                            + "'" + con.getDiagnostics()        + "', "
                             + "'" + con.getConsultationDate()   + "', "
                             + "'" + con.getStatus()             + "', "
                             + con.getPrix()                     + ", "
-                            + con.getPatient().getPatientId()   + ", "
-                            + con.getPatientInfo().getId()      + ");";
+                            + con.getPatient().getPatientId()   + ");";
         
-        return (Database.getInstance().dmlQuery(insertQuery) != 0);
+        con.setConsultationId(Database.getInstance().dmlQuery2(insertQuery));
+        System.out.println(con);
+        return (Database.getInstance().dmlQuery2(insertQuery) != 0);
     }
 
     @Override
@@ -105,11 +109,11 @@ public class ConsultationDAO implements DAO<Consultation>{
         String updateQuery = "UPDATE consultations "
                            + "SET type_consultation = " + "'" + con.getType() + "', "
                            + "desc_consultation = '" + con.getDescription() + "', "
+                           + "diagnostics = '" + con.getDiagnostics()+ "', "
                            + "date_consultation = '" + con.getConsultationDate()+ "', "
                            + "status = '" + con.getStatus() + "', "
                            + "prix = '" + con.getPrix() + "', "
-                           + "id_patient = '" + con.getPatient().getPatientId() + "', "
-                           + "infos_id_info = '" + con.getPatientInfo().getId() + "' "
+                           + "id_patient = '" + con.getPatient().getPatientId() + "' "
                            + "WHERE id_consultation = '" + con.getConsultationId() + "';";
         
         return (Database.getInstance().dmlQuery(updateQuery) != 0);
@@ -120,12 +124,30 @@ public class ConsultationDAO implements DAO<Consultation>{
         String deleteQuery = "DELETE FROM consultations "
                            + "WHERE id_consultation = " + con.getConsultationId()+ ";";
         
-        String deleteInfosQuery = "DELETE FROM infos "
-                           + "WHERE consultations_id_consultation = " + con.getConsultationId()+ ";";
+        String deleteInfosQuery = "DELETE FROM contient "
+                           + "WHERE id_consultation = " + con.getConsultationId()+ ";";
         
         return (Database.getInstance().dmlQuery(deleteQuery) != 0 && Database.getInstance().dmlQuery(deleteInfosQuery) != 0);
     }
 
+    
+    public boolean introduit(Consultation con, Drug drug) {
+        String introduceQuery = "INSERT INTO introduit VALUES("
+                + con.getConsultationId() + ", " + drug.getDrugId() + ", '" + drug.getDrugDescription()
+                + "');";
+        
+        return (Database.getInstance().dmlQuery(introduceQuery) != 0);
+    }
+    
+    public boolean contient(Consultation con, PatientInfo pInfo) {
+        String insertQuery = "INSERT INTO contient VALUES("
+                + con.getConsultationId() + ", " + pInfo.getId() + ", '" + pInfo.getValue()
+                + "', '" + pInfo.getDateAdded() + "');";
+        
+        return (Database.getInstance().dmlQuery(insertQuery) != 0);
+    }
+    
+    
     public Vector<Consultation> pendingConsultations() {
         
         Vector<Consultation> consultations = new Vector<Consultation>();
@@ -152,10 +174,10 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
-                if(rs.getString("infos_id_info") != null)
-                {
-                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-                }
+//                if(rs.getString("infos_id_info") != null)
+//                {
+//                    con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
+//                }
                 consultations.add(con);
             }
             
@@ -189,10 +211,10 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
-                if(rs.getString("infos_id_info") != null)
-                {
-                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
-                }
+//                if(rs.getString("infos_id_info") != null)
+//                {
+//                con.setPatientInfo(patientInfoDAO.find(rs.getString("infos_id_info")));
+//                }
                 consultations.add(con);
             }
             
