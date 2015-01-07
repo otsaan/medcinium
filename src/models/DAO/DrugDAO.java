@@ -99,5 +99,32 @@ public class DrugDAO implements DAO<Drug> {
     }
     
     
+     public Vector<Drug> all(int consultationID) {
+        
+        Vector<Drug> medicaments = new  Vector<Drug>();
+        
+        String findQuery =  "SELECT  medicaments.id_medicament, medicaments.nom_medicament,introduit.desc_medicament "
+                            + "from medicaments inner join introduit on  medicaments.id_medicament = introduit.id_medicament "
+                            + "where introduit.id_consultation ="+consultationID+";";
+        
+        ResultSet rs = Database.getInstance().query(findQuery);
+        
+        try {
+            
+           while(rs.next()) {
+               Drug drug= new Drug();
+               drug.setDrugId(rs.getInt("id_medicament"));
+               drug.setDrugName(rs.getString("nom_medicament"));
+               medicaments.add(drug);
+           }
+           
+        } catch (Exception ex) {
+            System.out.println("Error : DrugDAO.all() " + ex);
+        } 
+        
+        return medicaments;
+    }
+   
+   
     
 }

@@ -98,4 +98,32 @@ public class AllergyDAO implements DAO<Allergy> {
     }
     
     
+    public Vector<Allergy> all(int consultationId) {
+        
+        Vector<Allergy> allergies = new  Vector<Allergy>();
+        
+        String findQuery = "SELECT  allergies.id_allergie, allergies.nom_allergie ,renseigne.id_consultation "
+                + " from allergies inner join renseigne "
+                + " on allergies.id_allergie= renseigne.id_allergie"
+                + " where renseigne.id_consultation="+consultationId+";";
+        
+        ResultSet rs = Database.getInstance().query(findQuery);
+        
+        try {
+           while(rs.next())
+           {
+               Allergy allergy= new Allergy();
+               
+               allergy.setAllergyId(rs.getInt("Id_allergie"));
+               allergy.setAllergyName(rs.getString("nom_allergie"));
+               allergies.add(allergy);
+           }
+           
+        } catch (Exception ex) {
+            System.out.println("Error : AllergyDAO.all(int ) " + ex);
+        } 
+        
+        return allergies;    
+    }
+    
 }
