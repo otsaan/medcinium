@@ -25,10 +25,9 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         ConsultationDAO consultationDAO = DAOFactory.getConsultationDAO();
        
         
-        String findQuery = "SELECT id_info, propriete, valeur, date_info "
-                         + "FROM infos, contient "
-                         + "WHERE infos.id_info = " + Integer.parseInt(id) + " "
-                         + "AND contient.id_info = "+ Integer.parseInt(id) +";";
+        String findQuery = "SELECT infos.id_info, propriete, valeur, date_info " 
+                         + "FROM infos INNER JOIN contient ON infos.id_info=contient.id_info " 
+                         + "WHERE infos.id_info = " + id + ";";
 
         ResultSet rs = database.Database.getInstance().query(findQuery);
             
@@ -64,8 +63,8 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public boolean update(PatientInfo p) {
         
         String updateQuery = "UPDATE infos "
-                          + "SET propriete = '" + p.getProperty() + "' "
-                          + "WHERE id_info = " + p.getId() + ";";
+                           + "SET propriete = '" + p.getProperty() + "' "
+                           + "WHERE id_info = " + p.getId() + ";";
         
         return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
@@ -75,7 +74,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
     public boolean delete(PatientInfo p) {
         
         String deleteQuery = "DELETE FROM infos "
-                          + "WHERE id_info = " + p.getId() + ";";
+                           + "WHERE id_info = " + p.getId() + ";";
         
         return (Database.getInstance().dmlQuery(deleteQuery) != 0);
     }
@@ -107,6 +106,37 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
             
         } catch (SQLException ex) {
             System.out.println("Error : PatientInfo.all()" + ex);
+        }
+        
+        return patientInfos;
+    }
+    
+    public Vector<PatientInfo> all(int consultationId) {
+        
+        Vector<PatientInfo> patientInfos = new Vector<PatientInfo>();
+
+        String findQuery = "SELECT infos.id_info, propriete, valeur, date_info "
+                         + "FROM infos INNER JOIN contient ON infos.id_info=contient.id_info "
+                         + "WHERE contient.id_consultation = " + consultationId +");";
+        
+        ResultSet rs = database.Database.getInstance().query(findQuery);
+
+        try {
+            
+            while(rs.next()) {
+                
+                PatientInfo p = new PatientInfo();
+                
+                p.setId(rs.getInt("id_info"));
+                p.setProperty(rs.getString("propriete"));
+                p.setValue(rs.getString("valeur"));
+                p.setDateAdded(rs.getDate("date_info"));
+            
+                patientInfos.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error : PatientInfo.all(int)" + ex);
         }
         
         return patientInfos;
