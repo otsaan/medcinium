@@ -17,7 +17,9 @@ public class Drug {
     int drugId;
     String drugName;
     String drugDescription;
-    Vector<Consultation> consultationListe;
+    
+    
+   
 
     public int getDrugId() {
         return drugId;
@@ -31,9 +33,7 @@ public class Drug {
         return drugDescription;
     }
 
-    public Vector<Consultation> getConsultationListe() {
-        return consultationListe;
-    }
+  
 
     public void setDrugId(int drugId) {
         this.drugId = drugId;
@@ -47,13 +47,11 @@ public class Drug {
         this.drugDescription = drugDescription;
     }
 
-    public void setConsultationListe(Vector<Consultation> consultationListe) {
-        this.consultationListe = consultationListe;
-    }
+   
 
     @Override
     public String toString() {
-        return "Drug{" + "drugId=" + drugId + ", drugName=" + drugName + ", drugDescription=" + drugDescription + ", consultationListe=" + consultationListe + '}';
+        return "Drug{" + "drugId=" + drugId + ", drugName=" + drugName + ", drugDescription=" + drugDescription +  '}';
     }
    
    

@@ -31,7 +31,6 @@ public class DrugDAO implements DAO<Drug> {
             rs.next();
             drug.setDrugId(rs.getInt("id_medicament"));
             drug.setDrugName(rs.getString("nom_medicament"));
-            drug.setDrugDescription(rs.getString("desc_medicament"));
             
         } catch (Exception ex) {
             System.out.println("Error : DrugDAO.find() " + ex);
@@ -56,7 +55,6 @@ public class DrugDAO implements DAO<Drug> {
                Drug drug= new Drug();
                drug.setDrugId(rs.getInt("id_medicament"));
                drug.setDrugName(rs.getString("nom_medicament"));
-               drug.setDrugDescription("desc_medicament");
                medicaments.add(drug);
            }
            
@@ -71,10 +69,9 @@ public class DrugDAO implements DAO<Drug> {
     @Override
     public boolean create(Drug drug) {
         
-         String insertQuery = "INSERT INTO medicaments(nom_medicament,desc_medicament) "
+         String insertQuery = "INSERT INTO medicaments(nom_medicament) "
                             + "VALUES("
-                            + "'" + drug.getDrugName() + "', "
-                            + "'" + drug.getDrugDescription()
+                            + "'" + drug.getDrugName() 
                             + "'); ";
         
         return (Database.getInstance().dmlQuery(insertQuery) != 0);  
@@ -85,8 +82,7 @@ public class DrugDAO implements DAO<Drug> {
     public boolean update(Drug drug) {
         
         String insertQuery = "UPDATE medicaments "
-                           + " set nom_medicament = '" + drug.getDrugName()+ "', "
-                           + " desc_medicament = '" + drug.getDrugDescription() + "'"
+                           + " set nom_medicament = '" + drug.getDrugName()+"' "
                            + " WHERE id_medicament = " + drug.getDrugId() + ";";
                            
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
