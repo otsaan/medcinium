@@ -77,7 +77,7 @@ public class Database {
         try {
             connect();
             st = conn.createStatement();
-            return st.executeUpdate(q);
+            return st.executeUpdate(q, Statement.RETURN_GENERATED_KEYS);
             
         } catch (Exception e) {
             
