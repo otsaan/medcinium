@@ -117,7 +117,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
 
         String findQuery = "SELECT infos.id_info, propriete, valeur, date_info "
                          + "FROM infos INNER JOIN contient ON infos.id_info=contient.id_info "
-                         + "WHERE contient.id_consultation = " + consultationId +");";
+                         + "WHERE contient.id_consultation = " + consultationId +";";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
