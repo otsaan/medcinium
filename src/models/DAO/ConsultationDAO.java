@@ -47,7 +47,7 @@ public class ConsultationDAO implements DAO<Consultation>{
             con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
             con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
         } catch (Exception ex) {
-            System.out.println("Problem in find - ConsultationDAO"+ex);
+            System.out.println("Problem in find - ConsultationDAO" + ex);
         } 
         
         return con;
@@ -84,7 +84,7 @@ public class ConsultationDAO implements DAO<Consultation>{
             }
             
         } catch (Exception ex) {
-            System.out.println("Problem in all - ConsultationDAO");
+            System.out.println("Problem in all - ConsultationDAO" + ex);
         }
         
         return consultations;
@@ -156,12 +156,15 @@ public class ConsultationDAO implements DAO<Consultation>{
         Vector<Consultation> consultations = new Vector<Consultation>();
         PatientDAO patientDAO = DAOFactory.getPatientDAO();
         PatientInfoDAO patientInfoDAO = DAOFactory.getPatientInfoDAO();
+        
         String DayStart = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(Calendar.getInstance().getTime());
         String DayEnd = new SimpleDateFormat("yyyy-MM-dd 23:59:59").format(Calendar.getInstance().getTime());
 
-        String findAllQuery = "select * from consultations " +
-                              "where date_consultation between "+
-                              " '"+DayStart+"' and '"+DayEnd+"' ";
+        String findAllQuery = "SELECT * "
+                            + "FROM consultations "
+                            + "WHERE date_consultation "
+                            + "BETWEEN '" + DayStart + "' AND '"+ DayEnd + "' ";
+        
         ResultSet rs = Database.getInstance().query(findAllQuery);
         
         try {
@@ -183,7 +186,7 @@ public class ConsultationDAO implements DAO<Consultation>{
             }
             
         } catch (Exception ex) {
-            System.out.println("Problem in pendingConsultations - ConsultationDAO "+ex);
+            System.out.println("Problem in pendingConsultations - ConsultationDAO " + ex);
         }
         
         return consultations;
@@ -227,6 +230,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         
         return consultations;
     }
+    
     
     public Vector<Consultation> all(int patientId) {
         
