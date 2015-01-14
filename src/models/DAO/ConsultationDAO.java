@@ -7,6 +7,7 @@ package models.dao;
 
 import database.Database;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
@@ -204,7 +205,7 @@ public class ConsultationDAO implements DAO<Consultation>{
     
     
     //finishedConsultations
-    public Vector<Consultation> byStaus(String status) {
+    public Vector<Consultation> byStatus(String status) {
         
         Vector<Consultation> consultations = new Vector<Consultation>();
         
@@ -240,4 +241,41 @@ public class ConsultationDAO implements DAO<Consultation>{
         
         return consultations;
     }
+    
+    public Vector<Consultation> all(int patientId) {
+        
+        Vector<Consultation> consultations = new Vector<Consultation>();
+
+        String findQuery = "SELECT * FROM consultations"
+                        + " WHERE id_consultation =" + patientId + ";";
+        
+        ResultSet rs = database.Database.getInstance().query(findQuery);
+
+        try {
+            
+            while(rs.next()) {
+                
+                Consultation con = new Consultation();
+              
+                con.setConsultationId(rs.getInt("id_consultation"));
+                con.setType(rs.getString("type_consultation"));
+                con.setDescription(rs.getString("desc_consultation"));
+                con.setConsultationDate(rs.getDate("date_consultation"));
+                con.setStatus(rs.getString("status"));
+                con.setPrix(rs.getInt("prix"));
+                con.setPatient(DAOFactory.getPatientDAO().find(rs.getString("id_patient")));
+                con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
+                con.setPatientInfoList(DAOFactory.getPatientInfoDAO().all(rs.getInt("id_consultation")));
+                con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
+                
+                consultations.add(con);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error : Consultation.all(int)" + ex);
+        }
+        
+        return consultations;
+    }
+    
 }

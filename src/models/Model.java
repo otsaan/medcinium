@@ -56,7 +56,7 @@ public class Model {
      */
     public void load() {
         this.pendingConsultations = DAOFactory.getConsultationDAO().pendingConsultations();
-        this.finishedConsultations = DAOFactory.getConsultationDAO().byStaus("finished");
+        this.finishedConsultations = DAOFactory.getConsultationDAO().byStatus("finished");
     }
 
     
