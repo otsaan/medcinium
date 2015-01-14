@@ -22,7 +22,7 @@ public class TableModelBuilder {
      * @param consultations pendingConsultations 
      * @return 
      */
-    public static DefaultTableModel buildConsultationTableModel(Vector<Consultation> pendingConsultations) {
+    public static DefaultTableModel buildPendingConsultationTableModel(Vector<Consultation> pendingConsultations) {
         
         // names of columns
         Vector<String> columnNames = new Vector<String>();

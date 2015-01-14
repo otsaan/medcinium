@@ -31,11 +31,9 @@ public class AccueilPanel extends javax.swing.JPanel {
         
         System.out.println("Refresh Model");
         
-        
-        pendingConsultationsTable.setModel(TableModelBuilder.buildConsultationTableModel(pendingConsultation));
+        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(pendingConsultation));
         finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(finishedConsultation));
-       
-       
+
     }
 
     /**

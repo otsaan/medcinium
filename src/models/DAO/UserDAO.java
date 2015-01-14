@@ -58,7 +58,7 @@ public class UserDAO implements DAO<User>{
         try {
             
             rs.first();
-            id=rs.getInt("id_utilisateur");
+            id = rs.getInt("id_utilisateur");
         } catch (SQLException ex) {
             System.out.println("Error : UserDAO.find()" + ex);
         }
