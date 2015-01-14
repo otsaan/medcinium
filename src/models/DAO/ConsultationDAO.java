@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models.DAO;
+package models.dao;
 
 import database.Database;
 import java.sql.ResultSet;
@@ -19,6 +19,7 @@ import models.PatientInfo;
  * @author otsaan
  */
 public class ConsultationDAO implements DAO<Consultation>{
+    
     
     @Override
     public Consultation find(String id) {
@@ -51,6 +52,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         return con;
     }
 
+    
     @Override
     public Vector<Consultation> all() {
         
@@ -87,6 +89,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         return consultations;
     }
 
+    
     @Override
     public boolean create(Consultation con) {
         String insertQuery = "INSERT INTO consultations(type_consultation, desc_consultation, "
@@ -103,6 +106,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         return (Database.getInstance().dmlQuery2(insertQuery) != 0);
     }
 
+    
     @Override
     public boolean update(Consultation con) {
         String updateQuery = "UPDATE consultations "
@@ -118,6 +122,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
+    
     @Override
     public boolean delete(Consultation con) {
         String deleteQuery = "DELETE FROM consultations "
@@ -148,6 +153,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         
         return (Database.getInstance().dmlQuery(introduceQuery) != 0);
     }
+    
     
     public boolean contient(Consultation con, PatientInfo pInfo) {
         String insertQuery = "INSERT INTO contient VALUES("
@@ -195,15 +201,19 @@ public class ConsultationDAO implements DAO<Consultation>{
         
         return consultations;
     }
+    
+    
     //finishedConsultations
-     public Vector<Consultation> byStaus(String status) {
+    public Vector<Consultation> byStaus(String status) {
         
         Vector<Consultation> consultations = new Vector<Consultation>();
+        
         PatientDAO patientDAO = DAOFactory.getPatientDAO();
         PatientInfoDAO patientInfoDAO = DAOFactory.getPatientInfoDAO();
        
-        String findAllQuery = "select * from consultations " +
-                              "where status='"+status+"';";
+        String findAllQuery = "SELECT * FROM consultations " 
+                            + "WHERE status ='" + status + "';";
+        
         ResultSet rs = Database.getInstance().query(findAllQuery);
         
         try {
@@ -225,7 +235,7 @@ public class ConsultationDAO implements DAO<Consultation>{
             }
             
         } catch (Exception ex) {
-            System.out.println("Problem in pendingConsultations - ConsultationDAO "+ex);
+            System.out.println("Problem in pendingConsultations - ConsultationDAO " + ex);
         }
         
         return consultations;

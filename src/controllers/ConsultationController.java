@@ -6,7 +6,7 @@
 package controllers;
 
 import models.Consultation;
-import models.DAO.DAOFactory;
+import models.dao.DAOFactory;
 
 /**
  *
@@ -14,6 +14,7 @@ import models.DAO.DAOFactory;
  */
 public class ConsultationController implements Observer {
 
+    
     public void onCreate(Consultation consultation) {
         DAOFactory.getConsultationDAO().create(consultation);
         System.out.println("Consultation Created!");

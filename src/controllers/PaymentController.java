@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import models.DAO.DAOFactory;
+import models.dao.DAOFactory;
 import models.Payment;
 
 /**
@@ -13,6 +13,7 @@ import models.Payment;
  * @author otsaan
  */
 public class PaymentController implements Observer {
+    
     
     public void onCreate(Payment payment) {
         DAOFactory.getPaymentDAO().create(payment);

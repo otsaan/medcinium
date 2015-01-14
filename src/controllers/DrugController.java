@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import models.DAO.DAOFactory;
+import models.dao.DAOFactory;
 import models.Drug;
 
 /**
@@ -14,6 +14,7 @@ import models.Drug;
  */
 public class DrugController implements Observer {
    
+    
     private void onCreate(Drug drug){
        DAOFactory.getDrugDAO().create(drug);
     }
@@ -43,7 +44,6 @@ public class DrugController implements Observer {
         if(action.equals("delete")) {
             this.onDelete(drug);
         }
-  
     }
     
 }

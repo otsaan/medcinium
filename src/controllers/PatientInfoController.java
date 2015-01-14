@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import models.DAO.DAOFactory;
+import models.dao.DAOFactory;
 import models.PatientInfo;
 
 /**
@@ -20,12 +20,10 @@ public class PatientInfoController implements Observer {
         DAOFactory.getPatientInfoDAO().create(PatientInfo);
     }
     
-    
     private void onUpdate(PatientInfo PatientInfo) {
         System.out.println("PatientInfo Updated!");
         DAOFactory.getPatientInfoDAO().update(PatientInfo);
     }
-    
     
     private void onDelete(PatientInfo PatientInfo) { 
         System.out.println("PatientInfo Deleted!");

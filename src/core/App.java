@@ -50,8 +50,6 @@ public class App {
         
         
         //Controller controller = new Controller(view, model);
-        
-        
 
     }
     

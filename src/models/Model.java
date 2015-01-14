@@ -6,7 +6,7 @@
 package models;
 
 import java.util.Vector;
-import models.DAO.DAOFactory;
+import models.dao.DAOFactory;
 
 /**
  * Model doesn't import anything 

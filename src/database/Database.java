@@ -45,7 +45,6 @@ public class Database {
             System.out.println("Can't connect to Database " + e);
         }
 
-       
     }
         
         

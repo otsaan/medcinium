@@ -6,9 +6,8 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import models.DAO.DAOFactory;
+import models.dao.DAOFactory;
 import models.Patient;
-import views.PatientsTable;
 
 /**
  *
@@ -22,12 +21,10 @@ public class PatientController implements Observer {
         DAOFactory.getPatientDAO().create(Patient);
     }
     
-    
     private void onUpdate(Patient Patient) {
         System.out.println("Patient Updated!");
         DAOFactory.getPatientDAO().update(Patient);
     }
-    
     
     private void onDelete(Patient Patient) { 
         System.out.println("Patient Deleted!");

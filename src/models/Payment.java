@@ -18,6 +18,7 @@ public class Payment {
     private Date date;
     private Patient patient;
 
+    
     public int getId() {
         return id;
     }

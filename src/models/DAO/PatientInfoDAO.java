@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models.DAO;
+package models.dao;
 
 import database.Database;
 import java.sql.ResultSet;
@@ -110,6 +110,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         
         return patientInfos;
     }
+    
     
     public Vector<PatientInfo> all(int consultationId) {
         

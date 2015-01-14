@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models.DAO;
+package models.dao;
 
 import database.Database;
 import java.sql.ResultSet;
@@ -15,6 +15,7 @@ import models.Patient;
  * @author otsaan
  */
 public class PatientDAO implements DAO<Patient>{
+    
     
     @Override
     public Patient find(String id) {
@@ -46,6 +47,7 @@ public class PatientDAO implements DAO<Patient>{
 
     }
 
+    
     @Override
     public Vector<Patient> all() {
         Vector<Patient> patients = new Vector<Patient>();
@@ -80,6 +82,7 @@ public class PatientDAO implements DAO<Patient>{
         return patients;
     }
 
+    
     public ResultSet allToResultSet() {
         
         String findAllQuery = "SELECT * FROM patients;";
@@ -87,6 +90,7 @@ public class PatientDAO implements DAO<Patient>{
         
         return rs;
     }
+    
     
     @Override
     public boolean create(Patient p) {
@@ -105,6 +109,7 @@ public class PatientDAO implements DAO<Patient>{
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }
 
+    
     @Override
     public boolean update(Patient p) {
           
@@ -123,6 +128,7 @@ public class PatientDAO implements DAO<Patient>{
         return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
+    
     @Override
     public boolean delete(Patient p) {
         String deleteQuery = "DELETE FROM patients "

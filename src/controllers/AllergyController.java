@@ -6,8 +6,8 @@
 package controllers;
 
 import models.Allergy;
-import models.DAO.AllergyDAO;
-import models.DAO.DAOFactory;
+import models.dao.AllergyDAO;
+import models.dao.DAOFactory;
 
 /**
  *
@@ -15,6 +15,7 @@ import models.DAO.DAOFactory;
  */
 public class AllergyController implements Observer  {
  
+    
     private void onCreate(Allergy allergy) {
        DAOFactory.getAllergyDAO().create(allergy);
     }
@@ -26,8 +27,6 @@ public class AllergyController implements Observer  {
     private void onDelete( Allergy allergy) {
         DAOFactory.getAllergyDAO().delete(allergy);   
     }
-    
-    
     
     @Override
     public void execute(Object view, Object dataObj, String action) {

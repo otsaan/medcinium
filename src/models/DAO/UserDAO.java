@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models.DAO;
+package models.dao;
 
 import database.Database;
 import java.sql.ResultSet;
@@ -17,6 +17,7 @@ import models.User;
  */
 public class UserDAO implements DAO<User>{
 
+    
     @Override
     public User find(String id) {
         User user = new User();
@@ -42,16 +43,15 @@ public class UserDAO implements DAO<User>{
         
         return user;
     }
-    
-    
+   
     
     public int findUser(User user) {
         
         int id=-1;
         String findQuery = "SELECT * "
-                        + "FROM utilisateurs "
-                        + "WHERE username = '" + user.getUsername() + "'"
-                        + " and password='"+user.getPassword()+"';";
+                         + "FROM utilisateurs "
+                         + "WHERE username = '" + user.getUsername() + "' "
+                         + "AND password='" + user.getPassword() + "';";
 
         ResultSet rs = database.Database.getInstance().query(findQuery);
             
@@ -64,9 +64,7 @@ public class UserDAO implements DAO<User>{
         }
         
         return id;
-    }
-    
-    
+    } 
     
 
     @Override
@@ -96,6 +94,7 @@ public class UserDAO implements DAO<User>{
         return users;    
     }
 
+    
     @Override
     public boolean create(User user) {
         String insertQuery = "INSERT INTO utilisateurs(nom_utilisateur, "
@@ -109,6 +108,7 @@ public class UserDAO implements DAO<User>{
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }
 
+    
     @Override
     public boolean update(User user) {
         String updateQuery = "UPDATE utilisateurs "
@@ -122,6 +122,7 @@ public class UserDAO implements DAO<User>{
         return (Database.getInstance().dmlQuery(updateQuery) != 0);
     }
 
+    
     @Override
     public boolean delete(User user) {
         String deleteQuery = "DELETE FROM utilisateurs "
