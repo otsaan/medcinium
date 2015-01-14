@@ -8,6 +8,7 @@ package models.dao;
 import java.util.Vector;
 import models.Reminder;
 import database.Database;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -90,6 +91,39 @@ public class ReminderDAO implements DAO<Reminder>{
 
         String findQuery = "SELECT * "
                         + "FROM rappels;";
+        
+        ResultSet rs = database.Database.getInstance().query(findQuery);
+
+        try {
+            
+            while(rs.next()) {
+                
+                Reminder reminder = new Reminder();
+                
+                reminder.setId(rs.getInt("id_rappel"));
+                reminder.setDescription(rs.getString("desc_rappel"));
+                reminder.setPatient(patientDAO.find(rs.getString("id_patient")));
+                reminder.setDate(rs.getDate("date_rappel"));
+            
+                reminders.add(reminder);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error : ReminderDAO.all()" + ex);
+        }
+        
+        return reminders;
+    }
+    
+    
+    public Vector<Reminder> allByDate(Date date) {
+        
+        Vector<Reminder> reminders = new Vector<Reminder>();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
+
+        String findQuery = "SELECT * "
+                         + "FROM rappels "
+                         + "WHERE date_rappel = '"+ date +"';";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
