@@ -300,13 +300,10 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
          if(num != null) {
-            try {      
-//            Eleves elv = new Eleves();
+            try { 
+                
                 Patient currentPatient = DAOFactory.getPatientDAO().find(num);
-//            Eleve e = elv.recupererEleve(cne);
-//            setVisible(false);
-//            dispose();
-            new JPatient(currentPatient).setVisible(true);
+                new PatientFrame(currentPatient).setVisible(true);
         
         } catch (Exception e) {
             System.out.println("Erreur lors de la modification");
