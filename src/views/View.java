@@ -56,9 +56,9 @@ public class View extends javax.swing.JFrame {
 
         mainPanel.setBackground(new java.awt.Color(51, 0, 51));
 
-        rightPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
         rightPanel.setLayout(new java.awt.CardLayout());
 
+        leftPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         leftPanel.setMinimumSize(new java.awt.Dimension(132, 461));
 
         jButton1.setText("Patients");
