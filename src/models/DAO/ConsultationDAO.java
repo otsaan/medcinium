@@ -249,6 +249,7 @@ public class ConsultationDAO implements DAO<Consultation>{
               
                 con.setConsultationId(rs.getInt("id_consultation"));
                 con.setType(rs.getString("type_consultation"));
+                con.setDiagnostics(rs.getString("diagnostics"));
                 con.setDescription(rs.getString("desc_consultation"));
                 con.setConsultationDate(rs.getDate("date_consultation"));
                 con.setStatus(rs.getString("status"));
