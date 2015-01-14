@@ -129,21 +129,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         String deleteQuery = "DELETE FROM consultations "
                            + "WHERE id_consultation = " + con.getConsultationId()+ ";";
         
-        String deleteInfosQuery = "DELETE FROM contient "
-                           + "WHERE id_consultation = " + con.getConsultationId()+ ";";
-        
-        String deleteRensQuery = "DELETE FROM renseigne "
-                           + "WHERE id_consultation = " + con.getConsultationId()+ ";";
-        
-        String deleteIntroQuery = "DELETE FROM introduit "
-                           + "WHERE id_consultation = " + con.getConsultationId()+ ";";
-        
-        int del = Database.getInstance().dmlQuery(deleteQuery);
-        int delInf = Database.getInstance().dmlQuery(deleteInfosQuery);
-        int delRen = Database.getInstance().dmlQuery(deleteRensQuery);
-        int delIntro = Database.getInstance().dmlQuery(deleteIntroQuery);
-        
-        return (del != 0 && delInf != 0 && delRen != 0 && delIntro != 0);
+        return Database.getInstance().dmlQuery(deleteQuery) != 0;
     }
 
     

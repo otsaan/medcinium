@@ -81,13 +81,13 @@ id_allergie INT NOT NULL,
 PRIMARY KEY (id_consultation,
  id_allergie) ) ENGINE=InnoDB;
 
-ALTER TABLE consultations ADD CONSTRAINT FK_consultations_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
+ALTER TABLE consultations ADD CONSTRAINT FK_consultations_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient)  ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE rappels ADD CONSTRAINT FK_rappels_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
-ALTER TABLE paiements ADD CONSTRAINT FK_paiements_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient);
-ALTER TABLE contient ADD CONSTRAINT FK_contient_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
-ALTER TABLE contient ADD CONSTRAINT FK_contient_id_info FOREIGN KEY (id_info) REFERENCES infos (id_info);
-ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
-ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_medicament FOREIGN KEY (id_medicament) REFERENCES medicaments (id_medicament);
-ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation);
-ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_allergie FOREIGN KEY (id_allergie) REFERENCES allergies (id_allergie);
+ALTER TABLE rappels ADD CONSTRAINT FK_rappels_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE paiements ADD CONSTRAINT FK_paiements_id_patient FOREIGN KEY (id_patient) REFERENCES patients (id_patient)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE contient ADD CONSTRAINT FK_contient_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE contient ADD CONSTRAINT FK_contient_id_info FOREIGN KEY (id_info) REFERENCES infos (id_info)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE introduit ADD CONSTRAINT FK_introduit_id_medicament FOREIGN KEY (id_medicament) REFERENCES medicaments (id_medicament)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_consultation FOREIGN KEY (id_consultation) REFERENCES consultations (id_consultation)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE renseigne ADD CONSTRAINT FK_renseigne_id_allergie FOREIGN KEY (id_allergie) REFERENCES allergies (id_allergie)  ON DELETE CASCADE ON UPDATE CASCADE;
