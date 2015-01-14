@@ -247,7 +247,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         Vector<Consultation> consultations = new Vector<Consultation>();
 
         String findQuery = "SELECT * FROM consultations"
-                        + " WHERE id_consultation =" + patientId + ";";
+                        + " WHERE id_patient =" + patientId + ";";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
