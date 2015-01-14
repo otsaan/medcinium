@@ -23,9 +23,25 @@ public class UserController implements Observer{
     public UserController() {  
     }
     
-    private int logIn(User user) {
-        System.out.println("logIn!");
-       return DAOFactory.getUserDAO().findUser(user);
+    private void logIn(User user, Object view) {
+        
+        if (user.getUsername().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le nom d'utilisateur.");
+        } else {
+            
+            if (user.getPassword().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le mot de passe.");
+            } else {
+                if (DAOFactory.getUserDAO().findUser(user) > 0) {
+                    ((LoginFrame)view).dispose();
+                    Model model = new Model();
+                    View mainView = new View(model);
+                } else {
+                    JOptionPane.showMessageDialog((LoginFrame)view, "Nom d'utilisateur ou mot de passe incorrect.");
+                }
+            }
+        }
+
     }
     
     private void logOut(User user) {
@@ -62,16 +78,7 @@ public class UserController implements Observer{
             }
 
             if (action.equalsIgnoreCase("login")) {
-                
-                if(this.logIn((User)dataObj)>0)
-                {
-                    ((LoginFrame)view).dispose();
-                    Model model = new Model();
-                    View mainView = new View(model);
-                    
-                } else {
-                    JOptionPane.showMessageDialog((LoginFrame)view, "L'utilisateur n'existe pas");
-                }
+                this.logIn((User)dataObj, view);
             }
 
             if (action.equalsIgnoreCase("logout")) {
