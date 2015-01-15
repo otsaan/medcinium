@@ -411,7 +411,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         try {
-//            new AddPatientFrame().setVisible(true);
+          new NewPatientFrame().setVisible(true);
             
         } catch (Exception e) {
             System.out.println("Erreur lors de l'ajout");
