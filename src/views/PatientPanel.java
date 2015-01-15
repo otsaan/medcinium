@@ -141,6 +141,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         );
 
         addPatientButton.setText("Ajouter un patient");
+        addPatientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPatientButtonActionPerformed(evt);
+            }
+        });
 
         patientInfoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -171,6 +176,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         });
 
         modifyPatientButton.setText("Modifier");
+        modifyPatientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyPatientButtonActionPerformed(evt);
+            }
+        });
 
         deletePatientButton.setText("Supprimer");
         deletePatientButton.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +322,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 new PatientFrame(currentPatient).setVisible(true);
         
         } catch (Exception e) {
-            System.out.println("Erreur lors de la modification");
+            System.out.println("Erreur lors de l'affichage");
         }
          }
     }//GEN-LAST:event_displayProfileButtonActionPerformed
@@ -323,7 +333,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
          } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         if(num != null) {
             int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
@@ -342,6 +352,35 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             }
         }
     }//GEN-LAST:event_deletePatientButtonActionPerformed
+
+    private void modifyPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyPatientButtonActionPerformed
+        String num = null;
+        try {
+            TableModel model = (TableModel)patientsTable.getModel();
+            num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
+         } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        
+        if(num != null) {
+            try {
+                Patient currentPatient = DAOFactory.getPatientDAO().find(num);
+//                new ModifyPatientFrame(currentPatient).setVisible(true);
+            
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la modification");
+            }
+        }
+    }//GEN-LAST:event_modifyPatientButtonActionPerformed
+
+    private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
+        try {
+//            new AddPatientFrame().setVisible(true);
+            
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'ajout");
+        }
+    }//GEN-LAST:event_addPatientButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
