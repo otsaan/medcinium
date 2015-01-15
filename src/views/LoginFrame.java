@@ -8,10 +8,13 @@ package views;
 
 
 import controllers.Observer;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPasswordField;
 import models.User;
 
 /**
@@ -29,6 +32,18 @@ public class LoginFrame extends javax.swing.JFrame {
         
         
         initComponents();
+        
+        password.addKeyListener(new KeyAdapter() {
+            User user = new User();
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER ) {        
+                    user.setUsername(username.getText());
+                    user.setPassword(new String(password.getPassword()));
+                    notifyObservers(user,"login");
+                }
+            } 
+        });
     }
 
     /**
