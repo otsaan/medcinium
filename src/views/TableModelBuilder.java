@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Allergy;
 import models.Consultation;
 import models.PatientInfo;
+import models.Reminder;
 
 /**
  *
@@ -107,7 +108,7 @@ public class TableModelBuilder {
     }
     
     
-     public static DefaultTableModel buildPatientConsultationTableModel(Vector<Consultation> hisConsultations) {
+    public static DefaultTableModel buildPatientConsultationTableModel(Vector<Consultation> hisConsultations) {
         
         // names of columns
         Vector<String> columnNames = new Vector<String>();
@@ -125,13 +126,13 @@ public class TableModelBuilder {
             line.add(c.getConsultationDate());
             line.add(c.getType());
             
-
             data.add(line);
         }
 
         return new DefaultTableModel(data, columnNames);
     }
    
+    
     public static DefaultTableModel buildPatientInfosTableModel(Vector<Consultation> hisConsultations) {
         
         // names of columns
@@ -145,8 +146,6 @@ public class TableModelBuilder {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Consultation c : hisConsultations) {
-            
-            
             for (PatientInfo info : c.getPatientInfoList()) {
               Vector<Object> line = new Vector<Object>();
               line.add(info.getProperty());
@@ -154,14 +153,14 @@ public class TableModelBuilder {
               line.add(info.getDateAdded()); 
               data.add(line);
             }
-            
         }
 
         return new DefaultTableModel(data, columnNames);
     }
     
     
-             public static DefaultTableModel buildPatientDiagnosticsTableModel(Vector<Consultation> hisConsultations) {
+    
+    public static DefaultTableModel buildPatientDiagnosticsTableModel(Vector<Consultation> hisConsultations) {
         
         // names of columns
         Vector<String> columnNames = new Vector<String>();
@@ -172,11 +171,9 @@ public class TableModelBuilder {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Consultation c : hisConsultations) {
-            
             Vector<Object> line = new Vector<Object>();
-
+            
             line.add(c.getDiagnostics());
-
             data.add(line);
         }
             
@@ -184,7 +181,7 @@ public class TableModelBuilder {
     }
     
              
-     public static DefaultTableModel buildPatientAllergiesTableModel(Vector<Consultation> hisConsultations) {
+    public static DefaultTableModel buildPatientAllergiesTableModel(Vector<Consultation> hisConsultations) {
         
         // names of columns
         Vector<String> columnNames = new Vector<String>();
@@ -196,17 +193,46 @@ public class TableModelBuilder {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Consultation c : hisConsultations) {
-            
-            
             for (Allergy allergy : c.getAllergyList()) {
               Vector<Object> line = new Vector<Object>();
               line.add(allergy.getAllergyName());
               line.add(c.getConsultationDate()); 
               data.add(line);
             }
-            
         }
 
         return new DefaultTableModel(data, columnNames);
     }
+    
+    
+    /**
+     * Build Table Model for "Rappels"
+     * @param finishedConsultations
+     * @return 
+     */
+    public static DefaultTableModel buildRemindersTableModel(Vector<Reminder> reminders) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Titre");
+        columnNames.add("Heure");
+        columnNames.add("Patient");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Reminder r : reminders) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(r.getDescription());
+            line.add(r.getDate().toString());
+            line.add(r.getPatient().getName() + " " + r.getPatient().getLastName());
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
 }
