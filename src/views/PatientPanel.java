@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -171,6 +173,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         modifyPatientButton.setText("Modifier");
 
         deletePatientButton.setText("Supprimer");
+        deletePatientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePatientButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout patientInfoPanelLayout = new javax.swing.GroupLayout(patientInfoPanel);
         patientInfoPanel.setLayout(patientInfoPanelLayout);
@@ -193,8 +200,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                             .addComponent(jLabel6)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(deletePatientButton)
@@ -311,6 +317,32 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
          }
     }//GEN-LAST:event_displayProfileButtonActionPerformed
 
+    private void deletePatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePatientButtonActionPerformed
+        String num = null;
+        try {
+            TableModel model = (TableModel)patientsTable.getModel();
+            num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
+         } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        if(num != null) {
+            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            if(val == 0) {
+                Patient currentPatient = DAOFactory.getPatientDAO().find(num);
+                DAOFactory.getPatientDAO().delete(currentPatient);
+                        
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+             
+                ResultSet rs = DAOFactory.getPatientDAO().allToResultSet();
+
+                refreshTable(rs);
+            }
+        }
+    }//GEN-LAST:event_deletePatientButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatientButton;
@@ -353,17 +385,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             patientNumberLabel.setText("Patient N˚ " + num);
             lastNameLabel.setText(patientSelected.getLastName());
             nameLabel.setText(patientSelected.getName());
-            //             LocalDate now = new LocalDate();
-            //             Years age = Years.yearsBetween(birthdate, now);
-            String dob = String.valueOf(patientSelected.getBirthDate());
             
+            String dob = String.valueOf(patientSelected.getBirthDate());
             int yearDOB = Integer.parseInt(dob.substring(0, 4));
-//            int monthDOB = Integer.parseInt(dob.substring(5, 7));
-//            int dayDOB = Integer.parseInt(dob.substring(8, 10));
             
             int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-            
-//            System.out.println("year:" + yearDOB + " month: " + monthDOB + "  day: " + dayDOB);
             
             ageLabel.setText(String.valueOf(thisYear-yearDOB));
             genderLabel.setText(patientSelected.getSexe());
