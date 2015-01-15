@@ -22,8 +22,11 @@
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jXMonthView1" min="-2" pref="308" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="181" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -31,9 +34,18 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jXMonthView1" min="-2" pref="180" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
@@ -272,5 +284,24 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="org.jdesktop.swingx.JXMonthView" name="jXMonthView1">
+      <Properties>
+        <Property name="daysOfTheWeek" type="[Ljava.lang.String;" editor="org.netbeans.beaninfo.editors.StringArrayEditor">
+          <StringArray count="7">
+            <StringItem index="0" value="Dim"/>
+            <StringItem index="1" value="Lun"/>
+            <StringItem index="2" value="Mar"/>
+            <StringItem index="3" value="Mer"/>
+            <StringItem index="4" value="Jeu"/>
+            <StringItem index="5" value="Ven"/>
+            <StringItem index="6" value="Sam"/>
+          </StringArray>
+        </Property>
+        <Property name="firstDayOfWeek" type="int" value="2"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXMonthView1ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

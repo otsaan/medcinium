@@ -5,12 +5,17 @@
  */
 package views;
 
+import com.sun.istack.internal.localization.NullLocalizable;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,24 +51,28 @@ public class Utils {
     
     
     public static  int getAge(Date date) {  
-            Calendar calendar=Calendar.getInstance();
-            calendar.setTime(date);
-            System.out.println();
-            //set up date of birth  
-            Calendar calDOB = Calendar.getInstance();  
-            calDOB.set(  calendar.get(Calendar.YEAR) , calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));  
-            //setup calNow as today.  
-            Calendar calNow = Calendar.getInstance();  
-            calNow.setTime(new java.util.Date());  
-            //calculate age in years.  
-            int ageYr = (calNow.get(Calendar.YEAR) - calDOB.get(Calendar.YEAR));  
-            // calculate additional age in months, possibly adjust years.  
-            int ageMo = (calNow.get(Calendar.MONTH) - calDOB.get(Calendar.MONTH));  
-            if (ageMo < 0) {  
-            //adjust years by subtracting one  
-            ageYr--;  
-            }  
-            return ageYr;  
-        }
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+        System.out.println();
+        //set up date of birth  
+        Calendar calDOB = Calendar.getInstance();  
+        calDOB.set(  calendar.get(Calendar.YEAR) , calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));  
+        //setup calNow as today.  
+        Calendar calNow = Calendar.getInstance();  
+        calNow.setTime(new java.util.Date());  
+        //calculate age in years.  
+        int ageYr = (calNow.get(Calendar.YEAR) - calDOB.get(Calendar.YEAR));  
+        // calculate additional age in months, possibly adjust years.  
+        int ageMo = (calNow.get(Calendar.MONTH) - calDOB.get(Calendar.MONTH));  
+        if (ageMo < 0) {  
+        //adjust years by subtracting one  
+        ageYr--;  
+        }  
+        return ageYr;  
+    }
+
+    public static String dateFormatter(Date dateToParse){
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateToParse);
+    }
     
 }
