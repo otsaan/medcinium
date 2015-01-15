@@ -95,7 +95,7 @@ public class PatientDAO implements DAO<Patient>{
     @Override
     public boolean create(Patient p) {
         String insertQuery = "INSERT INTO patients(nom_patient, prenom_patient, "
-                            + "date_naissance, telephone, adresse, sexe, credit) VALUES("
+                            + "date_naissance, telephone, adresse,ville, sexe,cin, credit) VALUES("
                             + "'" + p.getLastName()      + "', "
                             + "'" + p.getName()          + "', "
                             + "'" + p.getBirthDate()     + "', "

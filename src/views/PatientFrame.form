@@ -166,9 +166,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="plusDetails">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="afficher plus de details"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

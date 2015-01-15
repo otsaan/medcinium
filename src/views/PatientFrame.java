@@ -80,8 +80,6 @@ public class PatientFrame extends javax.swing.JFrame {
 
         jLabel4.setText("ans");
 
-        plusDetails.setText("afficher plus de details");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(

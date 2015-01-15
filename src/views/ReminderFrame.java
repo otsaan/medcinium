@@ -43,7 +43,7 @@ public class ReminderFrame extends javax.swing.JFrame {
         reminderDate = new org.jdesktop.swingx.JXDatePicker();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Ajouter un rappel");
 
