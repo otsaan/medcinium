@@ -6,6 +6,8 @@
 package views;
 
 import java.sql.Date;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 import models.Patient;
 import models.dao.DAOFactory;
 
@@ -18,8 +20,33 @@ public class NewPatientFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewPatientFrame
      */
+    Patient oldPatient;
     public NewPatientFrame() {
         initComponents();
+    }
+    
+     public NewPatientFrame(Patient patient) {
+        initComponents();
+        
+        NewOrUpdate.setText("Modifier");
+        AddButton.setText("Modifier");
+        
+        oldPatient= patient;
+        
+        FirstNameText.setText(patient.getLastName());
+        lastNameText.setText(patient.getName());
+        addressText.setText(patient.getAddress());
+        cinText.setText(patient.getCin());
+        CityText.setText(patient.getCity());
+        PhoneText.setText(patient.getTelephone());
+        sexChoice.setSelectedItem(patient.getSexe());
+       
+        String yearMonthDay[]=patient.getBirthDate().toString().split("-");
+        
+        YearText.setText(yearMonthDay[0]);
+        monthChoice.setSelectedItem(yearMonthDay[1]);
+        DayChoice.setSelectedItem(yearMonthDay[2]);
+        
     }
 
     /**
@@ -47,7 +74,7 @@ public class NewPatientFrame extends javax.swing.JFrame {
         DayChoice = new javax.swing.JComboBox();
         PhoneText = new javax.swing.JTextField();
         CityText = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        NewOrUpdate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         addressText = new javax.swing.JTextArea();
         sexChoice = new javax.swing.JComboBox();
@@ -71,36 +98,12 @@ public class NewPatientFrame extends javax.swing.JFrame {
 
         jLabel8.setText("CIN");
 
-        lastNameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastNameTextActionPerformed(evt);
-            }
-        });
+        monthChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
-        cinText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cinTextActionPerformed(evt);
-            }
-        });
+        DayChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        FirstNameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstNameTextActionPerformed(evt);
-            }
-        });
-
-        monthChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-
-        DayChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
-        CityText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CityTextActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Nouveau Patient");
+        NewOrUpdate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        NewOrUpdate.setText("Nouveau Patient");
 
         addressText.setColumns(20);
         addressText.setRows(3);
@@ -121,7 +124,7 @@ public class NewPatientFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(193, 193, 193)
-                .addComponent(jLabel9)
+                .addComponent(NewOrUpdate)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(109, 109, 109)
@@ -159,7 +162,7 @@ public class NewPatientFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jLabel9)
+                .addComponent(NewOrUpdate)
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -206,24 +209,13 @@ public class NewPatientFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lastNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastNameTextActionPerformed
-
-    private void cinTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cinTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cinTextActionPerformed
-
-    private void FirstNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstNameTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FirstNameTextActionPerformed
-
-    private void CityTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CityTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CityTextActionPerformed
-
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        Patient patient = new Patient();
+        Patient patient;
+        if(this.oldPatient!=null) {
+            patient  =this.oldPatient; 
+        }else {
+           patient = new Patient();   
+        }
         patient.setName(FirstNameText.getText());
         patient.setLastName(lastNameText.getText());
         patient.setAddress(addressText.getText());
@@ -232,12 +224,24 @@ public class NewPatientFrame extends javax.swing.JFrame {
         patient.setSexe(sexChoice.getSelectedItem().toString());
         patient.setTelephone(PhoneText.getText());
         patient.setBirthDate(new Date(Integer.parseInt(YearText.getText()),Integer.parseInt(monthChoice.getSelectedItem().toString()), Integer.parseInt(DayChoice.getSelectedItem().toString())));
-        
-        if(DAOFactory.getPatientDAO().create(patient))
-        {
-            this.dispose();
-            
+        if(this.oldPatient==null){
+                    if(DAOFactory.getPatientDAO().update(patient)) {
+                    this.dispose();
+
+                }else {
+                      
+                        JOptionPane.showMessageDialog(this, "Erreur De mise à jour", "Erreur", JOptionPane.ERROR_MESSAGE);        
+                      }
+        }else {
+             if(DAOFactory.getPatientDAO().create(patient))  {
+                this.dispose();
+
+            } else {
+                      
+                        JOptionPane.showMessageDialog(this, "Erreur de création", "Erreur", JOptionPane.ERROR_MESSAGE);        
+                      }
         }
+        
     }//GEN-LAST:event_AddButtonActionPerformed
 
     /**
@@ -280,6 +284,7 @@ public class NewPatientFrame extends javax.swing.JFrame {
     private javax.swing.JTextField CityText;
     private javax.swing.JComboBox DayChoice;
     private javax.swing.JTextField FirstNameText;
+    private javax.swing.JLabel NewOrUpdate;
     private javax.swing.JTextField PhoneText;
     private javax.swing.JTextField YearText;
     private javax.swing.JTextArea addressText;
@@ -292,7 +297,6 @@ public class NewPatientFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameText;
     private javax.swing.JComboBox monthChoice;
