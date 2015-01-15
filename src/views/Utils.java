@@ -71,7 +71,7 @@ public class Utils {
     }
 
     public static String dateFormatter(Date dateToParse){
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateToParse);
+        return new SimpleDateFormat("yyyy-MM-dd").format(dateToParse);
     }
     
 }
