@@ -5,7 +5,10 @@
  */
 package views;
 
+import javax.swing.JOptionPane;
 import models.Patient;
+import models.Reminder;
+import models.dao.DAOFactory;
 
 /**
  *
@@ -16,6 +19,7 @@ public class PatientFrame extends javax.swing.JFrame {
     /**
      * Creates new form JPatient
      */
+    Patient patient;
     public PatientFrame() {
         initComponents();
     }
@@ -23,12 +27,14 @@ public class PatientFrame extends javax.swing.JFrame {
     public PatientFrame(Patient currentPatient) {
         
         initComponents();
-        
+        patient = currentPatient;
         patientName.setText(currentPatient.getLastName() + " " + currentPatient.getName());
         patientSex.setText(currentPatient.getSexe().toUpperCase());
         patientAge.setText(Integer.toString(Utils.getAge(currentPatient.getBirthDate())));
-        
-        
+        visitsTable.setModel(TableModelBuilder.buildPatientConsultationTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+        infoTable.setModel(TableModelBuilder.buildPatientInfosTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+        diagnosticsListe.setModel(TableModelBuilder.buildPatientDiagnosticsTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+        allergiesListe.setModel(TableModelBuilder.buildPatientAllergiesTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
     }
     
     /**
@@ -56,10 +62,10 @@ public class PatientFrame extends javax.swing.JFrame {
         infoTable = new javax.swing.JTable();
         addRemindButton = new javax.swing.JButton();
         startVisitButton = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        diagnosticsListe = new javax.swing.JList();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        allergiesListe = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        diagnosticsListe = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        allergiesListe = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Medcinium");
@@ -111,7 +117,7 @@ public class PatientFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Diagnostics");
 
-        jLabel9.setText("allergies");
+        jLabel9.setText("Allergies");
 
         visitsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,19 +158,25 @@ public class PatientFrame extends javax.swing.JFrame {
 
         startVisitButton.setText("Commencer une visite");
 
-        diagnosticsListe.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(diagnosticsListe);
+        diagnosticsListe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Diagnostics"
+            }
+        ));
+        jScrollPane2.setViewportView(diagnosticsListe);
 
-        allergiesListe.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane6.setViewportView(allergiesListe);
+        allergiesListe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Allergies"
+            }
+        ));
+        jScrollPane4.setViewportView(allergiesListe);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,23 +194,23 @@ public class PatientFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(417, 417, 417)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(153, 153, 153)
-                                .addComponent(jScrollPane5))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
                                 .addGap(144, 144, 144)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(153, 153, 153)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 50, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,32 +221,32 @@ public class PatientFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addRemindButton)
                     .addComponent(startVisitButton))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addRemindButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRemindButtonActionPerformed
-        // TODO add your handling code here:
+        
+       new ReminderFrame(patient).setVisible(true);
+        
     }//GEN-LAST:event_addRemindButtonActionPerformed
 
     /**
@@ -275,8 +287,8 @@ public class PatientFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRemindButton;
-    private javax.swing.JList allergiesListe;
-    private javax.swing.JList diagnosticsListe;
+    private javax.swing.JTable allergiesListe;
+    private javax.swing.JTable diagnosticsListe;
     private javax.swing.JTable infoTable;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -285,9 +297,9 @@ public class PatientFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel patientAge;
     private javax.swing.JLabel patientName;
     private javax.swing.JLabel patientSex;

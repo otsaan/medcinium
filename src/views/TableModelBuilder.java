@@ -7,7 +7,9 @@ package views;
 
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import models.Allergy;
 import models.Consultation;
+import models.PatientInfo;
 
 /**
  *
@@ -79,5 +81,106 @@ public class TableModelBuilder {
     }
     
     
+     public static DefaultTableModel buildPatientConsultationTableModel(Vector<Consultation> hisConsultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Date");
+        columnNames.add("Type");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Consultation c : hisConsultations) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(c.getConsultationDate());
+            line.add(c.getType());
+            
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+   
+    public static DefaultTableModel buildPatientInfosTableModel(Vector<Consultation> hisConsultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Proppriete");
+        columnNames.add("Valeur");
+        columnNames.add("Date");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Consultation c : hisConsultations) {
+            
+            
+            for (PatientInfo info : c.getPatientInfoList()) {
+              Vector<Object> line = new Vector<Object>();
+              line.add(info.getProperty());
+              line.add(info.getValue()); 
+              line.add(info.getDateAdded()); 
+              data.add(line);
+            }
+            
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
     
+    
+             public static DefaultTableModel buildPatientDiagnosticsTableModel(Vector<Consultation> hisConsultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Diagnostics");
+       
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Consultation c : hisConsultations) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(c.getDiagnostics());
+
+            data.add(line);
+        }
+            
+        return new DefaultTableModel(data, columnNames);
+    }
+    
+             
+     public static DefaultTableModel buildPatientAllergiesTableModel(Vector<Consultation> hisConsultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Allergie");
+        columnNames.add("Date");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Consultation c : hisConsultations) {
+            
+            
+            for (Allergy allergy : c.getAllergyList()) {
+              Vector<Object> line = new Vector<Object>();
+              line.add(allergy.getAllergyName());
+              line.add(c.getConsultationDate()); 
+              data.add(line);
+            }
+            
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
 }
