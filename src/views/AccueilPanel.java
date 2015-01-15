@@ -8,6 +8,7 @@ package views;
 import java.awt.Color;
 import java.util.Vector;
 import models.Consultation;
+import models.dao.DAOFactory;
 
 /**
  *
@@ -128,10 +129,11 @@ public class AccueilPanel extends javax.swing.JPanel {
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
-                "Titre", "Date", "Patient"
+                "Titre", "Heure", "Patient"
             }
         ));
         jScrollPane3.setViewportView(remindersTable);
@@ -155,6 +157,7 @@ public class AccueilPanel extends javax.swing.JPanel {
 
         jXMonthView1.setDaysOfTheWeek(new String[] {"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"});
         jXMonthView1.setFirstDayOfWeek(2);
+        jXMonthView1.setTraversable(true);
         jXMonthView1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jXMonthView1ActionPerformed(evt);
@@ -198,7 +201,9 @@ public class AccueilPanel extends javax.swing.JPanel {
     private void jXMonthView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXMonthView1ActionPerformed
         // TODO add your handling code here:
         System.out.println(Utils.dateFormatter(jXMonthView1.getSelectionDate()));
-        jXMonthView1.getSelectionBackground().darker();
+        
+        this.remindersTable.setModel(TableModelBuilder.buildRemindersTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getSelectionDate()))));
+        
         
     }//GEN-LAST:event_jXMonthView1ActionPerformed
 

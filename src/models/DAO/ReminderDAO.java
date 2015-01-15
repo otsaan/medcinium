@@ -11,6 +11,8 @@ import database.Database;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -116,14 +118,15 @@ public class ReminderDAO implements DAO<Reminder>{
     }
     
     
-    public Vector<Reminder> allByDate(Date date) {
+    public Vector<Reminder> allByDate(String date) {
         
         Vector<Reminder> reminders = new Vector<Reminder>();
         PatientDAO patientDAO = DAOFactory.getPatientDAO();
-
+        
         String findQuery = "SELECT * "
                          + "FROM rappels "
-                         + "WHERE date_rappel = '"+ date +"';";
+                         + "WHERE date_rappel "
+                         + "BETWEEN '"+ date +" 00:00:00' AND '" + date + " 23:59:59';";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
@@ -137,7 +140,7 @@ public class ReminderDAO implements DAO<Reminder>{
                 reminder.setDescription(rs.getString("desc_rappel"));
                 reminder.setPatient(patientDAO.find(rs.getString("id_patient")));
                 reminder.setDate(rs.getDate("date_rappel"));
-            
+                System.out.println(reminder.getDate());
                 reminders.add(reminder);
             }
             
