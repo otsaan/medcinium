@@ -344,18 +344,23 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
     private void displayProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProfileButtonActionPerformed
         String num = null;
+        try {
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
-         if(num != null) {
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        
+        if(num != null) {
             try { 
                 
                 Patient currentPatient = DAOFactory.getPatientDAO().find(num);
                 new PatientFrame(currentPatient).setVisible(true);
         
-        } catch (Exception e) {
-            System.out.println("Erreur lors de l'affichage");
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'affichage");
+            }
         }
-         }
     }//GEN-LAST:event_displayProfileButtonActionPerformed
 
     private void deletePatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePatientButtonActionPerformed
@@ -389,7 +394,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         try {
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
-         } catch(Exception e) {
+        } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
