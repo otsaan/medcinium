@@ -19,6 +19,32 @@ public class TableModelBuilder {
     
     
     
+    public static DefaultTableModel buildConsultationsTableModel(Vector<Consultation> Consultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Numéro");
+        columnNames.add("Date");
+        columnNames.add("Patient");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Consultation c : Consultations) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(c.getConsultationId());
+            line.add(c.getConsultationDate());
+            line.add(c.getPatient().getLastName() + " " + c.getPatient().getName());
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
     /**
      * Build Table Model for "file d'attente" 
      * @param consultations pendingConsultations 
