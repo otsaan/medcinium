@@ -91,6 +91,14 @@ public class PatientDAO implements DAO<Patient>{
         return rs;
     }
     
+    public ResultSet likeToResultSet(String like) {
+        
+        String findLikeQuery = "SELECT * FROM patients " +
+            "WHERE nom_patient LIKE '%" + like + "%' OR prenom_patient LIKE '%" + like + "%';";
+        ResultSet rs = Database.getInstance().query(findLikeQuery);
+        
+        return rs;
+    }
     
     @Override
     public boolean create(Patient p) {

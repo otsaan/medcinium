@@ -5,6 +5,10 @@
  */
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -33,11 +37,33 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
      */
     public PatientPanel() {
         initComponents();
+                
         ResultSet rs = DAOFactory.getPatientDAO().allToResultSet();
         refreshTable(rs);
         
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
+        
+        
+        searchButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField.getText());
+                refreshTable(rs);
+            }
+            
+        });
+        
+        searchTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER ) {
+                    ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField.getText());
+                    refreshTable(rs);
+                }
+            } 
+        });
     }
 
     public void refreshTable(ResultSet rs) {
@@ -106,7 +132,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         birthDateLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
         cityLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        searchTextField = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
 
         patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
@@ -141,6 +168,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         );
 
         addPatientButton.setText("Ajouter un patient");
+        addPatientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPatientButtonActionPerformed(evt);
+            }
+        });
 
         patientInfoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -171,6 +203,11 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         });
 
         modifyPatientButton.setText("Modifier");
+        modifyPatientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyPatientButtonActionPerformed(evt);
+            }
+        });
 
         deletePatientButton.setText("Supprimer");
         deletePatientButton.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +300,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 .addContainerGap())
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        searchButton.setText("Rechercher");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -276,24 +313,28 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                         .addComponent(addPatientButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(patientsListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(patientsListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(searchButton)))))
+                .addGap(18, 18, 18)
                 .addComponent(patientInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(patientInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(patientsListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addPatientButton)))
@@ -303,18 +344,23 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
     private void displayProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProfileButtonActionPerformed
         String num = null;
+        try {
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
-         if(num != null) {
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        
+        if(num != null) {
             try { 
                 
                 Patient currentPatient = DAOFactory.getPatientDAO().find(num);
                 new PatientFrame(currentPatient).setVisible(true);
         
-        } catch (Exception e) {
-            System.out.println("Erreur lors de la modification");
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'affichage");
+            }
         }
-         }
     }//GEN-LAST:event_displayProfileButtonActionPerformed
 
     private void deletePatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePatientButtonActionPerformed
@@ -323,7 +369,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
          } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         if(num != null) {
             int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
@@ -343,6 +389,35 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         }
     }//GEN-LAST:event_deletePatientButtonActionPerformed
 
+    private void modifyPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyPatientButtonActionPerformed
+        String num = null;
+        try {
+            TableModel model = (TableModel)patientsTable.getModel();
+            num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        
+        if(num != null) {
+            try {
+                Patient currentPatient = DAOFactory.getPatientDAO().find(num);
+//                new ModifyPatientFrame(currentPatient).setVisible(true);
+            
+            } catch (Exception e) {
+                System.out.println("Erreur lors de la modification");
+            }
+        }
+    }//GEN-LAST:event_modifyPatientButtonActionPerformed
+
+    private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
+        try {
+//            new AddPatientFrame().setVisible(true);
+            
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'ajout");
+        }
+    }//GEN-LAST:event_addPatientButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatientButton;
@@ -354,7 +429,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JButton deletePatientButton;
     private javax.swing.JButton displayProfileButton;
     private javax.swing.JLabel genderLabel;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -371,6 +445,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel patientNumberLabel;
     private javax.swing.JPanel patientsListPanel;
     private javax.swing.JTable patientsTable;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
 
     @Override

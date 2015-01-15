@@ -5,7 +5,6 @@
  */
 package views;
 
-import com.sun.istack.internal.localization.NullLocalizable;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
