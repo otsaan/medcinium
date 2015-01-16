@@ -31,20 +31,13 @@ public class Database {
     }	
 
     
-    public  void connect() {
+    public void connect() throws ClassNotFoundException, SQLException {
         if (conn != null)
             return;
 
-        try {
-            
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = String.format("jdbc:mysql://localhost:3306/medcinium", 3306);
-            conn = DriverManager.getConnection(url, "root", "");
-            
-        } catch (Exception e) {
-            System.out.println("Can't connect to Database " + e);
-        }
-
+        Class.forName("com.mysql.jdbc.Driver");
+        String url = String.format("jdbc:mysql://localhost:3306/medcinium", 3306);
+        conn = DriverManager.getConnection(url, "root", "");
     }
         
         

@@ -5,6 +5,9 @@
  */
 package controllers;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.dao.DAOFactory;
 import models.dao.UserDAO;
@@ -25,22 +28,31 @@ public class UserController implements Observer{
     
     private void logIn(User user, Object view) {
         
-        if (user.getUsername().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le nom d'utilisateur.");
-        } else {
+        try {
+            database.Database.getInstance().connect();
             
-            if (user.getPassword().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le mot de passe.");
+            if (user.getUsername().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le nom d'utilisateur.");
             } else {
-                if (DAOFactory.getUserDAO().findUser(user) > 0) {
-                    ((LoginFrame)view).dispose();
-                    Model model = new Model();
-                    View mainView = new View(model);
+
+                if (user.getPassword().equalsIgnoreCase("")) {
+                    JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le mot de passe.");
                 } else {
-                    JOptionPane.showMessageDialog((LoginFrame)view, "Nom d'utilisateur ou mot de passe incorrect.");
+                    if (DAOFactory.getUserDAO().findUser(user) > 0) {
+                        ((LoginFrame)view).dispose();
+                        Model model = new Model();
+                        View mainView = new View(model);
+                    } else {
+                        JOptionPane.showMessageDialog((LoginFrame)view, "Nom d'utilisateur ou mot de passe incorrect.");
+                    }
                 }
             }
+            
+        } catch (Exception ex) {
+            System.out.println("Error Connection to Database" + ex);
+            JOptionPane.showMessageDialog((LoginFrame)view, "Erreur de Connexion à la base de données.");
         }
+        
 
     }
     
