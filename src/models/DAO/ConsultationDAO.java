@@ -38,11 +38,13 @@ public class ConsultationDAO implements DAO<Consultation>{
         
         try {
             rs.next();
+            con.setConsultationId(rs.getInt("id_consultation"));
             con.setType(rs.getString("type_consultation"));
             con.setDescription(rs.getString("desc_consultation"));
             con.setConsultationDate(rs.getDate("date_consultation"));
             con.setStatus(rs.getString("status"));
             con.setPrix(rs.getInt("prix"));
+            con.setDiagnostics(rs.getString("diagnostics"));
             con.setPatient(patientDAO.find(rs.getString("id_patient")));
             con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
             con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
@@ -77,6 +79,7 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setConsultationDate(rs.getDate("date_consultation"));
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
+                con.setDiagnostics(rs.getString("diagnostics"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
                 con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
                 con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
@@ -179,6 +182,7 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setConsultationDate(rs.getDate("date_consultation"));
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
+                con.setDiagnostics(rs.getString("diagnostics"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
                 con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
                 con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
@@ -221,6 +225,7 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setConsultationDate(rs.getDate("date_consultation"));
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
+                con.setDiagnostics(rs.getString("diagnostics"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
                 con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
                 con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
@@ -259,6 +264,7 @@ public class ConsultationDAO implements DAO<Consultation>{
                 con.setConsultationDate(rs.getDate("date_consultation"));
                 con.setStatus(rs.getString("status"));
                 con.setPrix(rs.getInt("prix"));
+                con.setDiagnostics(rs.getString("diagnostics"));
                 con.setPatient(patientDAO.find(rs.getString("id_patient")));
                 con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
                 con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));

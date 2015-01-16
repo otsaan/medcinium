@@ -5,14 +5,22 @@
  */
 package views;
 
+import java.sql.ResultSet;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
+import models.Consultation;
 import models.dao.DAOFactory;
 
 /**
  *
  * @author zianwar
  */
-public class ConsultationPanel extends javax.swing.JPanel {
+public class ConsultationPanel extends javax.swing.JPanel implements ListSelectionListener{
 
     /**
      * Creates new form ConsultationPanel
@@ -20,6 +28,10 @@ public class ConsultationPanel extends javax.swing.JPanel {
     public ConsultationPanel() {
         initComponents();
         consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
+        
+        ListSelectionModel selectionModel = consultationsTable.getSelectionModel();
+        selectionModel.addListSelectionListener(this);
+        selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
@@ -44,15 +56,15 @@ public class ConsultationPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        patientLabel = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
+        descriptionLabel = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
+        diagnosticsLabel = new javax.swing.JLabel();
+        priceLabel = new javax.swing.JLabel();
+        displayButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         displayAllButton = new javax.swing.JButton();
 
         jLabel1.setText("Selectionner:");
@@ -112,59 +124,51 @@ public class ConsultationPanel extends javax.swing.JPanel {
 
         jLabel8.setText("Prix");
 
-        jLabel5.setText("jLabel5");
+        displayButton.setText("Afficher");
 
-        jLabel9.setText("jLabel9");
+        updateButton.setText("Modifier");
 
-        jLabel10.setText("jLabel10");
-
-        jLabel11.setText("jLabel11");
-
-        jLabel12.setText("jLabel12");
-
-        jLabel13.setText("jLabel13");
-
-        jButton1.setText("Afficher");
-
-        jButton2.setText("Modifier");
-
-        jButton3.setText("Supprimer");
+        deleteButton.setText("Supprimer");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(consultationNumberLabel))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(64, 64, 64)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9))))
+                .addGap(143, 143, 143)
+                .addComponent(consultationNumberLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jButton1)
+                .addComponent(displayButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(updateButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(deleteButton)
                 .addGap(33, 33, 33))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(priceLabel)
+                    .addComponent(dateLabel)
+                    .addComponent(diagnosticsLabel)
+                    .addComponent(descriptionLabel)
+                    .addComponent(patientLabel)
+                    .addComponent(typeLabel))
+                .addGap(57, 57, 57))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,32 +178,32 @@ public class ConsultationPanel extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(patientLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel9))
+                    .addComponent(typeLabel))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel10))
+                    .addComponent(descriptionLabel))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel11))
+                    .addComponent(dateLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel12))
+                    .addComponent(diagnosticsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel13))
+                    .addComponent(priceLabel))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)))
+                    .addComponent(displayButton)
+                    .addComponent(updateButton)
+                    .addComponent(deleteButton)))
         );
 
         displayAllButton.setText("Afficher tous");
@@ -252,37 +256,82 @@ public class ConsultationPanel extends javax.swing.JPanel {
     private void consultationDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationDatePickerActionPerformed
         Date date = consultationDatePicker.getDate();
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        consultationsTable.repaint();
         consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDate(sqlDate)));
     }//GEN-LAST:event_consultationDatePickerActionPerformed
 
     private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
+        consultationsTable.repaint();
         consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
     }//GEN-LAST:event_displayAllButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        String num = null;
+        try {
+            TableModel model = (TableModel)consultationsTable.getModel();
+            num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+         } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        if(num != null) {
+            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            if(val == 0) {
+                Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                DAOFactory.getConsultationDAO().delete(currentConsultation);
+                
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));             
+                
+            }
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker consultationDatePicker;
     private javax.swing.JLabel consultationNumberLabel;
     private javax.swing.JTable consultationsTable;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JLabel diagnosticsLabel;
     private javax.swing.JButton displayAllButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton displayButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel patientLabel;
+    private javax.swing.JLabel priceLabel;
+    private javax.swing.JLabel typeLabel;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (e.getSource() == consultationsTable.getSelectionModel() && e.getValueIsAdjusting()) {
+            
+            TableModel model = (TableModel)consultationsTable.getModel();
+            String num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+           
+            Consultation consultationSelected = DAOFactory.getConsultationDAO().find(num);
+            
+            consultationNumberLabel.setText("Consultation N˚ " + num);
+            patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
+            typeLabel.setText(consultationSelected.getType());
+            descriptionLabel.setText(consultationSelected.getDescription());
+            dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
+            diagnosticsLabel.setText(consultationSelected.getDiagnostics());
+            priceLabel.setText(String.valueOf(consultationSelected.getPrix()));
+        }
+    }
 }
