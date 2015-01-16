@@ -105,7 +105,7 @@ public class ConsultationDAO implements DAO<Consultation>{
                             + con.getPatient().getPatientId()   + ");";
         
         con.setConsultationId(Database.getInstance().dmlQuery2(insertQuery));
-        return (Database.getInstance().dmlQuery2(insertQuery) != 0);
+        return (con.getConsultationId()!=0);
     }
 
     
