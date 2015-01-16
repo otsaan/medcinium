@@ -43,12 +43,14 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
+        selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         
         searchButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                patientsTable.repaint();
                 ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField.getText());
                 refreshTable(rs);
             }
@@ -59,6 +61,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER ) {
+                    patientsTable.repaint();
                     ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField.getText());
                     refreshTable(rs);
                 }
