@@ -155,6 +155,11 @@ public class PatientFrame extends javax.swing.JFrame {
         });
 
         startVisitButton.setText("Commencer une visite");
+        startVisitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startVisitButtonActionPerformed(evt);
+            }
+        });
 
         diagnosticsListe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -246,6 +251,12 @@ public class PatientFrame extends javax.swing.JFrame {
        new ReminderFrame(patient).setVisible(true);
         
     }//GEN-LAST:event_addRemindButtonActionPerformed
+
+    private void startVisitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startVisitButtonActionPerformed
+        
+        new  NewConsultationFrame(patient).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_startVisitButtonActionPerformed
 
     /**
      * @param args the command line arguments

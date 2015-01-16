@@ -108,7 +108,7 @@ public class ReminderFrame extends javax.swing.JFrame {
         
         if(reminder.getDate().compareTo(new java.util.Date())<0)
         {
-            JOptionPane.showMessageDialog(this, "veuillez choisir une date anterieud  postérieur ");
+            JOptionPane.showMessageDialog(this, "veuillez choisir une date anterieur  postérieur ");
         }else
         {
            if( DAOFactory.getReminderDAO().create(reminder))
@@ -117,7 +117,7 @@ public class ReminderFrame extends javax.swing.JFrame {
                
            }else
            {
-               JOptionPane.showMessageDialog(this, "veuillez choisir une date anterieud  postérieur ");
+               JOptionPane.showMessageDialog(this, "Erreur de la création ");
            }
            
         }
