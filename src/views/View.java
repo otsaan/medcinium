@@ -1,11 +1,13 @@
 package views;
 
+import controllers.UserController;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import models.Model;
+import models.User;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,11 +27,12 @@ public class View extends javax.swing.JFrame {
     /**
      * Creates new form View
      */
-    public View(Model model) {
+    public View(Model model, User loggedInUser) {
         
         this.model = model;
         
         initComponents();
+        this.welcomeNameLabel.setText(loggedInUser.getUsername());
         this.setVisible(true);
         rightPanel.add(new AccueilPanel(model.getPendingConsultations(), model.getFinishedConsultations()));
         rightPanel.repaint();
@@ -48,96 +51,117 @@ public class View extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
+        accueilLabel = new javax.swing.JLabel();
+        patientsLabel = new javax.swing.JLabel();
+        consultationsLabel = new javax.swing.JLabel();
+        statistiquesLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
-        leftPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        background = new javax.swing.JLabel();
+        welcomeNameLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         mainPanel.setBackground(new java.awt.Color(51, 0, 51));
 
+        accueilLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        accueilLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accueilLabelMouseClicked(evt);
+            }
+        });
+
+        patientsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        patientsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                patientsLabelMouseClicked(evt);
+            }
+        });
+
+        consultationsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultationsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consultationsLabelMouseClicked(evt);
+            }
+        });
+
+        statistiquesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        statistiquesLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                statistiquesLabelMouseClicked(evt);
+            }
+        });
+
+        rightPanel.setBackground(new java.awt.Color(241, 241, 241));
         rightPanel.setLayout(new java.awt.CardLayout());
 
-        leftPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        leftPanel.setMinimumSize(new java.awt.Dimension(132, 461));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/accueil.png"))); // NOI18N
 
-        jButton1.setText("Patients");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Accueil");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Consultations");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
-        leftPanel.setLayout(leftPanelLayout);
-        leftPanelLayout.setHorizontalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        leftPanelLayout.setVerticalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        welcomeNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        welcomeNameLabel.setText("Admin");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(accueilLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(patientsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(consultationsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statistiquesLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(349, 349, 349)
+                .addComponent(welcomeNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(welcomeNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(accueilLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(patientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(consultationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statistiquesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void accueilLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilLabelMouseClicked
+        
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/accueil.png")));
         // removing panel
         rightPanel.removeAll();
         rightPanel.repaint();
@@ -146,9 +170,11 @@ public class View extends javax.swing.JFrame {
         rightPanel.add(new AccueilPanel(model.getPendingConsultations(), model.getFinishedConsultations()));
         rightPanel.repaint();
         rightPanel.revalidate();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_accueilLabelMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void patientsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientsLabelMouseClicked
+        
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/patients.png")));
         // removing panel
         rightPanel.removeAll();
         rightPanel.repaint();
@@ -157,9 +183,11 @@ public class View extends javax.swing.JFrame {
         rightPanel.add(new PatientPanel());
         rightPanel.repaint();
         rightPanel.revalidate();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_patientsLabelMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void consultationsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultationsLabelMouseClicked
+        
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/consultations.png")));
         // removing panel
         rightPanel.removeAll();
         rightPanel.repaint();
@@ -167,16 +195,31 @@ public class View extends javax.swing.JFrame {
         // adding panels
         rightPanel.add(new ConsultationPanel());
         rightPanel.repaint();
+        rightPanel.revalidate();        
+    }//GEN-LAST:event_consultationsLabelMouseClicked
+
+    private void statistiquesLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statistiquesLabelMouseClicked
+        
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/statistiques.png")));
+        // removing panel
+        rightPanel.removeAll();
+        rightPanel.repaint();
         rightPanel.revalidate();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        // adding panels
+        rightPanel.add(new StatisticsPanel());
+        rightPanel.repaint();
+        rightPanel.revalidate();  
+    }//GEN-LAST:event_statistiquesLabelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JPanel leftPanel;
+    private javax.swing.JLabel accueilLabel;
+    private javax.swing.JLabel background;
+    private javax.swing.JLabel consultationsLabel;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel patientsLabel;
     private javax.swing.JPanel rightPanel;
+    private javax.swing.JLabel statistiquesLabel;
+    private javax.swing.JLabel welcomeNameLabel;
     // End of variables declaration//GEN-END:variables
 }
