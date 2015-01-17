@@ -142,7 +142,7 @@ public class TableModelBuilder {
         // names of columns
         Vector<String> columnNames = new Vector<String>();
         
-        columnNames.add("Propriete");
+        columnNames.add("Proppriete");
         columnNames.add("Valeur");
         columnNames.add("Date");
 
@@ -209,7 +209,7 @@ public class TableModelBuilder {
     }
     
     
-    public static DefaultTableModel buildConsultationAllergiesTableModel(Vector<Allergy> allergies) {
+     public static DefaultTableModel buildConsultationAllergiesTableModel(Vector<Allergy> allergies) {
         
         // names of columns
         Vector<String> columnNames = new Vector<String>();
@@ -417,6 +417,7 @@ public class TableModelBuilder {
 
         return new DefaultTableModel(data, columnNames);
     }
+    
     public static DefaultTableModel buildDBAllergiesTableModel(Vector<Allergy> allergys) {
         
         // names of columns
@@ -441,4 +442,28 @@ public class TableModelBuilder {
         return new DefaultTableModel(data, columnNames);
     }
     
+    public static DefaultTableModel buildPaymentHistoryTableModel(Vector<Payment> pay) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Num");
+        columnNames.add("Patient");
+        columnNames.add("Montant");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Payment p : pay) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(p.getId());
+            line.add(p.getPatient().getLastName() + " " + p.getPatient().getName());
+            line.add(p.getAmount());
+            
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
 }
