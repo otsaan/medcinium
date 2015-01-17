@@ -7,6 +7,7 @@ package views;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
@@ -39,7 +40,7 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
         infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
         drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
         allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-         ListSelectionModel selectionModelDrugs = drugs.getSelectionModel();
+        ListSelectionModel selectionModelDrugs = drugs.getSelectionModel();
         ListSelectionModel selectionModelInfos = infos.getSelectionModel();
         ListSelectionModel selectionModelAllergies = allergies.getSelectionModel();
         selectionModelDrugs.addListSelectionListener(this);
@@ -194,24 +195,45 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
             drug.setDrugName(text.getText());
             if(DAOFactory.getDrugDAO().create(drug)) {
                 text.setText("");
-                drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
-
+                try {
+                    drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
+                }catch(Exception e){
+                   drugs.repaint();
+                }
             }
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
         }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
             allergy.setAllergyName(text.getText());
             if(DAOFactory.getAllergyDAO().create(allergy))
             {
                 text.setText("");
-                allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-
+                try {
+                    allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+                }catch(Exception e){
+                   allergies.repaint();
+                }
             }
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
         }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
             info.setProperty(text.getText());
             if(DAOFactory.getPatientInfoDAO().create(info)) {
                 text.setText("");
-                infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
-
+                try {
+                    infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
+                }catch(Exception e){
+                   infos.repaint();
+                }
             }
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
         }
         }else {
             JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);        
@@ -225,38 +247,57 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
         if(!text.getText().equalsIgnoreCase("")) {
         if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
         {
-            
-            
-            if(DAOFactory.getDrugDAO().delete(drug)) {
-                text.setText("");
-                try{
-                drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
-                }catch(Exception e){
-                   allergies.repaint();
+            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            if(val == 0) {
+                if(DAOFactory.getDrugDAO().delete(drug)) {
+                    text.setText("");
+                    try{
+                        drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
+                    }catch(Exception e){
+                        drugs.repaint();
+                    }
                 }
+                    SwingUtilities.updateComponentTreeUI(this);
+                    this.invalidate();
+                    this.validate();
+                    this.repaint();
             }
+            
         }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
-            if(DAOFactory.getAllergyDAO().delete(allergy))
-            {
-                text.setText("");
-                 
-                try {
-                     allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            if(val == 0) {
+                if(DAOFactory.getAllergyDAO().delete(allergy))
+                {
+                    text.setText("");
 
-                }catch(Exception e){
-                   allergies.repaint();
+                    try {
+                        allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+
+                    }catch(Exception e){
+                       allergies.repaint();
+                    }
+
                 }
-                
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
             }
         }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
-            
-            if(DAOFactory.getPatientInfoDAO().delete(info)) {
-                text.setText("");
-                try {
-                infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
-                }catch(Exception e){
-                   allergies.repaint();
+            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            if(val == 0) {
+                if(DAOFactory.getPatientInfoDAO().delete(info)) {
+                    text.setText("");
+                    try {
+                        infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
+                    }catch(Exception e){
+                       allergies.repaint();
+                    }
                 }
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
             }
         }
         }else {
@@ -266,10 +307,25 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
     }//GEN-LAST:event_deleteActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-       update.setEnabled(false);
+        update.setEnabled(false);
         delete.setEnabled(false);
         choice.setEditable(true);
         text.setText("");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.invalidate();
+        this.validate();
+        this.repaint();
+        try {
+            drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
+            allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+            infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
+        }catch(Exception e){
+           this.repaint();
+        }
+        SwingUtilities.updateComponentTreeUI(this);
+        this.invalidate();
+        this.validate();
+        this.repaint();
     }//GEN-LAST:event_formMouseClicked
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -280,24 +336,45 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
             drug.setDrugName(text.getText());
             if(DAOFactory.getDrugDAO().update(drug)) {
                 text.setText("");
-                drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
-
+                try {
+                    drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
+                }catch(Exception e){
+                   drugs.repaint();
+                }
             }
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
         }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
             allergy.setAllergyName(text.getText());
             if(DAOFactory.getAllergyDAO().update(allergy))
             {
                 text.setText("");
-                allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-
+                try {
+                    allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+                }catch(Exception e){
+                   allergies.repaint();
+                }
             }
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
         }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
             info.setProperty(text.getText());
             if(DAOFactory.getPatientInfoDAO().update(info)) {
                 text.setText("");
-                infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
-
+                try {
+                    infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
+                }catch(Exception e){
+                   allergies.repaint();
+                }
             }
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
         }
         }else {
             JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);        
