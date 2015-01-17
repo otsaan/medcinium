@@ -574,8 +574,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private void searchButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton1ActionPerformed
         
         patientsTable.repaint();
-        ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField1.getText());
-        refreshTable(rs);
+        refreshTable(DAOFactory.getPatientDAO().like(searchTextField1.getText()));
         patientsListPanel.setVisible(true);
         newPatientPanel.setVisible(false);
         newConsultationPanel.setVisible(true);
@@ -605,9 +604,9 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     }//GEN-LAST:event_validerButtonActionPerformed
 
     
-    public void refreshTable(ResultSet rs) {
+    public void refreshTable(Vector<Patient> patients) {
         try {
-            patientsTable.setModel(buildTableModel(rs));
+            patientsTable.setModel(TableModelBuilder.buildPatientTableModel(patients));
         } catch (Exception ex) {
             patientsTable.repaint();
         }
