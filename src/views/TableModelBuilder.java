@@ -235,4 +235,44 @@ public class TableModelBuilder {
         return new DefaultTableModel(data, columnNames);
     }
     
+    
+    public static DefaultTableModel buildRemindersConsultationsTableModel(Vector<Reminder> reminders, Vector<Consultation> consultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Titre");
+        columnNames.add("Heure");
+        columnNames.add("Patient");
+        columnNames.add("Type");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Reminder r : reminders) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(r.getDescription());
+            line.add(r.getDate().toString());
+            line.add(r.getPatient().getName() + " " + r.getPatient().getLastName());
+            line.add("Rappel");
+
+            data.add(line);
+        }
+        
+        for (Consultation c : consultations) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(c.getDescription());
+            line.add(c.getConsultationDate().toString());
+            line.add(c.getPatient().getName() + " " + c.getPatient().getLastName());
+            line.add("Réservation");
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
 }
