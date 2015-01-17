@@ -5,19 +5,37 @@
  */
 package views;
 
+import java.util.Vector;
+import models.Consultation;
+import models.dao.DAOFactory;
+
 /**
  *
  * @author saadel
  */
-public class DisplayConsultationPanel extends javax.swing.JPanel {
+public class ConsultationFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form DisplayConsultationPanel
+     * Creates new form ConsultationFrame
      */
-    public DisplayConsultationPanel() {
+    public ConsultationFrame() {
         initComponents();
+        
     }
 
+    public ConsultationFrame(Consultation consultation) {
+        initComponents();
+        infosTable.setModel(TableModelBuilder.buildConsultationInfosTableModel(consultation.getPatientInfoList()));
+        allergiesTable.setModel(TableModelBuilder.buildConsultationAllergiesTableModel(consultation.getAllergyList()));
+        drugsTable.setModel(TableModelBuilder.buildConsultationDrugsTableModel(DAOFactory.getDrugDAO().all(consultation.getConsultationId())));
+        
+        typeLabel.setText(consultation.getType());
+        dateLabel.setText(String.valueOf(consultation.getConsultationDate()));
+        patientLabel.setText(consultation.getPatient().getLastName() + " " + consultation.getPatient().getName());
+        diagLabel.setText(consultation.getDiagnostics());
+        descLabel.setText(consultation.getDescription());
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,30 +46,32 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
+        patientLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        descLabel = new javax.swing.JLabel();
+        diagLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        infosTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        allergiesListe = new javax.swing.JTable();
+        allergiesTable = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        diagnosticsListe = new javax.swing.JTable();
+        drugsTable = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
-        jLabel1.setText("Type");
+        typeLabel.setText("Type");
 
-        jLabel2.setText("Date");
+        dateLabel.setText("Date");
 
-        jLabel3.setText("Patient");
+        patientLabel.setText("Patient");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,11 +79,11 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jLabel1)
+                .addComponent(typeLabel)
                 .addGap(91, 91, 91)
-                .addComponent(jLabel2)
+                .addComponent(dateLabel)
                 .addGap(67, 67, 67)
-                .addComponent(jLabel3)
+                .addComponent(patientLabel)
                 .addContainerGap(312, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -71,9 +91,9 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(typeLabel)
+                    .addComponent(dateLabel)
+                    .addComponent(patientLabel))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -81,13 +101,13 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Diagnostics:");
 
-        jLabel6.setText("bla bla bla bla");
+        descLabel.setText("bla bla bla bla");
 
-        jLabel7.setText("hhhhhhhhhhhh");
+        diagLabel.setText("hhhhhhhhhhhh");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Infos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        infosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -98,7 +118,7 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
                 "Valeur", "Propriete"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(infosTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -114,10 +134,10 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        allergiesListe.setModel(new javax.swing.table.DefaultTableModel(
+        allergiesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null}
             },
@@ -125,11 +145,11 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
                 "Allergies"
             }
         ));
-        jScrollPane4.setViewportView(allergiesListe);
+        jScrollPane4.setViewportView(allergiesTable);
 
         jLabel9.setText("Allergies");
 
-        diagnosticsListe.setModel(new javax.swing.table.DefaultTableModel(
+        drugsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null}
             },
@@ -137,16 +157,16 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
                 "Medicaments", "Utilisation"
             }
         ));
-        jScrollPane2.setViewportView(diagnosticsListe);
+        jScrollPane2.setViewportView(drugsTable);
 
         jLabel8.setText("Medicaments");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,35 +177,34 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel5))
                                 .addGap(105, 105, 105)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                    .addComponent(descLabel)
+                                    .addComponent(diagLabel))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(43, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6)
+                            .addComponent(descLabel)
                             .addComponent(jLabel8))
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7))
+                            .addComponent(diagLabel))
                         .addGap(28, 28, 28)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -197,19 +216,54 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ConsultationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ConsultationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ConsultationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ConsultationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ConsultationFrame().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable allergiesListe;
-    private javax.swing.JTable diagnosticsListe;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTable allergiesTable;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel descLabel;
+    private javax.swing.JLabel diagLabel;
+    private javax.swing.JTable drugsTable;
+    private javax.swing.JTable infosTable;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -217,6 +271,7 @@ public class DisplayConsultationPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel patientLabel;
+    private javax.swing.JLabel typeLabel;
     // End of variables declaration//GEN-END:variables
 }

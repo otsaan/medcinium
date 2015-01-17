@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import models.Allergy;
 import models.Consultation;
+import models.Drug;
 import models.PatientInfo;
 import models.Reminder;
 
@@ -138,7 +139,7 @@ public class TableModelBuilder {
         // names of columns
         Vector<String> columnNames = new Vector<String>();
         
-        columnNames.add("Proppriete");
+        columnNames.add("Propriete");
         columnNames.add("Valeur");
         columnNames.add("Date");
 
@@ -199,6 +200,70 @@ public class TableModelBuilder {
               line.add(c.getConsultationDate()); 
               data.add(line);
             }
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
+    
+    public static DefaultTableModel buildConsultationAllergiesTableModel(Vector<Allergy> allergies) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Allergie");
+//        columnNames.add("Date");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Allergy al : allergies) {
+              Vector<Object> line = new Vector<Object>();
+              line.add(al.getAllergyName());
+              data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
+    
+    public static DefaultTableModel buildConsultationInfosTableModel(Vector<PatientInfo> infos) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Propriete");
+        columnNames.add("Valeur");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (PatientInfo info : infos) {
+            Vector<Object> line = new Vector<Object>();
+            line.add(info.getProperty());
+            line.add(info.getValue());
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
+    public static DefaultTableModel buildConsultationDrugsTableModel(Vector<Drug> drugs) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Médicament");
+        columnNames.add("Utilisation");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Drug dr : drugs) {
+            Vector<Object> line = new Vector<Object>();
+            line.add(dr.getDrugName());
+            line.add(dr.getDrugDescription());
+            data.add(line);
         }
 
         return new DefaultTableModel(data, columnNames);

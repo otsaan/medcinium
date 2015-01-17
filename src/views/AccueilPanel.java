@@ -38,7 +38,9 @@ public class AccueilPanel extends javax.swing.JPanel {
         refreshModels();
     }
     
-    public void refreshModels () {
+    public void refreshModels () {        
+
+//        System.out.println("Refresh Model");        
         pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(pendingConsultation));
         finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(finishedConsultation));
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getToday())), DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(jXMonthView1.getToday()))));

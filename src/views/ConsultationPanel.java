@@ -125,6 +125,11 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         jLabel8.setText("Prix");
 
         displayButton.setText("Afficher");
+        displayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayButtonActionPerformed(evt);
+            }
+        });
 
         updateButton.setText("Modifier");
 
@@ -273,21 +278,53 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
          } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
-        if(num != null) {
+        
+        try {
             int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+
             if(val == 0) {
                 Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
                 DAOFactory.getConsultationDAO().delete(currentConsultation);
-                
+
                 SwingUtilities.updateComponentTreeUI(this);
                 this.invalidate();
                 this.validate();
                 this.repaint();
-                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));             
-                
+
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
             }
+        } catch(Exception e) {
+            consultationsTable.repaint();
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
+        String num = null;
+        try {
+            TableModel model = (TableModel)consultationsTable.getModel();
+            num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        
+        if(num != null) {
+            try { 
+                
+                Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                new ConsultationFrame(currentConsultation).setVisible(true);
+//                this.removeAll();
+//                this.repaint();
+//                this.revalidate();
+//            
+//                this.add(new DisplayConsultationPanel());
+//                this.repaint();
+//                this.revalidate();
+        
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'affichage" + e);
+            }
+        }
+    }//GEN-LAST:event_displayButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
