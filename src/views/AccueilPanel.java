@@ -10,24 +10,34 @@ import java.awt.Color;
 import static java.lang.String.format;
 import static java.lang.String.format;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import models.Consultation;
+import models.Patient;
+import models.dao.DAO;
 import models.dao.DAOFactory;
+import static views.Utils.buildTableModel;
 
 /**
  *
  * @author zianwar
  */
-public class AccueilPanel extends javax.swing.JPanel {
+public class AccueilPanel extends javax.swing.JPanel implements ListSelectionListener {
     
     private Vector<Consultation> pendingConsultation;
     private Vector<Consultation> finishedConsultation;
+    
+    Patient patientFoundBySearch = new Patient();
+    
     /**
      * Creates new form AccueilPanel
      */
@@ -36,8 +46,12 @@ public class AccueilPanel extends javax.swing.JPanel {
         this.finishedConsultation = finishedConsultation;
         
         initComponents();
-        
         refreshModels();
+        searchPatientPanel.setVisible(false);
+        
+         // create a ListSelectionListener to listen for rows clicked in the table
+        ListSelectionModel selectionModel = patientsTable.getSelectionModel();
+        selectionModel.addListSelectionListener(this);
     }
     
     public void refreshModels () {        
@@ -46,6 +60,7 @@ public class AccueilPanel extends javax.swing.JPanel {
         pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(pendingConsultation));
         finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(finishedConsultation));
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getToday())), DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(jXMonthView1.getToday()))));
+        
     }
 
     /**
@@ -57,6 +72,7 @@ public class AccueilPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pendingConsultationsTable = new javax.swing.JTable();
@@ -70,6 +86,45 @@ public class AccueilPanel extends javax.swing.JPanel {
         consultationsButton = new javax.swing.JButton();
         jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
         beginConsultationButton = new javax.swing.JButton();
+        reserverButton = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        newReservationPanel = new javax.swing.JPanel();
+        searchPatientPanel = new javax.swing.JPanel();
+        MenuPanel = new javax.swing.JPanel();
+        searchTextField1 = new javax.swing.JTextField();
+        searchButton1 = new javax.swing.JButton();
+        addPatientButton1 = new javax.swing.JButton();
+        patientsListPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        patientsTable = new javax.swing.JTable();
+        newPatientPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lastNameText = new javax.swing.JTextField();
+        FirstNameText = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        monthChoice = new javax.swing.JComboBox();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        addressText = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        CityText = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cinText = new javax.swing.JTextField();
+        sexChoice = new javax.swing.JComboBox();
+        PhoneText = new javax.swing.JTextField();
+        DayChoice = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        YearText = new javax.swing.JTextField();
+        newConsultationPanel = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        typeChoice = new javax.swing.JComboBox();
+        visitDate = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        validerButton = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File d'attente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
@@ -207,40 +262,246 @@ public class AccueilPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(108, 108, 108)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(162, 162, 162))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(beginConsultationButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        reserverButton.setText("Reserver");
+        reserverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reserverButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(beginConsultationButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(reserverButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(beginConsultationButton))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(108, 108, 108)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 497, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(beginConsultationButton)
+                        .addComponent(reserverButton))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        newReservationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchPatientPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        MenuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        MenuPanel.add(searchTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, -1));
+
+        searchButton1.setText("Rechercher");
+        searchButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButton1ActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(searchButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
+
+        addPatientButton1.setText("Ajouter Nouveau");
+        addPatientButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPatientButton1ActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(addPatientButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
+
+        searchPatientPanel.add(MenuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 50));
+
+        patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+
+        patientsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "N˚ Patient", "Nom", "Prénom"
+            }
+        ));
+        jScrollPane5.setViewportView(patientsTable);
+
+        javax.swing.GroupLayout patientsListPanelLayout = new javax.swing.GroupLayout(patientsListPanel);
+        patientsListPanel.setLayout(patientsListPanelLayout);
+        patientsListPanelLayout.setHorizontalGroup(
+            patientsListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, patientsListPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        patientsListPanelLayout.setVerticalGroup(
+            patientsListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(patientsListPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        searchPatientPanel.add(patientsListPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 680, 210));
+
+        newPatientPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Nom");
+        newPatientPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 249, -1));
+        newPatientPanel.add(lastNameText, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 150, -1));
+        newPatientPanel.add(FirstNameText, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 150, -1));
+
+        jLabel8.setText("CIN");
+        newPatientPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 60, -1));
+
+        jLabel3.setText("Date Naissance");
+        newPatientPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 100, -1));
+
+        monthChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        newPatientPanel.add(monthChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 54, -1));
+
+        addressText.setColumns(20);
+        addressText.setRows(3);
+        jScrollPane4.setViewportView(addressText);
+
+        newPatientPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, 70));
+
+        jLabel2.setText("Prenom");
+        newPatientPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 252, -1));
+
+        jLabel4.setText("Téléphone");
+        newPatientPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 70, -1));
+
+        jLabel5.setText("Adresse");
+        newPatientPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 483, -1));
+        newPatientPanel.add(CityText, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 120, -1));
+
+        jLabel6.setText("Ville");
+        newPatientPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 483, -1));
+        newPatientPanel.add(cinText, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 150, -1));
+
+        sexChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        newPatientPanel.add(sexChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+        newPatientPanel.add(PhoneText, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 150, -1));
+
+        DayChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        newPatientPanel.add(DayChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 133, -1));
+
+        jLabel7.setText("Sexe");
+        newPatientPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 60, -1));
+        newPatientPanel.add(YearText, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 45, -1));
+
+        searchPatientPanel.add(newPatientPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 690, 220));
+
+        newConsultationPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel9.setText("Type");
+
+        typeChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visite Normale", "Contôle" }));
+
+        visitDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_MONTH));
+
+        jLabel10.setText("Date");
+
+        validerButton.setText("Valider");
+        validerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validerButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout newConsultationPanelLayout = new javax.swing.GroupLayout(newConsultationPanel);
+        newConsultationPanel.setLayout(newConsultationPanelLayout);
+        newConsultationPanelLayout.setHorizontalGroup(
+            newConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newConsultationPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(newConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(39, 39, 39)
+                .addGroup(newConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newConsultationPanelLayout.createSequentialGroup()
+                        .addComponent(typeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(newConsultationPanelLayout.createSequentialGroup()
+                        .addComponent(visitDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
+                        .addComponent(validerButton)
+                        .addGap(15, 15, 15))))
+        );
+        newConsultationPanelLayout.setVerticalGroup(
+            newConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newConsultationPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(newConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(17, 17, 17)
+                .addGroup(newConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(visitDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newConsultationPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(validerButton)
+                .addContainerGap())
+        );
+
+        searchPatientPanel.add(newConsultationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 670, 110));
+
+        newReservationPanel.add(searchPatientPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 780, 430));
+
+        add(newReservationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jXMonthView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXMonthView1ActionPerformed
@@ -296,20 +557,127 @@ public class AccueilPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_beginConsultationButtonActionPerformed
 
+    private void addPatientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButton1ActionPerformed
+        patientsListPanel.setVisible(false);
+        newPatientPanel.setVisible(true);
+        newConsultationPanel.setVisible(true);
+    }//GEN-LAST:event_addPatientButton1ActionPerformed
+
+    private void reserverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserverButtonActionPerformed
+        mainPanel.setVisible(false);
+        searchPatientPanel.setVisible(true);
+        patientsListPanel.setVisible(false);
+        newPatientPanel.setVisible(false);
+        newConsultationPanel.setVisible(false);
+    }//GEN-LAST:event_reserverButtonActionPerformed
+
+    private void searchButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton1ActionPerformed
+        
+        patientsTable.repaint();
+        ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField1.getText());
+        refreshTable(rs);
+        patientsListPanel.setVisible(true);
+        newPatientPanel.setVisible(false);
+        newConsultationPanel.setVisible(true);
+    }//GEN-LAST:event_searchButton1ActionPerformed
+
+    private void validerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerButtonActionPerformed
+        
+        Consultation consultation = new Consultation();
+        
+        consultation.setPatient(patientFoundBySearch);
+        consultation.setType(typeChoice.getSelectedItem().toString());
+        consultation.setStatus("pending");
+        consultation.setDiagnostics("");
+        java.util.Date date = (java.util.Date)(visitDate.getValue());
+        consultation.setConsultationDate(new Date(date.getTime()));
+       
+        if((date).compareTo(new java.util.Date()) < 0) {
+            JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if( DAOFactory.getConsultationDAO().create(consultation)) {
+                JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }//GEN-LAST:event_validerButtonActionPerformed
+
+    
+    public void refreshTable(ResultSet rs) {
+        try {
+            patientsTable.setModel(buildTableModel(rs));
+        } catch (Exception ex) {
+            patientsTable.repaint();
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CityText;
+    private javax.swing.JComboBox DayChoice;
+    private javax.swing.JTextField FirstNameText;
+    private javax.swing.JPanel MenuPanel;
+    private javax.swing.JTextField PhoneText;
+    private javax.swing.JTextField YearText;
+    private javax.swing.JButton addPatientButton1;
+    private javax.swing.JTextArea addressText;
     private javax.swing.JButton beginConsultationButton;
+    private javax.swing.JTextField cinText;
     private javax.swing.JButton consultationsButton;
     private javax.swing.JTable finishedConsultationsTable;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private org.jdesktop.swingx.JXMonthView jXMonthView1;
+    private javax.swing.JTextField lastNameText;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JComboBox monthChoice;
+    private javax.swing.JPanel newConsultationPanel;
+    private javax.swing.JPanel newPatientPanel;
+    private javax.swing.JPanel newReservationPanel;
+    private javax.swing.JPanel patientsListPanel;
+    private javax.swing.JTable patientsTable;
     private javax.swing.JTable pendingConsultationsTable;
     private javax.swing.JButton rappelsButtons;
     private javax.swing.JTable remindersTable;
+    private javax.swing.JButton reserverButton;
+    private javax.swing.JButton searchButton1;
+    private javax.swing.JPanel searchPatientPanel;
+    private javax.swing.JTextField searchTextField1;
+    private javax.swing.JComboBox sexChoice;
+    private javax.swing.JComboBox typeChoice;
+    private javax.swing.JButton validerButton;
+    private javax.swing.JSpinner visitDate;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (e.getSource() == patientsTable.getSelectionModel() && e.getValueIsAdjusting()) {
+           TableModel model = (TableModel)patientsTable.getModel();
+           String id = model.getValueAt(patientsTable.getSelectedRow(), 0).toString();
+           
+           
+           patientFoundBySearch = DAOFactory.getPatientDAO().find(id);
+            System.out.println(patientFoundBySearch);
+           
+        }
+    }
 }
