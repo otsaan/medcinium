@@ -41,7 +41,7 @@ public class UserController implements Observer{
                     if (DAOFactory.getUserDAO().findUser(user) > 0) {
                         ((LoginFrame)view).dispose();
                         Model model = new Model();
-                        View mainView = new View(model);
+                        View mainView = new View(model, user);
                     } else {
                         JOptionPane.showMessageDialog((LoginFrame)view, "Nom d'utilisateur ou mot de passe incorrect.");
                     }
