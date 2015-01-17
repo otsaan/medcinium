@@ -28,6 +28,8 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
         initComponents();
         creditsTable.setModel(TableModelBuilder.buildPaymentTableModel(DAOFactory.getPatientDAO().all()));
         
+//        paymentHistoryTable.setModel(TableModelBuilder.buildPaymentHistoryTableModel(DAOFactory.getPaymentDAO().all()));
+                
         ListSelectionModel selectionModel = creditsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
     }
@@ -47,16 +49,19 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
         montantTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         patientLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        paymentHistoryTable = new javax.swing.JTable();
 
         creditsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nom", "Prénom", "Crédit"
+                "Num", "Nom", "Prénom", "Crédit"
             }
         ));
         jScrollPane1.setViewportView(creditsTable);
@@ -73,42 +78,81 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
         patientLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         patientLabel.setText("Patient n˚");
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historique des paiements", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+
+        paymentHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Num", "Patient", "Montant"
+            }
+        ));
+        jScrollPane2.setViewportView(paymentHistoryTable);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(patientLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(validateButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel1)
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(montantTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(validateButton)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(patientLabel)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(montantTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(53, 53, 53)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(patientLabel)
-                        .addGap(48, 48, 48)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(montantTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(validateButton)
-                        .addGap(40, 40, 40))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,23 +168,29 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
         if(num != null) {
             try {
                 Patient currentPatient = DAOFactory.getPatientDAO().find(num);
-                double dhs = Double.parseDouble(montantTextField.getText());
                 double credit = currentPatient.getCredit();
-                if( credit - dhs >= 0) {
+                double dhs = 0;
+                
+                if(montantTextField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Veuillez entrer le montant", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else if( Double.parseDouble(montantTextField.getText()) > 0 && credit - dhs >= 0 ) {
+                    dhs = Double.parseDouble(montantTextField.getText());
                     currentPatient.setCredit(credit - dhs);
                     DAOFactory.getPatientDAO().update(currentPatient);
                     Payment pay = new Payment();
                     pay.setAmount(dhs);
                     pay.setPatient(currentPatient);
                     DAOFactory.getPaymentDAO().create(pay);
-//                    JOptionPane.showMessageDialog(this, "Paiement effectué", "OK", JOptionPane.INFORMATION_MESSAGE);
+                    montantTextField.setText("");
                     try {
                         creditsTable.setModel(TableModelBuilder.buildPaymentTableModel(DAOFactory.getPatientDAO().all()));
                     } catch (Exception e) {
                         creditsTable.repaint();
                     }
-                    
-                } else {
+                    JOptionPane.showMessageDialog(this, "Paiement effectué de " + dhs + " DH", "OK", JOptionPane.INFORMATION_MESSAGE);
+                } 
+                
+                else {
                     JOptionPane.showMessageDialog(this, "Montant entré invalide !", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             
@@ -154,9 +204,12 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable creditsTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField montantTextField;
     private javax.swing.JLabel patientLabel;
+    private javax.swing.JTable paymentHistoryTable;
     private javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
 
