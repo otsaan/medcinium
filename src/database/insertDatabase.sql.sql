@@ -212,8 +212,8 @@ LOCK TABLES `utilisateurs` WRITE;
 
 INSERT INTO `utilisateurs` (`id_utilisateur`, `nom_utilisateur`, `prenom_utilisateur`, `username`, `password`, `role`)
 VALUES
-	(1,'admin','admin','admin','admin','admin'),
-	(2,'Wardi','Amal','amal','amal','secretaire'),
+	(1,'admin','admin','admin','admin','assistant'),
+	(2,'Wardi','Amal','amal','amal','assistant'),
 	(3,'Alaoui','Nizar','nizar','nizar','docteur');
 
 /*!40000 ALTER TABLE `utilisateurs` ENABLE KEYS */;
