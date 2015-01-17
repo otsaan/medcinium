@@ -332,7 +332,7 @@ public class TableModelBuilder {
             
             Vector<Object> line = new Vector<Object>();
 
-            line.add(c.getDescription());
+            line.add(c.getType());
             line.add(c.getConsultationDate().toString());
             line.add(c.getPatient().getName() + " " + c.getPatient().getLastName());
             line.add("Réservation");
