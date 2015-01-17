@@ -46,6 +46,31 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         return patientInfo;
     }
 
+    public PatientInfo findAlone(String id) {
+        
+        PatientInfo patientInfo = new PatientInfo();
+        
+       
+        
+        String findQuery = "select * from infos  " 
+                         + "WHERE id_info = " + id + ";";
+
+        ResultSet rs = database.Database.getInstance().query(findQuery);
+            
+        try {
+            
+            rs.first();
+            patientInfo.setId(Integer.parseInt(id));
+            patientInfo.setProperty(rs.getString("propriete"));
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("Error : PatientInfo.find()" + ex);
+        }
+        
+        return patientInfo;
+    }
+
 
     @Override
     public boolean create(PatientInfo p) {
@@ -55,7 +80,7 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
                 
         p.setId(Database.getInstance().dmlQuery2(insertQuery));
         
-        return (Database.getInstance().dmlQuery(insertQuery) != 0);
+        return p.getId() !=0;
     }
 
     

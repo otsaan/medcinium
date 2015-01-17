@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import models.Allergy;
 import models.Consultation;
+import models.Drug;
 import models.PatientInfo;
 import models.Reminder;
 
@@ -235,4 +236,73 @@ public class TableModelBuilder {
         return new DefaultTableModel(data, columnNames);
     }
     
+    public static DefaultTableModel buildDBdrugsTableModel(Vector<Drug> drugs) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Num");
+        columnNames.add("Medicament");
+        
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Drug d : drugs) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(d.getDrugId());
+            line.add(d.getDrugName());
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    public static DefaultTableModel buildDBinfosTableModel(Vector<PatientInfo> patientInfos) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Num");
+        columnNames.add("Infos");
+        
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (PatientInfo pi : patientInfos) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(pi.getId());
+            line.add(pi.getProperty());
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    public static DefaultTableModel buildDBAllergiesTableModel(Vector<Allergy> allergys) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Num");
+        columnNames.add("Allergie");
+        
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Allergy a : allergys) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(a.getAllergyId());
+            line.add(a.getAllergyName());
+
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
 }
