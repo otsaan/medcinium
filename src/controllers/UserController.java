@@ -39,6 +39,7 @@ public class UserController implements Observer{
                     JOptionPane.showMessageDialog((LoginFrame)view, "Veuillez entrer le mot de passe.");
                 } else {
                     if (DAOFactory.getUserDAO().findUser(user) > 0) {
+                        User.setConnectedUser(user);
                         ((LoginFrame)view).dispose();
                         Model model = new Model();
                         View mainView = new View(model, user);

@@ -17,8 +17,9 @@ public class User {
     private String password;
     private String username;
     private String role;
+    private static User  connectedUser;
 
-    
+ 
     public int getUserId() {
         return userId;
     }
@@ -65,6 +66,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public static void setConnectedUser(User connectedUser) {
+        User.connectedUser = connectedUser;
+    }
+
+    public static User getConnectedUser() {
+        return connectedUser;
     }
 
     @Override

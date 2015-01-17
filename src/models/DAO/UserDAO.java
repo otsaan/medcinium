@@ -58,6 +58,13 @@ public class UserDAO implements DAO<User>{
         try {
             
             rs.first();
+            user.setUserId(rs.getInt("id_utilisateur"));
+            user.setLastName(rs.getString("nom_utilisateur"));
+            user.setName(rs.getString("prenom_utilisateur"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setRole(rs.getString("role"));
+           
             id = rs.getInt("id_utilisateur");
         } catch (SQLException ex) {
             System.out.println("Error : UserDAO.find()" + ex);
