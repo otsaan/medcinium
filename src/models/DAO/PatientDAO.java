@@ -81,23 +81,40 @@ public class PatientDAO implements DAO<Patient>{
         
         return patients;
     }
-
     
-    public ResultSet allToResultSet() {
+    public Vector<Patient> like(String like) {
         
-        String findAllQuery = "SELECT * FROM patients;";
-        ResultSet rs = Database.getInstance().query(findAllQuery);
-        
-        return rs;
-    }
-    
-    public ResultSet likeToResultSet(String like) {
+        Vector<Patient> patients = new Vector<Patient>();
         
         String findLikeQuery = "SELECT * FROM patients " +
             "WHERE nom_patient LIKE '%" + like + "%' OR prenom_patient LIKE '%" + like + "%';";
         ResultSet rs = Database.getInstance().query(findLikeQuery);
         
-        return rs;
+        try {
+            
+            while(rs.next()) {
+                
+                Patient p = new Patient();
+                
+                p.setPatientId(rs.getInt("id_patient"));
+                p.setLastName(rs.getString("nom_patient"));
+                p.setName(rs.getString("prenom_patient"));
+                p.setBirthDate(rs.getDate("date_naissance"));
+                p.setAddress(rs.getString("adresse"));
+                p.setCity(rs.getString("ville"));
+                p.setSexe(rs.getString("sexe"));
+                p.setCin(rs.getString("cin"));
+                p.setTelephone(rs.getString("telephone"));
+                p.setCredit(rs.getDouble("credit"));
+                
+                patients.add(p);
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Problem in all - PatientDAO");
+        }
+        
+        return patients;
     }
     
     @Override
