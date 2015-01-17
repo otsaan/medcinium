@@ -5,6 +5,9 @@
  */
 package views;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import models.Allergy;
@@ -43,7 +46,7 @@ public class TableModelBuilder {
             line.add(c.getConsultationDate());
             line.add(c.getPatient().getLastName() + " " + c.getPatient().getName());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -74,7 +77,7 @@ public class TableModelBuilder {
             line.add(c.getPatient().getLastName());
             line.add(c.getType());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -105,7 +108,7 @@ public class TableModelBuilder {
             line.add(c.getConsultationDate());
             line.add(c.getPatient().getName() + " " + c.getPatient().getLastName());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -130,7 +133,7 @@ public class TableModelBuilder {
             line.add(c.getConsultationDate());
             line.add(c.getType());
             
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -155,7 +158,7 @@ public class TableModelBuilder {
               line.add(info.getProperty());
               line.add(info.getValue()); 
               line.add(info.getDateAdded()); 
-              data.add(line);
+              data.add(0,line);
             }
         }
 
@@ -178,7 +181,7 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
             
             line.add(c.getDiagnostics());
-            data.add(line);
+            data.add(0,line);
         }
             
         return new DefaultTableModel(data, columnNames);
@@ -201,7 +204,7 @@ public class TableModelBuilder {
               Vector<Object> line = new Vector<Object>();
               line.add(allergy.getAllergyName());
               line.add(c.getConsultationDate()); 
-              data.add(line);
+              data.add(0,line);
             }
         }
 
@@ -223,7 +226,7 @@ public class TableModelBuilder {
         for (Allergy al : allergies) {
               Vector<Object> line = new Vector<Object>();
               line.add(al.getAllergyName());
-              data.add(line);
+              data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -245,7 +248,7 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
             line.add(info.getProperty());
             line.add(info.getValue());
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -266,7 +269,7 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
             line.add(dr.getDrugName());
             line.add(dr.getDrugDescription());
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -297,7 +300,7 @@ public class TableModelBuilder {
             line.add(r.getDate().toString());
             line.add(r.getPatient().getName() + " " + r.getPatient().getLastName());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -325,7 +328,7 @@ public class TableModelBuilder {
             line.add(r.getPatient().getName() + " " + r.getPatient().getLastName());
             line.add("Rappel");
 
-            data.add(line);
+            data.add(0,line);
         }
         
         for (Consultation c : consultations) {
@@ -337,7 +340,7 @@ public class TableModelBuilder {
             line.add(c.getPatient().getName() + " " + c.getPatient().getLastName());
             line.add("Réservation");
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -365,7 +368,7 @@ public class TableModelBuilder {
                 line.add(p.getName());
                 line.add(p.getCredit());
 
-                data.add(line);
+                data.add(0,line);
             }
         }
 
@@ -390,7 +393,7 @@ public class TableModelBuilder {
             line.add(d.getDrugId());
             line.add(d.getDrugName());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -413,7 +416,7 @@ public class TableModelBuilder {
             line.add(pi.getId());
             line.add(pi.getProperty());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -437,7 +440,7 @@ public class TableModelBuilder {
             line.add(a.getAllergyId());
             line.add(a.getAllergyName());
 
-            data.add(line);
+            data.add(0,line);
         }
 
         return new DefaultTableModel(data, columnNames);
@@ -466,5 +469,32 @@ public class TableModelBuilder {
         }
 
         return new DefaultTableModel(data, columnNames);
+    }
+    
+    
+    public static DefaultTableModel buildPatientTableModel(Vector<Patient> patients) {
+
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("N˚ Patient");
+        columnNames.add("Nom");
+        columnNames.add("Prénom");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        
+        for (Patient p : patients) {
+            
+            Vector<Object> line = new Vector<Object>();
+            
+            line.add(p.getPatientId());
+            line.add(p.getLastName());
+            line.add(p.getName());
+            
+            data.add(0,line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+
     }
 }

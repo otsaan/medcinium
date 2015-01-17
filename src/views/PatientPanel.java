@@ -37,9 +37,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
      */
     public PatientPanel() {
         initComponents();
-                
-        ResultSet rs = DAOFactory.getPatientDAO().allToResultSet();
-        refreshTable(rs);
+        
+        refreshTable(DAOFactory.getPatientDAO().all());
         
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
@@ -50,9 +49,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                patientsTable.repaint();
-                ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField.getText());
-                refreshTable(rs);
+                patientsTable.repaint();;
+                refreshTable(DAOFactory.getPatientDAO().like(searchTextField.getText()));
             }
             
         });
@@ -62,45 +60,20 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER ) {
                     patientsTable.repaint();
-                    ResultSet rs = DAOFactory.getPatientDAO().likeToResultSet(searchTextField.getText());
-                    refreshTable(rs);
+                    refreshTable(DAOFactory.getPatientDAO().like(searchTextField.getText()));
                 }
             } 
         });
     }
 
-    public void refreshTable(ResultSet rs) {
+    public void refreshTable(Vector<Patient> patients) {
         try {
-            patientsTable.setModel(buildTableModel(rs));
+            patientsTable.setModel(TableModelBuilder.buildPatientTableModel(patients));
         } catch (Exception ex) {
             patientsTable.repaint();
         }
     }
     
-    public  DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-
-        ResultSetMetaData metaData = rs.getMetaData();
-
-        // names of columns
-        Vector<String> columnNames = new Vector<String>();
-        int columnCount = metaData.getColumnCount();
-        columnNames.add("N˚ Patient");
-        columnNames.add("Nom");
-        columnNames.add("Prénom");
-
-        // data of the table
-        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-        while (rs.next()) {
-            Vector<Object> vector = new Vector<Object>();
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                vector.add(rs.getObject(columnIndex));
-            }
-            data.add(vector);
-        }
-
-        return new DefaultTableModel(data, columnNames);
-
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -384,10 +357,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 this.invalidate();
                 this.validate();
                 this.repaint();
-             
-                ResultSet rs = DAOFactory.getPatientDAO().allToResultSet();
 
-                refreshTable(rs);
+                refreshTable(DAOFactory.getPatientDAO().all());
             }
         }
     }//GEN-LAST:event_deletePatientButtonActionPerformed
