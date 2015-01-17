@@ -56,6 +56,7 @@ public class TableModelBuilder {
         
         // names of columns
         Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Num");
         columnNames.add("Nom");
         columnNames.add("Prenom");
         columnNames.add("Type");
@@ -66,7 +67,7 @@ public class TableModelBuilder {
         for (Consultation c : pendingConsultations) {
             
             Vector<Object> line = new Vector<Object>();
-
+            line.add(c.getConsultationId());
             line.add(c.getPatient().getName());
             line.add(c.getPatient().getLastName());
             line.add(c.getType());

@@ -103,12 +103,14 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="valueText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateInfo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="infoChoice" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="undoinfo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="addInfoButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="valueText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateInfo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="infoChoice" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="addInfoButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="jScrollPane2" min="-2" pref="142" max="-2" attributes="0"/>
@@ -118,10 +120,12 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="allergyChoice" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="addAllergy" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="undoAllergy" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="allergyChoice" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="addAllergy" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="allergies" max="32767" attributes="0"/>
@@ -223,10 +227,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="drugChoice" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="addDrug" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="undoDrug" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="drugChoice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="addDrug" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
