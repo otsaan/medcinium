@@ -115,6 +115,7 @@ public class DrugDAO implements DAO<Drug> {
                Drug drug= new Drug();
                drug.setDrugId(rs.getInt("id_medicament"));
                drug.setDrugName(rs.getString("nom_medicament"));
+               drug.setDrugDescription(rs.getString("desc_medicament"));
                medicaments.add(drug);
            }
            
