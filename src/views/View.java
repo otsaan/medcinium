@@ -1,6 +1,7 @@
 package views;
 
 import controllers.UserController;
+import core.App;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JButton;
@@ -51,6 +52,7 @@ public class View extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
+        logoutLabel = new javax.swing.JLabel();
         accueilLabel = new javax.swing.JLabel();
         patientsLabel = new javax.swing.JLabel();
         consultationsLabel = new javax.swing.JLabel();
@@ -60,8 +62,16 @@ public class View extends javax.swing.JFrame {
         welcomeNameLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         mainPanel.setBackground(new java.awt.Color(51, 0, 51));
+
+        logoutLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutLabelMouseClicked(evt);
+            }
+        });
 
         accueilLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         accueilLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,7 +128,9 @@ public class View extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(349, 349, 349)
                 .addComponent(welcomeNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -127,9 +139,15 @@ public class View extends javax.swing.JFrame {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(welcomeNameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(welcomeNameLabel)
+                        .addGap(18, 26, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(75, 75, 75)
@@ -211,11 +229,19 @@ public class View extends javax.swing.JFrame {
         rightPanel.revalidate();  
     }//GEN-LAST:event_statistiquesLabelMouseClicked
 
+    private void logoutLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutLabelMouseClicked
+        setVisible(false);
+        this.dispose();
+        database.Database.getInstance().disconnect();        
+        App.runApp();
+    }//GEN-LAST:event_logoutLabelMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accueilLabel;
     private javax.swing.JLabel background;
     private javax.swing.JLabel consultationsLabel;
+    private javax.swing.JLabel logoutLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel patientsLabel;
     private javax.swing.JPanel rightPanel;
