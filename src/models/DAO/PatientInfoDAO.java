@@ -85,8 +85,8 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
         
         Vector<PatientInfo> patientInfos = new Vector<PatientInfo>();
 
-        String findQuery = "SELECT id_info, propriete, valeur, date_info "
-                         + "FROM infos, contient;";
+        String findQuery = "SELECT id_info, propriete "
+                         + "FROM infos;";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
@@ -98,8 +98,6 @@ public class PatientInfoDAO implements DAO<PatientInfo>{
                 
                 p.setId(rs.getInt("id_info"));
                 p.setProperty(rs.getString("propriete"));
-                p.setValue(rs.getString("valeur"));
-                p.setDateAdded(rs.getDate("date_info"));
             
                 patientInfos.add(p);
             }

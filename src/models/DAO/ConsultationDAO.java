@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
+import models.Allergy;
 import models.Consultation;
 import models.Drug;
 import models.PatientInfo;
@@ -150,6 +151,14 @@ public class ConsultationDAO implements DAO<Consultation>{
         String insertQuery = "INSERT INTO contient VALUES("
                 + con.getConsultationId() + ", " + pInfo.getId() + ", '" + pInfo.getValue()
                 + "', '" + pInfo.getDateAdded() + "');";
+        
+        return (Database.getInstance().dmlQuery(insertQuery) != 0);
+    }
+    
+    public boolean renseigne(Consultation con, Allergy allergy) {
+        String insertQuery = "INSERT INTO renseigne VALUES("
+                +"'"+con.getConsultationId()+"'"
+                + ", '"+allergy.getAllergyId()+"');";
         
         return (Database.getInstance().dmlQuery(insertQuery) != 0);
     }
@@ -316,5 +325,5 @@ public class ConsultationDAO implements DAO<Consultation>{
         
         return consultations;
     }
-    
+   
 }

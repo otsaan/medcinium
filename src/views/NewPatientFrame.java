@@ -20,7 +20,7 @@ public class NewPatientFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewPatientFrame
      */
-    Patient oldPatient;
+    Patient oldPatient=null;
     public NewPatientFrame() {
         initComponents();
     }
@@ -211,8 +211,8 @@ public class NewPatientFrame extends javax.swing.JFrame {
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         Patient patient;
-        if(this.oldPatient!=null) {
-            patient  =this.oldPatient; 
+        if(this.oldPatient != null) {
+            patient = this.oldPatient; 
         }else {
            patient = new Patient();   
         }
@@ -224,7 +224,7 @@ public class NewPatientFrame extends javax.swing.JFrame {
         patient.setSexe(sexChoice.getSelectedItem().toString());
         patient.setTelephone(PhoneText.getText());
         patient.setBirthDate(new Date(Integer.parseInt(YearText.getText()),Integer.parseInt(monthChoice.getSelectedItem().toString()), Integer.parseInt(DayChoice.getSelectedItem().toString())));
-        if(this.oldPatient==null){
+        if(this.oldPatient != null ){
                     if(DAOFactory.getPatientDAO().update(patient)) {
                     this.dispose();
 
