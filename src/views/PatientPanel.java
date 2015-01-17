@@ -73,7 +73,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         try {
             patientsTable.setModel(buildTableModel(rs));
         } catch (Exception ex) {
-            System.out.println("Error in setting table model.");
+            patientsTable.repaint();
         }
     }
     

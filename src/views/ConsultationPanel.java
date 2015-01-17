@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import models.Consultation;
 import models.dao.DAOFactory;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
@@ -32,8 +33,22 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         ListSelectionModel selectionModel = consultationsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        consultationInfoPanel.setVisible(false);
     }
 
+    
+    public void loadConsultationInfoPanel(Consultation consultation) {
+        
+        infosTable.setModel(TableModelBuilder.buildConsultationInfosTableModel(consultation.getPatientInfoList()));
+        allergiesTable.setModel(TableModelBuilder.buildConsultationAllergiesTableModel(consultation.getAllergyList()));
+        drugsTable.setModel(TableModelBuilder.buildConsultationDrugsTableModel(DAOFactory.getDrugDAO().all(consultation.getConsultationId())));
+        
+        typeLabel.setText(consultation.getType());
+        dateLabel.setText(String.valueOf(consultation.getConsultationDate()));
+        patientLabel.setText(consultation.getPatient().getLastName() + " " + consultation.getPatient().getName());
+        diagLabel.setText(consultation.getDiagnostics());
+        descLabel.setText(consultation.getDescription());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +58,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        consultationPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -66,6 +82,25 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         displayAllButton = new javax.swing.JButton();
+        consultationInfoPanel = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        typeLabel1 = new javax.swing.JLabel();
+        dateLabel1 = new javax.swing.JLabel();
+        patientLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        descLabel = new javax.swing.JLabel();
+        diagLabel = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        infosTable = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        allergiesTable = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        drugsTable = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        revenirButton = new javax.swing.JButton();
 
         jLabel1.setText("Selectionner:");
 
@@ -97,7 +132,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -125,6 +160,11 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         jLabel8.setText("Prix");
 
         displayButton.setText("Afficher");
+        displayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayButtonActionPerformed(evt);
+            }
+        });
 
         updateButton.setText("Modifier");
 
@@ -213,43 +253,229 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             }
         });
 
+        javax.swing.GroupLayout consultationPanelLayout = new javax.swing.GroupLayout(consultationPanel);
+        consultationPanel.setLayout(consultationPanelLayout);
+        consultationPanelLayout.setHorizontalGroup(
+            consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(consultationPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(consultationPanelLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(consultationDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(consultationPanelLayout.createSequentialGroup()
+                            .addGap(87, 87, 87)
+                            .addComponent(displayAllButton)))
+                    .addGap(56, 56, 56)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(96, Short.MAX_VALUE)))
+        );
+        consultationPanelLayout.setVerticalGroup(
+            consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(consultationPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(consultationPanelLayout.createSequentialGroup()
+                            .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(displayAllButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+
+        typeLabel1.setText("Type");
+
+        dateLabel1.setText("Date");
+
+        patientLabel1.setText("Patient");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(typeLabel1)
+                .addGap(91, 91, 91)
+                .addComponent(dateLabel1)
+                .addGap(67, 67, 67)
+                .addComponent(patientLabel1)
+                .addContainerGap(312, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeLabel1)
+                    .addComponent(dateLabel1)
+                    .addComponent(patientLabel1))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jLabel5.setText("Description:");
+
+        jLabel9.setText("Diagnostics:");
+
+        descLabel.setText("bla bla bla bla");
+
+        diagLabel.setText("hhhhhhhhhhhh");
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Infos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+
+        infosTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Valeur", "Propriete"
+            }
+        ));
+        jScrollPane2.setViewportView(infosTable);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        allergiesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Allergies"
+            }
+        ));
+        jScrollPane4.setViewportView(allergiesTable);
+
+        jLabel10.setText("Allergies");
+
+        drugsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "Medicaments", "Utilisation"
+            }
+        ));
+        jScrollPane3.setViewportView(drugsTable);
+
+        jLabel11.setText("Medicaments");
+
+        revenirButton.setText("Revenir");
+        revenirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                revenirButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout consultationInfoPanelLayout = new javax.swing.GroupLayout(consultationInfoPanel);
+        consultationInfoPanel.setLayout(consultationInfoPanelLayout);
+        consultationInfoPanelLayout.setHorizontalGroup(
+            consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                        .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                                .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel9))
+                                .addGap(105, 105, 105)
+                                .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(descLabel)
+                                    .addComponent(diagLabel))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(75, 75, 75))
+                    .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addComponent(revenirButton)
+                        .addGap(31, 31, 31))))
+        );
+        consultationInfoPanelLayout.setVerticalGroup(
+            consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(revenirButton)))
+                .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                        .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(descLabel)
+                            .addComponent(jLabel11))
+                        .addGap(47, 47, 47)
+                        .addGroup(consultationInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(diagLabel))
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(consultationInfoPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(25, 25, 25)
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(consultationDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(displayAllButton)))
-                .addGap(56, 56, 56)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addComponent(consultationInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(consultationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(displayAllButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addComponent(consultationInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(consultationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -273,46 +499,96 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
          } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
-        if(num != null) {
+        
+        try {
             int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+
             if(val == 0) {
                 Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
                 DAOFactory.getConsultationDAO().delete(currentConsultation);
-                
+
                 SwingUtilities.updateComponentTreeUI(this);
                 this.invalidate();
                 this.validate();
                 this.repaint();
-                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));             
-                
+
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
             }
+        } catch(Exception e) {
+            consultationsTable.repaint();
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
+        String num = null;
+        try {
+            TableModel model = (TableModel)consultationsTable.getModel();
+            num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        }
+        
+        if(num != null) {
+            try {
+                Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                loadConsultationInfoPanel(currentConsultation);
+                consultationPanel.setVisible(false);
+                consultationInfoPanel.setVisible(true);
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'affichage" + e);
+            }
+        }
+    }//GEN-LAST:event_displayButtonActionPerformed
+
+    private void revenirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenirButtonActionPerformed
+        consultationInfoPanel.setVisible(false);
+        consultationPanel.setVisible(true);
+    }//GEN-LAST:event_revenirButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable allergiesTable;
     private org.jdesktop.swingx.JXDatePicker consultationDatePicker;
+    private javax.swing.JPanel consultationInfoPanel;
     private javax.swing.JLabel consultationNumberLabel;
+    private javax.swing.JPanel consultationPanel;
     private javax.swing.JTable consultationsTable;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel dateLabel1;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel descLabel;
     private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JLabel diagLabel;
     private javax.swing.JLabel diagnosticsLabel;
     private javax.swing.JButton displayAllButton;
     private javax.swing.JButton displayButton;
+    private javax.swing.JTable drugsTable;
+    private javax.swing.JTable infosTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel patientLabel;
+    private javax.swing.JLabel patientLabel1;
     private javax.swing.JLabel priceLabel;
+    private javax.swing.JButton revenirButton;
     private javax.swing.JLabel typeLabel;
+    private javax.swing.JLabel typeLabel1;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 

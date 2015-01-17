@@ -37,7 +37,7 @@ public class PatientDAO implements DAO<Patient>{
             p.setCin(rs.getString("cin"));
             p.setSexe(rs.getString("sexe"));
             p.setTelephone(rs.getString("telephone"));
-            p.setCredit(rs.getInt("credit"));
+            p.setCredit(rs.getDouble("credit"));
             
         } catch (Exception ex) {
             System.out.println("Problem in find - PatientDAO" + ex);
@@ -70,7 +70,7 @@ public class PatientDAO implements DAO<Patient>{
                 p.setSexe(rs.getString("sexe"));
                 p.setCin(rs.getString("cin"));
                 p.setTelephone(rs.getString("telephone"));
-                p.setCredit(rs.getInt("credit"));
+                p.setCredit(rs.getDouble("credit"));
                 
                 patients.add(p);
             }

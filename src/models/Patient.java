@@ -22,7 +22,7 @@ public class Patient {
     private String city;
     private String sexe;
     private String cin;
-    private int credit;
+    private double credit;
 
     public int getPatientId() {
         return patientId;
@@ -96,11 +96,11 @@ public class Patient {
         this.sexe = sexe;
     }
 
-    public int getCredit() {
+    public double getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(double credit) {
         this.credit = credit;
     }
 
