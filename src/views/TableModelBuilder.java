@@ -357,15 +357,16 @@ public class TableModelBuilder {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Patient p : patients) {
-            
-            Vector<Object> line = new Vector<Object>();
+            if(p.getCredit() != 0) {
+                Vector<Object> line = new Vector<Object>();
 
-            line.add(p.getPatientId());
-            line.add(p.getLastName());
-            line.add(p.getName());
-            line.add(p.getCredit());
-            
-            data.add(line);
+                line.add(p.getPatientId());
+                line.add(p.getLastName());
+                line.add(p.getName());
+                line.add(p.getCredit());
+
+                data.add(line);
+            }
         }
 
         return new DefaultTableModel(data, columnNames);

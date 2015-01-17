@@ -8,6 +8,7 @@ package views;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
@@ -28,7 +29,7 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
         initComponents();
         creditsTable.setModel(TableModelBuilder.buildPaymentTableModel(DAOFactory.getPatientDAO().all()));
         
-//        paymentHistoryTable.setModel(TableModelBuilder.buildPaymentHistoryTableModel(DAOFactory.getPaymentDAO().all()));
+        paymentHistoryTable.setModel(TableModelBuilder.buildPaymentHistoryTableModel(DAOFactory.getPaymentDAO().all()));
                 
         ListSelectionModel selectionModel = creditsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
@@ -187,6 +188,15 @@ public class PaymentPanel extends javax.swing.JPanel  implements ListSelectionLi
                     } catch (Exception e) {
                         creditsTable.repaint();
                     }
+                    try {
+                        paymentHistoryTable.setModel(TableModelBuilder.buildPaymentHistoryTableModel(DAOFactory.getPaymentDAO().all()));
+                    }catch(Exception e){
+                       paymentHistoryTable.repaint();
+                    }
+                    SwingUtilities.updateComponentTreeUI(this);
+                    this.invalidate();
+                    this.validate();
+                    this.repaint();
                     JOptionPane.showMessageDialog(this, "Paiement effectué de " + dhs + " DH", "OK", JOptionPane.INFORMATION_MESSAGE);
                 } 
                 

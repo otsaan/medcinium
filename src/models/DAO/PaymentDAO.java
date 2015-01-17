@@ -56,7 +56,6 @@ public class PaymentDAO implements DAO<Payment> {
                            + p.getPatient().getPatientId() + ");";
         
         p.setId(Database.getInstance().dmlQuery2(insertQuery));
-        System.out.println(insertQuery);
         return (p.getId()!=0);
     }
 
@@ -92,7 +91,7 @@ public class PaymentDAO implements DAO<Payment> {
         
 
         String findQuery = "SELECT * "
-                        + "FROM paiements;";
+                        + "FROM paiements order by date_paiement desc;";
         
         ResultSet rs = database.Database.getInstance().query(findQuery);
 
