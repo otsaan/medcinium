@@ -10,7 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import models.Allergy;
 import models.Consultation;
 import models.Drug;
+import models.Patient;
 import models.PatientInfo;
+import models.Payment;
 import models.Reminder;
 
 /**
@@ -341,4 +343,31 @@ public class TableModelBuilder {
         return new DefaultTableModel(data, columnNames);
     }
     
+    
+    public static DefaultTableModel buildPaymentTableModel(Vector<Patient> patients) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        columnNames.add("Num");
+        columnNames.add("Nom");
+        columnNames.add("Prénom");
+        columnNames.add("Crédit");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Patient p : patients) {
+            
+            Vector<Object> line = new Vector<Object>();
+
+            line.add(p.getPatientId());
+            line.add(p.getLastName());
+            line.add(p.getName());
+            line.add(p.getCredit());
+            
+            data.add(line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
 }

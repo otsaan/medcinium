@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Payment {
     
     private int id;
-    private int amount;
+    private double amount;
     private Date date;
     private Patient patient;
 
@@ -27,11 +27,11 @@ public class Payment {
         this.id = id;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

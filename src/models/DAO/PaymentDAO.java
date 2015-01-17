@@ -35,7 +35,7 @@ public class PaymentDAO implements DAO<Payment> {
             
             rs.first();
             payment.setId(Integer.parseInt(id));
-            payment.setAmount(rs.getInt("montant"));
+            payment.setAmount(rs.getDouble("montant"));
             payment.setDate(rs.getDate("date_paiement"));
             payment.setPatient(patientDAO.find(rs.getString(id)));
             
@@ -50,12 +50,14 @@ public class PaymentDAO implements DAO<Payment> {
     @Override
     public boolean create(Payment p) {
         
-        String insertQuery = "INSERT INTO paiements(id_paiement, montant, date_paiement, id_patient) VALUES("
+        String insertQuery = "INSERT INTO paiements(montant, date_paiement, id_patient) VALUES("
                            + p.getAmount() + ", "
-                           + "'" + p.getDate()+ "', "
-                           + "'" + p.getPatient().getPatientId() + ");";
+                           + "now(), "
+                           + p.getPatient().getPatientId() + ");";
         
-        return (Database.getInstance().dmlQuery(insertQuery) != 0);
+        p.setId(Database.getInstance().dmlQuery2(insertQuery));
+        System.out.println(insertQuery);
+        return (p.getId()!=0);
     }
 
     
@@ -101,7 +103,7 @@ public class PaymentDAO implements DAO<Payment> {
                 Payment p = new Payment();
                 
                 p.setId(rs.getInt("id_paiement"));
-                p.setAmount(rs.getInt("montant"));
+                p.setAmount(rs.getDouble("montant"));
                 p.setDate(rs.getDate("date_paiement"));
                 p.setPatient(patientDAO.find(rs.getString("id_patient")));
             
