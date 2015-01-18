@@ -693,7 +693,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)pendingConsultationsTable.getModel();
             num = String.valueOf(model.getValueAt(pendingConsultationsTable.getSelectedRow(), 0));
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
         if(num != null) {
@@ -771,7 +771,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 consultation.setConsultationDate(new Timestamp(date.getTime()));
 
                 if((date).compareTo(new java.util.Date()) < 0) {
-                     JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
+                     JOptionPane.showMessageDialog(this, "Veuillez choisir une date future", "Erreur", JOptionPane.ERROR_MESSAGE);
                 } else {
                     if( DAOFactory.getConsultationDAO().create(consultation)) {
                         JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -794,7 +794,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 consultation.setConsultationDate(new Timestamp(date.getTime()));
 
                 if((date).compareTo(new java.util.Date()) < 0) {
-                    JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Veuillez choisir une date future", "Erreur", JOptionPane.ERROR_MESSAGE);
                 } else {
                     if( DAOFactory.getConsultationDAO().create(consultation)) {
                         JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -803,7 +803,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Selectionner d'abord un patient", "Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sélectionner d'abord un patient", "Info", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         

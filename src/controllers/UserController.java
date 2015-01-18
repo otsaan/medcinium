@@ -50,8 +50,7 @@ public class UserController implements Observer{
             }
             
         } catch (Exception ex) {
-            System.out.println("Error Connection to Database" + ex);
-            JOptionPane.showMessageDialog((LoginFrame)view, "Erreur de Connexion à la base de données.");
+            JOptionPane.showMessageDialog((LoginFrame)view, "Erreur de connexion à la base de données.");
         }
         
 

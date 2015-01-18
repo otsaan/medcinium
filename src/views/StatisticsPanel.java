@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import models.Consultation;
 import models.dao.DAOFactory;
@@ -43,7 +44,9 @@ public class StatisticsPanel extends javax.swing.JPanel {
         jPanel3.setVisible(true);
         jPanel2.setVisible(false);
         deDatePicker.setLocale(Locale.FRENCH);
+        deDatePicker.setEditable(true);
         aDatePicker.setLocale(Locale.FRENCH);
+        aDatePicker.setEditable(true);
         long deTmp;
         long aTmp;
     }
@@ -155,29 +158,33 @@ public class StatisticsPanel extends javax.swing.JPanel {
         aTmp = aDatePicker.getDate().getTime();
         
         //Loop from deDatePicked to aDatePicked incrementing by one day
-        for(long current = deTmp ; current <= aTmp ; current += 24*3600*1000) {
-            DateFormat df = new SimpleDateFormat("dd");
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(current);
-            xData.add(df.format(cal.getTime()));
-            Vector<Consultation> con = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "finished");
-            Vector<Consultation> con2 = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "pending");
-            yData.add((double)con.size());
-            yData2.add((double)con2.size());
-        }
-        
-        // Create Chart
-        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
-        
-        Series series = chart.addSeries("Consultations", xData, yData);
-        Series series2 = chart.addSeries("Reservations", xData, yData2);
-        // Customize Chart
-        chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
+        if(deTmp > aTmp) {
+            JOptionPane.showMessageDialog(this, "Veuillez entrer des dates valides", "Erreur", JOptionPane.ERROR_MESSAGE);        
+        } else {
+            for(long current = deTmp ; current <= aTmp ; current += 24*3600*1000) {
+                DateFormat df = new SimpleDateFormat("dd/MM");
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(current);
+                xData.add(df.format(cal.getTime()));
+                Vector<Consultation> con = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "finished");
+                Vector<Consultation> con2 = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "pending");
+                yData.add((double)con.size());
+                yData2.add((double)con2.size());
+            }
 
-        JPanel pnlChart = new XChartPanel(chart);
-        jPanel2.removeAll(); 
-        jPanel2.add(pnlChart);
-        jPanel2.validate();
+            // Create Chart
+            Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
+
+            Series series = chart.addSeries("Consultations", xData, yData);
+            Series series2 = chart.addSeries("Reservations", xData, yData2);
+            // Customize Chart
+            chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
+
+            JPanel pnlChart = new XChartPanel(chart);
+            jPanel2.removeAll(); 
+            jPanel2.add(pnlChart);
+            jPanel2.validate(); 
+        }
     }//GEN-LAST:event_displayButtonActionPerformed
 
 
