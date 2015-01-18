@@ -5,6 +5,24 @@
  */
 package views;
 
+
+import com.xeiam.xchart.Chart;
+import com.xeiam.xchart.ChartBuilder;
+import com.xeiam.xchart.QuickChart;
+import com.xeiam.xchart.Series;
+import com.xeiam.xchart.StyleManager.ChartType;
+import com.xeiam.xchart.StyleManager.LegendPosition;
+import com.xeiam.xchart.SwingWrapper;
+import com.xeiam.xchart.XChartPanel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JPanel;
 /**
  *
  * @author zianwar
@@ -16,6 +34,40 @@ public class StatisticsPanel extends javax.swing.JPanel {
      */
     public StatisticsPanel() {
         initComponents();
+
+        Collection<String> xData = new ArrayList<String>();
+        Collection<Double> yData = new ArrayList<Double>();
+        
+        // Get calendar set to current date and time
+        Calendar c = Calendar.getInstance();
+
+        // Set the calendar to monday of the current week
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+        // Print dates of the current week starting on Monday
+        DateFormat df = new SimpleDateFormat("dd");
+        for (int i = 0; i < 7; i++) {
+            System.out.println(df.format(c.getTime()));
+            c.add(Calendar.DATE, -1);
+            xData.add(df.format(c.getTime()));
+            yData.add(Math.floor(Math.random()*10));
+        }
+        Collections.reverse((List<String>) xData);
+        
+        // Create Chart
+        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(600).title("Les Consultations").xAxisTitle("Cette Semaine").yAxisTitle("Nombre").build();
+//        chart.addSeries("test 1", new double[] { 5, 1, 2, 3, 4 }, new double[] { 4, 5, 9, 6, 5 });
+        
+        Series series = chart.addSeries("Fake Data", xData, yData);
+        // Customize Chart
+        chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
+
+//        new SwingWrapper(chart).displayChart();
+
+        JPanel pnlChart = new XChartPanel(chart);
+        jPanel1.removeAll(); 
+        this.jPanel1.add(pnlChart);
+        jPanel1.validate();
     }
 
     /**
@@ -27,30 +79,35 @@ public class StatisticsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("Statistics");
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jLabel1)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jLabel1)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
