@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import java.util.Properties;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import models.User;
 
@@ -37,6 +39,10 @@ public class LoginFrame extends javax.swing.JFrame {
         
         observers = new Vector<Observer>();
         
+        URL iconURL = getClass().getResource("/assets/ico.png");
+        // iconURL is null when not found
+        ImageIcon icon = new ImageIcon(iconURL);
+        this.setIconImage(icon.getImage());
         
         initComponents();
         configPanel.setVisible(false);
