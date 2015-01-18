@@ -47,7 +47,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
         // Print dates of the current week starting on Monday
         DateFormat df = new SimpleDateFormat("dd");
         for (int i = 0; i < 7; i++) {
-            System.out.println(df.format(c.getTime()));
+//            System.out.println(df.format(c.getTime()));
             c.add(Calendar.DATE, -1);
             xData.add(df.format(c.getTime()));
             yData.add(Math.floor(Math.random()*10));

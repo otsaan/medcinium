@@ -105,7 +105,7 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
 
             line.add(c.getConsultationId());
-            line.add(c.getConsultationDate());
+            line.add(String.valueOf(c.getConsultationDate()));
             line.add(c.getPatient().getName() + " " + c.getPatient().getLastName());
 
             data.add(0,line);

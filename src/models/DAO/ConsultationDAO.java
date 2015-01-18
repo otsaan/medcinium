@@ -6,7 +6,7 @@
 package models.dao;
 
 import database.Database;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -206,7 +206,7 @@ public class ConsultationDAO implements DAO<Consultation>{
         return consultations;
     }
     
-    public Vector<Consultation> byDate(Date date) {
+    public Vector<Consultation> byDate(Timestamp date) {
         
         Vector<Consultation> consultations = new Vector<Consultation>();
         PatientDAO patientDAO = DAOFactory.getPatientDAO();
