@@ -292,6 +292,51 @@ public class ConsultationDAO implements DAO<Consultation>{
         return consultations;
     }
     
+    public Vector<Consultation> byDateAndStatus(Timestamp date, String status) {
+        
+        Vector<Consultation> consultations = new Vector<Consultation>();
+        PatientDAO patientDAO = DAOFactory.getPatientDAO();
+        PatientInfoDAO patientInfoDAO = DAOFactory.getPatientInfoDAO();
+        
+        String DayStart = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(date);
+        String DayEnd = new SimpleDateFormat("yyyy-MM-dd 23:59:59").format(date);
+        
+        
+        String findAllQuery = "SELECT * "
+                            + "FROM consultations "
+                            + "WHERE status = '" + status + "' "
+                            + "AND date_consultation "
+                            + "BETWEEN '" + DayStart + "' AND '"+ DayEnd + "'";
+        
+        ResultSet rs = Database.getInstance().query(findAllQuery);
+        
+        try {
+            
+            while(rs.next()) {
+                
+                Consultation con = new Consultation();
+                con.setConsultationId(rs.getInt("id_consultation"));
+                con.setType(rs.getString("type_consultation"));
+                con.setDescription(rs.getString("desc_consultation"));
+                con.setConsultationDate(rs.getTimestamp("date_consultation"));
+                con.setStatus(rs.getString("status"));
+                con.setPrix(rs.getInt("prix"));
+                con.setDiagnostics(rs.getString("diagnostics"));
+                con.setPatient(patientDAO.find(rs.getString("id_patient")));
+                con.setDrugList(DAOFactory.getDrugDAO().all(rs.getInt("id_consultation")));
+                con.setPatientInfoList(patientInfoDAO.all(rs.getInt("id_consultation")));
+                con.setAllergyList(DAOFactory.getAllergyDAO().all(rs.getInt("id_consultation")));
+                consultations.add(con);
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Problem in byDate - ConsultationDAO " + ex);
+        }
+        
+        return consultations;
+    }
+    
+    
     //finishedConsultations
     public Vector<Consultation> byStatus(String status) {
         
