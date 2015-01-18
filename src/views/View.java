@@ -34,6 +34,7 @@ public class View extends javax.swing.JFrame {
         
         initComponents();
         this.welcomeNameLabel.setText(loggedInUser.getUsername());
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         rightPanel.add(new AccueilPanel());
         rightPanel.repaint();
