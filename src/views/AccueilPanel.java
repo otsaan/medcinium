@@ -77,7 +77,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     
     public void refreshModels() {
         pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
-        finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getToday())), DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(jXMonthView1.getToday()))));
     }
     
@@ -112,22 +111,19 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        conRapButtonGroup = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        fileDattentePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pendingConsultationsTable = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        finishedConsultationsTable = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        remindersTable = new javax.swing.JTable();
-        rappelsButtons = new javax.swing.JButton();
-        consultationsButton = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
         beginConsultationButton = new javax.swing.JButton();
         reserverButton = new javax.swing.JButton();
+        calendrierPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        remindersTable = new javax.swing.JTable();
+        jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
+        consultationsRadioButton = new javax.swing.JRadioButton();
+        rappelsRadioButton1 = new javax.swing.JRadioButton();
         newReservationPanel = new javax.swing.JPanel();
         searchPatientPanel = new javax.swing.JPanel();
         MenuPanel = new javax.swing.JPanel();
@@ -202,8 +198,8 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         mainPanel.setBackground(new java.awt.Color(241, 241, 241));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(241, 241, 241));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File d'attente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        fileDattentePanel.setBackground(new java.awt.Color(241, 241, 241));
+        fileDattentePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File d'attente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         pendingConsultationsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -218,62 +214,52 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane1.setViewportView(pendingConsultationsTable);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        mainPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 330, -1));
-
-        jPanel2.setBackground(new java.awt.Color(241, 241, 241));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dernières consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
-
-        finishedConsultationsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Num", "Date", "Patient"
+        beginConsultationButton.setText("Commencer consultation");
+        beginConsultationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beginConsultationButtonActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(finishedConsultationsTable);
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                .addContainerGap())
+        reserverButton.setText("Reserver");
+        reserverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reserverButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fileDattentePanelLayout = new javax.swing.GroupLayout(fileDattentePanel);
+        fileDattentePanel.setLayout(fileDattentePanelLayout);
+        fileDattentePanelLayout.setHorizontalGroup(
+            fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fileDattentePanelLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reserverButton)
+                    .addComponent(beginConsultationButton))
+                .addGap(59, 59, 59))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        fileDattentePanelLayout.setVerticalGroup(
+            fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fileDattentePanelLayout.createSequentialGroup()
+                .addGroup(fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fileDattentePanelLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(reserverButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(beginConsultationButton))
+                    .addGroup(fileDattentePanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 334, -1));
+        mainPanel.add(fileDattentePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 790, 230));
 
-        jPanel3.setBackground(new java.awt.Color(241, 241, 241));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rappels", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        calendrierPanel.setBackground(new java.awt.Color(241, 241, 241));
+        calendrierPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calendrier", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         remindersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -289,54 +275,8 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane3.setViewportView(remindersTable);
 
-        rappelsButtons.setText("Rappels");
-        rappelsButtons.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rappelsButtonsActionPerformed(evt);
-            }
-        });
-
-        consultationsButton.setText("Consultations");
-        consultationsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultationsButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(rappelsButtons)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(consultationsButton)
-                        .addGap(0, 128, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rappelsButtons)
-                    .addComponent(consultationsButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        mainPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, -1, -1));
-
-        jPanel5.setBackground(new java.awt.Color(241, 241, 241));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jXMonthView1.setBackground(new java.awt.Color(241, 241, 241));
         jXMonthView1.setDaysOfTheWeek(new String[] {"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"});
-        jXMonthView1.setFirstDayOfWeek(2);
         jXMonthView1.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jXMonthView1.setTraversable(true);
         jXMonthView1.addActionListener(new java.awt.event.ActionListener() {
@@ -344,27 +284,57 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 jXMonthView1ActionPerformed(evt);
             }
         });
-        jPanel5.add(jXMonthView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 260, 240));
 
-        mainPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 280, -1));
-
-        beginConsultationButton.setText("Commencer consultation");
-        beginConsultationButton.addActionListener(new java.awt.event.ActionListener() {
+        conRapButtonGroup.add(consultationsRadioButton);
+        consultationsRadioButton.setText("Consultations");
+        consultationsRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                beginConsultationButtonActionPerformed(evt);
+                consultationsRadioButtonActionPerformed(evt);
             }
         });
-        mainPanel.add(beginConsultationButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
 
-        reserverButton.setText("Reserver");
-        reserverButton.addActionListener(new java.awt.event.ActionListener() {
+        conRapButtonGroup.add(rappelsRadioButton1);
+        rappelsRadioButton1.setText("Rappels");
+        rappelsRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reserverButtonActionPerformed(evt);
+                rappelsRadioButton1ActionPerformed(evt);
             }
         });
-        mainPanel.add(reserverButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 520));
+        javax.swing.GroupLayout calendrierPanelLayout = new javax.swing.GroupLayout(calendrierPanel);
+        calendrierPanel.setLayout(calendrierPanelLayout);
+        calendrierPanelLayout.setHorizontalGroup(
+            calendrierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(calendrierPanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(calendrierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(calendrierPanelLayout.createSequentialGroup()
+                        .addComponent(rappelsRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(consultationsRadioButton))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        calendrierPanelLayout.setVerticalGroup(
+            calendrierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(calendrierPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(calendrierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(calendrierPanelLayout.createSequentialGroup()
+                        .addGroup(calendrierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(consultationsRadioButton)
+                            .addComponent(rappelsRadioButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jXMonthView1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        mainPanel.add(calendrierPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 790, 250));
+
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 520));
 
         newReservationPanel.setBackground(new java.awt.Color(241, 241, 241));
         newReservationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -513,7 +483,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(newConsultationPanelLayout.createSequentialGroup()
                         .addComponent(visitDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                         .addComponent(validerButton)
                         .addGap(15, 15, 15))))
         );
@@ -712,31 +682,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(selectedDate), DAOFactory.getConsultationDAO().byDate(selectedDate)));
     
     }//GEN-LAST:event_jXMonthView1ActionPerformed
-
-    private void consultationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationsButtonActionPerformed
-        
-        java.util.Date selectedDate;
-        
-        if (jXMonthView1.getSelectionDate() == null) {
-            selectedDate = jXMonthView1.getToday();
-        } else {
-            selectedDate = jXMonthView1.getSelectionDate();
-        }
-        
-        this.remindersTable.setModel(TableModelBuilder.buildConsultationsHoursTableModel(DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(selectedDate))));
-    }//GEN-LAST:event_consultationsButtonActionPerformed
-
-    private void rappelsButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rappelsButtonsActionPerformed
-        java.util.Date selectedDate;
-        
-        if (jXMonthView1.getSelectionDate() == null) {
-            selectedDate = jXMonthView1.getToday();
-        } else {
-            selectedDate = jXMonthView1.getSelectionDate();
-        }
-        
-        this.remindersTable.setModel(TableModelBuilder.buildRemindersTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(selectedDate))));
-    }//GEN-LAST:event_rappelsButtonsActionPerformed
 
     private void beginConsultationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginConsultationButtonActionPerformed
         String num = null;
@@ -979,6 +924,31 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
        prescriptionPanel.setVisible(false);
     }//GEN-LAST:event_revenirButtonActionPerformed
 
+    private void consultationsRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationsRadioButtonActionPerformed
+         
+        java.util.Date selectedDate;
+        
+        if (jXMonthView1.getSelectionDate() == null) {
+            selectedDate = jXMonthView1.getToday();
+        } else {
+            selectedDate = jXMonthView1.getSelectionDate();
+        }
+        
+        this.remindersTable.setModel(TableModelBuilder.buildConsultationsHoursTableModel(DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(selectedDate))));
+    }//GEN-LAST:event_consultationsRadioButtonActionPerformed
+
+    private void rappelsRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rappelsRadioButton1ActionPerformed
+        java.util.Date selectedDate;
+        
+        if (jXMonthView1.getSelectionDate() == null) {
+            selectedDate = jXMonthView1.getToday();
+        } else {
+            selectedDate = jXMonthView1.getSelectionDate();
+        }
+        
+        this.remindersTable.setModel(TableModelBuilder.buildRemindersTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(selectedDate))));
+    }//GEN-LAST:event_rappelsRadioButton1ActionPerformed
+
     
     public void refreshTable(Vector<Patient> patients) {
         try {
@@ -1004,15 +974,17 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel allergies;
     private javax.swing.JComboBox allergyChoice;
     private javax.swing.JButton beginConsultationButton;
+    private javax.swing.JPanel calendrierPanel;
     private javax.swing.JTextField cinText;
-    private javax.swing.JButton consultationsButton;
+    private javax.swing.ButtonGroup conRapButtonGroup;
+    private javax.swing.JRadioButton consultationsRadioButton;
     private org.jdesktop.swingx.JXDatePicker dateInfo;
     private javax.swing.JTextArea descriptionText;
     private javax.swing.JTextArea diagnostiqueText;
     private javax.swing.JComboBox drugChoice;
     private javax.swing.JTextArea drugDesc;
     private javax.swing.JTextArea drugList;
-    private javax.swing.JTable finishedConsultationsTable;
+    private javax.swing.JPanel fileDattentePanel;
     private javax.swing.JComboBox infoChoice;
     private javax.swing.JTextArea infos;
     private javax.swing.JLabel jLabel1;
@@ -1030,14 +1002,9 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1056,7 +1023,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JTable patientsTable;
     private javax.swing.JTable pendingConsultationsTable;
     private javax.swing.JPanel prescriptionPanel;
-    private javax.swing.JButton rappelsButtons;
+    private javax.swing.JRadioButton rappelsRadioButton1;
     private javax.swing.JTable remindersTable;
     private javax.swing.JButton reserverButton;
     private javax.swing.JButton revenirButton;
