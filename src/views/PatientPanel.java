@@ -157,7 +157,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         mainPanel.setPreferredSize(new java.awt.Dimension(889, 550));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des Patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         patientsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,9 +183,9 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         );
         patientsListPanelLayout.setVerticalGroup(
             patientsListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(patientsListPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, patientsListPanelLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -194,7 +194,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         patientInfoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         patientInfoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        patientNumberLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        patientNumberLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         patientNumberLabel.setText("Patient N˚");
         patientInfoPanel.add(patientNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
