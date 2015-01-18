@@ -41,11 +41,11 @@ public class TableModelBuilder {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Consultation c : Consultations) {
-            
+            DateFormat df = new SimpleDateFormat("dd/MM HH:mm");
             Vector<Object> line = new Vector<Object>();
 
             line.add(c.getConsultationId());
-            line.add(String.valueOf(c.getConsultationDate()));
+            line.add(df.format(c.getConsultationDate()));
             line.add(c.getPatient().getLastName() + " " + c.getPatient().getName());
 
             data.add(0,line);
@@ -354,7 +354,7 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
 
             line.add(r.getDescription());
-            line.add(r.getDate().toString());
+            line.add("-");
             line.add(r.getPatient().getName() + " " + r.getPatient().getLastName());
             line.add("Rappel");
 

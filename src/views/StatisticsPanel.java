@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 import javax.swing.JPanel;
 import models.Consultation;
@@ -41,6 +42,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
         
         jPanel1.setVisible(true);
         jPanel2.setVisible(false);
+        deDatePicker.setLocale(Locale.FRENCH);
+        aDatePicker.setLocale(Locale.FRENCH);
         long deTmp;
         long aTmp;
     }
@@ -55,6 +58,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         deDatePicker = new org.jdesktop.swingx.JXDatePicker();
         jLabel3 = new javax.swing.JLabel();
@@ -63,14 +67,13 @@ public class StatisticsPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Selectionner", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
-        jLabel2.setText("De");
+        jLabel2.setText("De:");
 
-        jLabel3.setText("A");
+        jLabel3.setText("À:");
 
         displayButton.setText("Afficher");
         displayButton.addActionListener(new java.awt.event.ActionListener() {
@@ -79,44 +82,58 @@ public class StatisticsPanel extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(displayButton)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel3)
+                        .addGap(28, 28, 28)
+                        .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
+                .addGap(62, 62, 62)
+                .addComponent(displayButton)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(25, 25, 25)
-                        .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(60, 60, 60)
-                            .addComponent(displayButton))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(displayButton)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 6, -1, 324));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 630, 330));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -135,6 +152,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
 
         Collection<String> xData = new ArrayList<String>();
         Collection<Double> yData = new ArrayList<Double>();
+        Collection<Double> yData2 = new ArrayList<Double>();
+        
         long deTmp = 0, aTmp = 0;
         try{
             deTmp = deDatePicker.getDate().getTime();
@@ -153,14 +172,17 @@ public class StatisticsPanel extends javax.swing.JPanel {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(current);
             xData.add(df.format(cal.getTime()));
-            Vector<Consultation> con = DAOFactory.getConsultationDAO().byDate(new Timestamp(current));
+            Vector<Consultation> con = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "finished");
+            Vector<Consultation> con2 = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "pending");
             yData.add((double)con.size());
+            yData2.add((double)con2.size());
         }
         
         // Create Chart
-        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(850).height(530).title("Les Consultations").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
+        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(850).height(530).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
         
-        Series series = chart.addSeries("Données", xData, yData);
+        Series series = chart.addSeries("Consultations", xData, yData);
+        Series series2 = chart.addSeries("Reservations", xData, yData2);
         // Customize Chart
         chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
 
@@ -180,5 +202,6 @@ public class StatisticsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
