@@ -188,6 +188,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         infos = new javax.swing.JTextArea();
         addInfoButton = new javax.swing.JButton();
         valider = new javax.swing.JButton();
+        revenirButton = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -576,7 +577,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
 
         prescriptionPanel.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 252, 90));
 
-        jLabel11.setText("Diagnostique");
+        jLabel11.setText("Diagnostics");
         prescriptionPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jLabel12.setText("Description");
@@ -718,6 +719,14 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         });
         prescriptionPanel.add(valider, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 450, 100, -1));
 
+        revenirButton.setText("Revenir");
+        revenirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                revenirButtonActionPerformed(evt);
+            }
+        });
+        prescriptionPanel.add(revenirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, -1, -1));
+
         add(prescriptionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -791,7 +800,11 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
 
     private void reserverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserverButtonActionPerformed
         mainPanel.setVisible(false);
+        
+        searchPatientPanel.repaint();
+        searchPatientPanel.revalidate();
         searchPatientPanel.setVisible(true);
+        
         patientsListPanel.setVisible(false);
         newPatientPanel.setVisible(false);
         newConsultationPanel.setVisible(false);
@@ -987,6 +1000,10 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         // TODO add your handling code here:
     }//GEN-LAST:event_valueTextActionPerformed
 
+    private void revenirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenirButtonActionPerformed
+       prescriptionPanel.setVisible(false);
+    }//GEN-LAST:event_revenirButtonActionPerformed
+
     
     public void refreshTable(Vector<Patient> patients) {
         try {
@@ -1067,6 +1084,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JButton rappelsButtons;
     private javax.swing.JTable remindersTable;
     private javax.swing.JButton reserverButton;
+    private javax.swing.JButton revenirButton;
     private javax.swing.JButton searchButton1;
     private javax.swing.JPanel searchPatientPanel;
     private javax.swing.JTextField searchTextField1;
