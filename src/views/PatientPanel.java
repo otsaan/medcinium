@@ -198,7 +198,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         });
         mainPanel.add(addPatientButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 373, -1, -1));
 
-        patientInfoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        patientInfoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         patientNumberLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         patientNumberLabel.setText("Patient N˚");
