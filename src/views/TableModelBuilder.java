@@ -316,7 +316,7 @@ public class TableModelBuilder {
         // names of columns
         Vector<String> columnNames = new Vector<String>();
         columnNames.add("Titre");
-        columnNames.add("Heure");
+//        columnNames.add("Heure");
         columnNames.add("Patient");
 
         // data of the table
@@ -327,7 +327,7 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
 
             line.add(r.getDescription());
-            line.add(r.getDate().toString());
+//            line.add(r.getDate().toString());
             line.add(r.getPatient().getName() + " " + r.getPatient().getLastName());
 
             data.add(0,line);
