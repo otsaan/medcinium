@@ -119,10 +119,10 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         remindersTable = new javax.swing.JTable();
         rappelsButtons = new javax.swing.JButton();
         consultationsButton = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
         beginConsultationButton = new javax.swing.JButton();
         reserverButton = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
         newReservationPanel = new javax.swing.JPanel();
         searchPatientPanel = new javax.swing.JPanel();
         MenuPanel = new javax.swing.JPanel();
@@ -190,8 +190,13 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         valider = new javax.swing.JButton();
         revenirButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(241, 241, 241));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        mainPanel.setBackground(new java.awt.Color(241, 241, 241));
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(241, 241, 241));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File d'attente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         pendingConsultationsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -224,6 +229,9 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 .addContainerGap())
         );
 
+        mainPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(241, 241, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dernières consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         finishedConsultationsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -245,17 +253,20 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 334, -1));
+
+        jPanel3.setBackground(new java.awt.Color(241, 241, 241));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rappels", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         remindersTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -290,16 +301,16 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(rappelsButtons)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(consultationsButton)
-                .addGap(24, 24, 24))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(rappelsButtons)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(consultationsButton)
+                        .addGap(0, 128, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,14 +323,24 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        mainPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, -1, -1));
+
+        jPanel5.setBackground(new java.awt.Color(241, 241, 241));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jXMonthView1.setBackground(new java.awt.Color(241, 241, 241));
         jXMonthView1.setDaysOfTheWeek(new String[] {"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"});
         jXMonthView1.setFirstDayOfWeek(2);
+        jXMonthView1.setFont(new java.awt.Font("Norwester", 0, 16)); // NOI18N
         jXMonthView1.setTraversable(true);
         jXMonthView1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jXMonthView1ActionPerformed(evt);
             }
         });
+        jPanel5.add(jXMonthView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 250, 220));
+
+        mainPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 280, -1));
 
         beginConsultationButton.setText("Commencer consultation");
         beginConsultationButton.addActionListener(new java.awt.event.ActionListener() {
@@ -327,6 +348,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 beginConsultationButtonActionPerformed(evt);
             }
         });
+        mainPanel.add(beginConsultationButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
 
         reserverButton.setText("Reserver");
         reserverButton.addActionListener(new java.awt.event.ActionListener() {
@@ -334,76 +356,17 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 reserverButtonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(mainPanelLayout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(reserverButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(beginConsultationButton))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(108, 108, 108)
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap()))
-            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
-            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jXMonthView1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(beginConsultationButton)
-                        .addComponent(reserverButton))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap()))
-            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        mainPanel.add(reserverButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
         add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        newReservationPanel.setBackground(new java.awt.Color(241, 241, 241));
         newReservationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        searchPatientPanel.setBackground(new java.awt.Color(241, 241, 241));
         searchPatientPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        MenuPanel.setBackground(new java.awt.Color(241, 241, 241));
         MenuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         MenuPanel.add(searchTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, -1));
 
@@ -425,6 +388,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
 
         searchPatientPanel.add(MenuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 50));
 
+        patientsListPanel.setBackground(new java.awt.Color(241, 241, 241));
         patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         patientsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -459,6 +423,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
 
         searchPatientPanel.add(patientsListPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 680, 210));
 
+        newPatientPanel.setBackground(new java.awt.Color(241, 241, 241));
         newPatientPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Nom");
@@ -508,6 +473,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
 
         searchPatientPanel.add(newPatientPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 690, 220));
 
+        newConsultationPanel.setBackground(new java.awt.Color(241, 241, 241));
         newConsultationPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel9.setText("Type");
@@ -569,6 +535,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
 
         add(newReservationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
 
+        prescriptionPanel.setBackground(new java.awt.Color(241, 241, 241));
         prescriptionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         descriptionText.setColumns(20);
@@ -593,6 +560,8 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         prescriptionPanel.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 252, 90));
 
         prescriptionPanel.add(allergyChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 160, -1));
+
+        jPanel4.setBackground(new java.awt.Color(241, 241, 241));
 
         addDrug.setText("+");
         addDrug.addActionListener(new java.awt.event.ActionListener() {
