@@ -28,6 +28,9 @@ import models.Patient;
  */
 public class PatientPanel extends javax.swing.JPanel implements ListSelectionListener{
 
+    
+    private Patient patient;
+    
     /**
      * Creates new form PatientPanel
      */
@@ -60,6 +63,9 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 }
             } 
         });
+        
+        
+        profilePanel.setVisible(false);
     }
 
     public void refreshTable(Vector<Patient> patients) {
@@ -70,6 +76,19 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         }
     }
     
+    
+    public void loadProfilePanel(Patient currentPatient) {
+        this.patient = currentPatient;
+        
+        patientName.setText(currentPatient.getLastName() + " " + currentPatient.getName());
+        patientSex.setText(currentPatient.getSexe().toUpperCase());
+        patientAge.setText(Integer.toString(Utils.getAge(currentPatient.getBirthDate())));
+        visitsTable.setModel(TableModelBuilder.buildPatientConsultationTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+        infoTable.setModel(TableModelBuilder.buildPatientInfosTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+        diagnosticsListe.setModel(TableModelBuilder.buildPatientDiagnosticsTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+        allergiesListe.setModel(TableModelBuilder.buildPatientAllergiesTableModel(DAOFactory.getConsultationDAO().all(currentPatient.getPatientId())));
+    }
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,6 +98,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainPanel = new javax.swing.JPanel();
         patientsListPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         patientsTable = new javax.swing.JTable();
@@ -106,6 +126,31 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         cityLabel = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
+        profilePanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        patientName = new javax.swing.JLabel();
+        patientSex = new javax.swing.JLabel();
+        patientAge = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        plusDetails = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        visitsTable = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        infoTable = new javax.swing.JTable();
+        addRemindButton = new javax.swing.JButton();
+        startVisitButton = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        diagnosticsListe = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        allergiesListe = new javax.swing.JTable();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
@@ -139,12 +184,15 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 .addContainerGap())
         );
 
+        mainPanel.add(patientsListPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 286, -1));
+
         addPatientButton.setText("Ajouter un patient");
         addPatientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPatientButtonActionPerformed(evt);
             }
         });
+        mainPanel.add(addPatientButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 373, -1, -1));
 
         patientInfoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -272,46 +320,144 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 .addContainerGap())
         );
 
-        searchButton.setText("Rechercher");
+        mainPanel.add(patientInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 6, -1, -1));
+        mainPanel.add(searchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 12, 204, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(addPatientButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(patientsListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchButton)))))
+        searchButton.setText("Rechercher");
+        mainPanel.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 13, -1, -1));
+
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 3, -1, -1));
+
+        profilePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("patient info"));
+
+        patientName.setText("Mohamed Ell Alami");
+
+        patientSex.setText("M");
+
+        patientAge.setText("23");
+
+        jLabel10.setText("ans");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(patientName)
                 .addGap(18, 18, 18)
-                .addComponent(patientInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(patientSex)
+                .addGap(18, 18, 18)
+                .addComponent(patientAge)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
+                .addComponent(plusDetails)
+                .addGap(38, 38, 38))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(patientInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(searchButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(patientsListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addPatientButton)))
-                .addContainerGap())
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(patientName)
+                    .addComponent(patientSex)
+                    .addComponent(patientAge)
+                    .addComponent(jLabel10)
+                    .addComponent(plusDetails))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
+
+        profilePanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 656, -1));
+
+        jLabel11.setText("visites");
+        profilePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        jLabel12.setText("informations");
+        profilePanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+
+        jLabel13.setText("Diagnostics");
+        profilePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, -1, -1));
+
+        jLabel14.setText("Allergies");
+        profilePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, -1, -1));
+
+        visitsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Dtae", "Type"
+            }
+        ));
+        jScrollPane2.setViewportView(visitsTable);
+
+        profilePanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 294, 126));
+
+        infoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "proprieté ", "valeur", "Date"
+            }
+        ));
+        jScrollPane3.setViewportView(infoTable);
+
+        profilePanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 303, 128));
+
+        addRemindButton.setText("Ajouter Un rappel");
+        addRemindButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRemindButtonActionPerformed(evt);
+            }
+        });
+        profilePanel.add(addRemindButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, -1, -1));
+
+        startVisitButton.setText("Commencer une visite");
+        startVisitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startVisitButtonActionPerformed(evt);
+            }
+        });
+        profilePanel.add(startVisitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
+
+        diagnosticsListe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Diagnostics"
+            }
+        ));
+        jScrollPane4.setViewportView(diagnosticsListe);
+
+        profilePanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 209, 123));
+
+        allergiesListe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Allergies"
+            }
+        ));
+        jScrollPane5.setViewportView(allergiesListe);
+
+        profilePanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 209, 128));
+
+        add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProfileButtonActionPerformed
@@ -327,7 +473,10 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             try { 
                 
                 Patient currentPatient = DAOFactory.getPatientDAO().find(num);
-                new PatientFrame(currentPatient).setVisible(true);
+                loadProfilePanel(currentPatient);
+                mainPanel.setVisible(false);
+                profilePanel.setVisible(true);
+                //new PatientFrame(currentPatient).setVisible(true);
         
             } catch (Exception e) {
                 System.out.println("Erreur lors de l'affichage");
@@ -388,17 +537,38 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         }
     }//GEN-LAST:event_addPatientButtonActionPerformed
 
+    private void addRemindButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRemindButtonActionPerformed
+
+        new ReminderFrame(patient).setVisible(true);
+
+    }//GEN-LAST:event_addRemindButtonActionPerformed
+
+    private void startVisitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startVisitButtonActionPerformed
+
+        new  NewConsultationFrame(patient).setVisible(true);
+        
+    }//GEN-LAST:event_startVisitButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPatientButton;
+    private javax.swing.JButton addRemindButton;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JLabel ageLabel;
+    private javax.swing.JTable allergiesListe;
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JLabel cinLabel;
     private javax.swing.JLabel cityLabel;
     private javax.swing.JButton deletePatientButton;
+    private javax.swing.JTable diagnosticsListe;
     private javax.swing.JButton displayProfileButton;
     private javax.swing.JLabel genderLabel;
+    private javax.swing.JTable infoTable;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -407,16 +577,29 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JButton modifyPatientButton;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel patientAge;
     private javax.swing.JPanel patientInfoPanel;
+    private javax.swing.JLabel patientName;
     private javax.swing.JLabel patientNumberLabel;
+    private javax.swing.JLabel patientSex;
     private javax.swing.JPanel patientsListPanel;
     private javax.swing.JTable patientsTable;
+    private javax.swing.JLabel plusDetails;
+    private javax.swing.JPanel profilePanel;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
+    private javax.swing.JButton startVisitButton;
+    private javax.swing.JTable visitsTable;
     // End of variables declaration//GEN-END:variables
 
     @Override
