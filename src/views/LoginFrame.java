@@ -82,7 +82,7 @@ public class LoginFrame extends javax.swing.JFrame {
         password.setBorder(null);
         mainPanel.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 315, 250, 30));
 
-        seConnecterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        seConnecterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         seConnecterLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 seConnecterLabelMouseClicked(evt);
