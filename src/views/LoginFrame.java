@@ -82,7 +82,12 @@ public class LoginFrame extends javax.swing.JFrame {
         password.setBorder(null);
         mainPanel.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 315, 250, 30));
 
-        seConnecterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        seConnecterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        seConnecterLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seConnecterLabelMouseClicked(evt);
+            }
+        });
         mainPanel.add(seConnecterLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 396, 140, 40));
 
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/login.png"))); // NOI18N
@@ -112,6 +117,10 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backgroundLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundLabelMouseClicked
+
+    }//GEN-LAST:event_backgroundLabelMouseClicked
+
+    private void seConnecterLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seConnecterLabelMouseClicked
         
         User user = new User();
         user.setUsername(usernameTextField.getText());
@@ -123,7 +132,7 @@ public class LoginFrame extends javax.swing.JFrame {
         }
         user.setPassword(new String(md5.digest(new String(password.getPassword()).getBytes())));
         notifyObservers(user,"login");
-    }//GEN-LAST:event_backgroundLabelMouseClicked
+    }//GEN-LAST:event_seConnecterLabelMouseClicked
     
     
     public void addObserver(Observer observer) {
