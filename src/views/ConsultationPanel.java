@@ -167,13 +167,14 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchConsultationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(selectionnerDateDatePicker)
-                    .addComponent(actualiserButton)
+                .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(consultationsRadioButton)
-                        .addComponent(reservationsRadioButton)))
+                        .addComponent(reservationsRadioButton))
+                    .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(selectionnerDateDatePicker)
+                        .addComponent(actualiserButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,7 +201,8 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             listeConsultationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listeConsultationsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addContainerGap())
         );
         listeConsultationsLayout.setVerticalGroup(
             listeConsultationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,31 +511,34 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         try {
             TableModel model = (TableModel)consultationsTable.getModel();
             num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+            
+            try {
+                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+
+                if(val == 0) {
+                    Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                    DAOFactory.getConsultationDAO().delete(currentConsultation);
+
+                    if (consultationsRadioButton.isSelected()) {
+                        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
+                    }
+                    if (reservationsRadioButton.isSelected()) {
+                        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+                    }
+                }
+                
+            } catch(Exception e) {
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+                consultationsTable.repaint();
+            }
          } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
-        try {
-            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
-
-            if(val == 0) {
-                Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
-                DAOFactory.getConsultationDAO().delete(currentConsultation);
-                
-                if (consultationsRadioButton.isSelected()) {
-                    consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
-                }
-                if (reservationsRadioButton.isSelected()) {
-                    consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
-                }
-            }
-        } catch(Exception e) {
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-            consultationsTable.repaint();
-        }
+        
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
@@ -674,7 +679,8 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 descriptionLabel.setText(consultationSelected.getDescription());
                 dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
                 diagnosticsLabel.setText(consultationSelected.getDiagnostics());
-                priceLabel.setText(String.valueOf(consultationSelected.getPrix()));
+                priceLabel.setText("");
+                prixInfoLabel.setVisible(false);
             }
         }
     }
