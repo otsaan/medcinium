@@ -14,6 +14,7 @@ import com.xeiam.xchart.StyleManager.ChartType;
 import com.xeiam.xchart.StyleManager.LegendPosition;
 import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.XChartPanel;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +23,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JPanel;
+import models.Consultation;
+import models.dao.DAOFactory;
 /**
  *
  * @author zianwar
@@ -34,40 +38,11 @@ public class StatisticsPanel extends javax.swing.JPanel {
      */
     public StatisticsPanel() {
         initComponents();
-
-        Collection<String> xData = new ArrayList<String>();
-        Collection<Double> yData = new ArrayList<Double>();
         
-        // Get calendar set to current date and time
-        Calendar c = Calendar.getInstance();
-
-        // Set the calendar to monday of the current week
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
-        // Print dates of the current week starting on Monday
-        DateFormat df = new SimpleDateFormat("dd");
-        for (int i = 0; i < 7; i++) {
-//            System.out.println(df.format(c.getTime()));
-            c.add(Calendar.DATE, -1);
-            xData.add(df.format(c.getTime()));
-            yData.add(Math.floor(Math.random()*10));
-        }
-        Collections.reverse((List<String>) xData);
-        
-        // Create Chart
-        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(600).title("Les Consultations").xAxisTitle("Cette Semaine").yAxisTitle("Nombre").build();
-//        chart.addSeries("test 1", new double[] { 5, 1, 2, 3, 4 }, new double[] { 4, 5, 9, 6, 5 });
-        
-        Series series = chart.addSeries("Fake Data", xData, yData);
-        // Customize Chart
-        chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
-
-//        new SwingWrapper(chart).displayChart();
-
-        JPanel pnlChart = new XChartPanel(chart);
-        jPanel1.removeAll(); 
-        this.jPanel1.add(pnlChart);
-        jPanel1.validate();
+        jPanel1.setVisible(true);
+        jPanel2.setVisible(false);
+        long deTmp;
+        long aTmp;
     }
 
     /**
@@ -80,34 +55,129 @@ public class StatisticsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        deDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        jLabel3 = new javax.swing.JLabel();
+        aDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        displayButton = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("De");
+
+        jLabel3.setText("A");
+
+        displayButton.setText("Afficher");
+        displayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(25, 25, 25)
+                        .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(60, 60, 60)
+                            .addComponent(displayButton))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(373, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(displayButton)
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 6, -1, 324));
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1);
+        jPanel2.add(jLabel1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
+        jPanel1.setVisible(false);
+        
+        jPanel2.repaint();
+        jPanel2.revalidate();
+        jPanel2.setVisible(true);
+        
+                
+
+        Collection<String> xData = new ArrayList<String>();
+        Collection<Double> yData = new ArrayList<Double>();
+        long deTmp = 0, aTmp = 0;
+        try{
+            deTmp = deDatePicker.getDate().getTime();
+        } catch(Exception e) {
+            System.out.println("hehehe");
+        }
+        try{
+            aTmp = aDatePicker.getDate().getTime();
+        } catch(Exception e) {
+            System.out.println("hehehe");
+        }
+        
+        //Loop from deDatePicked to aDatePicked incrementing by one day
+        for(long current = deTmp ; current <= aTmp ; current += 24*3600*1000) {
+            DateFormat df = new SimpleDateFormat("dd");
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(current);
+            xData.add(df.format(cal.getTime()));
+            Vector<Consultation> con = DAOFactory.getConsultationDAO().byDate(new Timestamp(current));
+            yData.add((double)con.size());
+        }
+        
+        // Create Chart
+        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(500).title("Les Consultations").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
+        
+        Series series = chart.addSeries("Données", xData, yData);
+        // Customize Chart
+        chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
+
+        JPanel pnlChart = new XChartPanel(chart);
+        jPanel2.removeAll(); 
+        this.jPanel2.add(pnlChart);
+        jPanel2.validate();
+    }//GEN-LAST:event_displayButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker aDatePicker;
+    private org.jdesktop.swingx.JXDatePicker deDatePicker;
+    private javax.swing.JButton displayButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
