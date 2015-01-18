@@ -5,11 +5,17 @@
  */
 package database;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 /**
  *
@@ -34,10 +40,33 @@ public class Database {
     public void connect() throws ClassNotFoundException, SQLException {
         if (conn != null)
             return;
-
-        Class.forName("com.mysql.jdbc.Driver");
-        String url = String.format("jdbc:mysql://localhost:3306/medcinium", 3306);
-        conn = DriverManager.getConnection(url, "root", "");
+        Properties prop = new Properties();
+	       InputStream input = null;
+ 
+	try {
+ 
+		input = new FileInputStream("config.properties");
+                // load properties to project root folder
+		prop.load(input);
+                Class.forName(prop.getProperty("driver"));
+                String url = String.format(prop.getProperty("url"), prop.getProperty("port"));
+                conn = DriverManager.getConnection(url, prop.getProperty("dbUser"), prop.getProperty("dbPassword"));
+	} catch (IOException io) {
+		io.printStackTrace();
+	} finally {
+		if (input != null) {
+			try {
+				input.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+ 
+	}
+ 
+//        Class.forName("com.mysql.jdbc.Driver");
+//        String url = String.format("jdbc:mysql://localhost:3306/medcinium", 3306);
+//        conn = DriverManager.getConnection(url, "root", "");
     }
         
         
