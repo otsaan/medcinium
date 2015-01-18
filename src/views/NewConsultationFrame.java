@@ -141,7 +141,6 @@ public class NewConsultationFrame extends javax.swing.JFrame {
            if( DAOFactory.getConsultationDAO().create(consultation))
            {
                this.dispose();
-               new PatientFrame(patient).setVisible(true);
                
            }else
            {
