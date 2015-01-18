@@ -6,6 +6,7 @@
 package views;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -485,10 +486,8 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     }// </editor-fold>//GEN-END:initComponents
 
     private void consultationDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationDatePickerActionPerformed
-        Date date = consultationDatePicker.getDate();
-        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         consultationsTable.repaint();
-        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDate(sqlDate)));
+        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDate(new Timestamp(consultationDatePicker.getDate().getTime()))));
     }//GEN-LAST:event_consultationDatePickerActionPerformed
 
     private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
