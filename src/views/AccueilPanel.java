@@ -77,6 +77,8 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
          // create a ListSelectionListener to listen for rows clicked in the table
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
+        
+        dateInfo.setDate(new java.util.Date());
     }
     
     public void refreshModels() {
@@ -164,36 +166,39 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         jLabel10 = new javax.swing.JLabel();
         validerButton = new javax.swing.JButton();
         prescriptionPanel = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        descriptionText = new javax.swing.JTextArea();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        diagnostiqueText = new javax.swing.JTextArea();
-        allergyChoice = new javax.swing.JComboBox();
-        jPanel4 = new javax.swing.JPanel();
-        drugChoice = new javax.swing.JComboBox();
-        addDrug = new javax.swing.JButton();
-        undoDrug = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        drugDesc = new javax.swing.JTextArea();
-        valueText = new javax.swing.JTextField();
-        dateInfo = new org.jdesktop.swingx.JXDatePicker();
-        infoChoice = new javax.swing.JComboBox();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        addAllergy = new javax.swing.JButton();
-        undoAllergy = new javax.swing.JLabel();
-        undoinfo = new javax.swing.JLabel();
-        allergies = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        drugList = new javax.swing.JTextArea();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        infos = new javax.swing.JTextArea();
-        addInfoButton = new javax.swing.JButton();
         valider = new javax.swing.JButton();
         revenirButton = new javax.swing.JButton();
+        contenaire = new javax.swing.JPanel();
+        allergies = new javax.swing.JLabel();
+        valueText = new javax.swing.JTextField();
+        addInfoButton = new javax.swing.JButton();
+        infoChoice = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        undoinfo = new javax.swing.JLabel();
+        allergyChoice = new javax.swing.JComboBox();
+        addAllergy = new javax.swing.JButton();
+        addDrug = new javax.swing.JButton();
+        drugChoice = new javax.swing.JComboBox();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        infos = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        diagnostiqueText = new javax.swing.JTextArea();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        drugList = new javax.swing.JTextArea();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        drugDesc = new javax.swing.JTextArea();
+        jLabel14 = new javax.swing.JLabel();
+        undoAllergy = new javax.swing.JLabel();
+        dateInfo = new org.jdesktop.swingx.JXDatePicker();
+        jLabel12 = new javax.swing.JLabel();
+        undoDrug = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        descriptionText = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(241, 241, 241));
         setPreferredSize(new java.awt.Dimension(889, 550));
@@ -518,155 +523,13 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         prescriptionPanel.setBackground(new java.awt.Color(241, 241, 241));
         prescriptionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        descriptionText.setColumns(20);
-        descriptionText.setRows(5);
-        jScrollPane6.setViewportView(descriptionText);
-
-        prescriptionPanel.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 252, 90));
-
-        jLabel11.setText("Diagnostics");
-        prescriptionPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
-
-        jLabel12.setText("Description");
-        prescriptionPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 25, -1, -1));
-
-        jLabel13.setText("Alllergie");
-        prescriptionPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
-
-        diagnostiqueText.setColumns(20);
-        diagnostiqueText.setRows(5);
-        jScrollPane7.setViewportView(diagnostiqueText);
-
-        prescriptionPanel.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 252, 90));
-
-        prescriptionPanel.add(allergyChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 160, -1));
-
-        jPanel4.setBackground(new java.awt.Color(241, 241, 241));
-
-        addDrug.setText("+");
-        addDrug.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDrugActionPerformed(evt);
-            }
-        });
-
-        undoDrug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
-        undoDrug.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                undoDrugMouseClicked(evt);
-            }
-        });
-
-        drugDesc.setColumns(20);
-        drugDesc.setRows(5);
-        jScrollPane8.setViewportView(drugDesc);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(drugChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addDrug)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(undoDrug)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(undoDrug)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(drugChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(addDrug)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        prescriptionPanel.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, 130));
-
-        valueText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueTextActionPerformed(evt);
-            }
-        });
-        prescriptionPanel.add(valueText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 80, -1));
-        prescriptionPanel.add(dateInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, -1, -1));
-
-        infoChoice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                infoChoiceActionPerformed(evt);
-            }
-        });
-        prescriptionPanel.add(infoChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, -1));
-
-        jLabel14.setText("Infos");
-        prescriptionPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, -1));
-
-        jLabel15.setText("médicament");
-        prescriptionPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 14, -1, -1));
-
-        addAllergy.setText("+");
-        addAllergy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addAllergyActionPerformed(evt);
-            }
-        });
-        prescriptionPanel.add(addAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 40, -1));
-
-        undoAllergy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
-        undoAllergy.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                undoAllergyMouseClicked(evt);
-            }
-        });
-        prescriptionPanel.add(undoAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, 23));
-
-        undoinfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
-        undoinfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                undoinfoMouseClicked(evt);
-            }
-        });
-        prescriptionPanel.add(undoinfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 320, -1, -1));
-        prescriptionPanel.add(allergies, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 590, 284, -1));
-
-        drugList.setEditable(false);
-        drugList.setColumns(20);
-        drugList.setRows(5);
-        jScrollPane9.setViewportView(drugList);
-
-        prescriptionPanel.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 360, -1));
-
-        infos.setColumns(20);
-        infos.setRows(5);
-        jScrollPane10.setViewportView(infos);
-
-        prescriptionPanel.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 360, -1));
-
-        addInfoButton.setText("+");
-        addInfoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addInfoButtonActionPerformed(evt);
-            }
-        });
-        prescriptionPanel.add(addInfoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 310, 40, -1));
-
         valider.setText("Valider");
         valider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 validerActionPerformed(evt);
             }
         });
-        prescriptionPanel.add(valider, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 450, 100, -1));
+        prescriptionPanel.add(valider, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, 100, -1));
 
         revenirButton.setText("Revenir");
         revenirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -674,7 +537,142 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 revenirButtonActionPerformed(evt);
             }
         });
-        prescriptionPanel.add(revenirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, -1, -1));
+        prescriptionPanel.add(revenirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, -1, -1));
+
+        contenaire.setBackground(new java.awt.Color(241, 241, 241));
+        contenaire.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        contenaire.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        allergies.setBackground(new java.awt.Color(204, 204, 204));
+        allergies.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        allergies.setForeground(new java.awt.Color(102, 102, 102));
+        contenaire.add(allergies, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, -1));
+
+        valueText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valueTextActionPerformed(evt);
+            }
+        });
+        contenaire.add(valueText, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 130, -1));
+
+        addInfoButton.setText("+");
+        addInfoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addInfoButtonActionPerformed(evt);
+            }
+        });
+        contenaire.add(addInfoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 40, -1));
+
+        infoChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoChoiceActionPerformed(evt);
+            }
+        });
+        contenaire.add(infoChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
+
+        jLabel11.setText("Diagnostics");
+        contenaire.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        undoinfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
+        undoinfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                undoinfoMouseClicked(evt);
+            }
+        });
+        contenaire.add(undoinfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 290, -1, -1));
+
+        contenaire.add(allergyChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 160, -1));
+
+        addAllergy.setText("+");
+        addAllergy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAllergyActionPerformed(evt);
+            }
+        });
+        contenaire.add(addAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 40, -1));
+
+        addDrug.setText("+");
+        addDrug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDrugActionPerformed(evt);
+            }
+        });
+        contenaire.add(addDrug, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 90, 40, -1));
+
+        contenaire.add(drugChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
+
+        infos.setBackground(new java.awt.Color(237, 237, 237));
+        infos.setColumns(20);
+        infos.setRows(5);
+        jScrollPane10.setViewportView(infos);
+
+        contenaire.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 360, -1));
+
+        diagnostiqueText.setColumns(20);
+        diagnostiqueText.setRows(5);
+        jScrollPane7.setViewportView(diagnostiqueText);
+
+        contenaire.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 252, 90));
+
+        drugList.setEditable(false);
+        drugList.setBackground(new java.awt.Color(237, 237, 237));
+        drugList.setColumns(20);
+        drugList.setRows(5);
+        jScrollPane9.setViewportView(drugList);
+
+        contenaire.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 136, 360, -1));
+
+        drugDesc.setColumns(20);
+        drugDesc.setRows(5);
+        jScrollPane8.setViewportView(drugDesc);
+
+        contenaire.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 270, 40));
+
+        jLabel14.setText("Date");
+        contenaire.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, -1, -1));
+
+        undoAllergy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
+        undoAllergy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                undoAllergyMouseClicked(evt);
+            }
+        });
+        contenaire.add(undoAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, -1, 23));
+        contenaire.add(dateInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, -1, -1));
+
+        jLabel12.setText("Description");
+        contenaire.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+
+        undoDrug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
+        undoDrug.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                undoDrugMouseClicked(evt);
+            }
+        });
+        contenaire.add(undoDrug, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, -1, -1));
+
+        jLabel13.setText("Alllergie");
+        contenaire.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+
+        descriptionText.setColumns(20);
+        descriptionText.setRows(5);
+        jScrollPane6.setViewportView(descriptionText);
+
+        contenaire.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 252, 110));
+
+        jLabel15.setText("Utilisation");
+        contenaire.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, -1, -1));
+
+        jLabel16.setText("Médicaments");
+        contenaire.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
+
+        jLabel17.setText("Information");
+        contenaire.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+
+        jLabel18.setText("Valeur");
+        contenaire.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, -1));
+
+        prescriptionPanel.add(contenaire, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 740, 520));
 
         add(prescriptionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -843,7 +841,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         String chaine="";
         selectedAllergies.add(allAllergies.get(allergyChoice.getSelectedIndex()));
         for (Allergy S : selectedAllergies) {
-            chaine += S.getAllergyName()+"; ";
+            chaine += S.getAllergyName()+", ";
         }
         allergies.setText(chaine);
     }//GEN-LAST:event_addAllergyActionPerformed
@@ -982,6 +980,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JTextField cinText;
     private javax.swing.ButtonGroup conRapButtonGroup;
     private javax.swing.JRadioButton consultationsRadioButton;
+    private javax.swing.JPanel contenaire;
     private org.jdesktop.swingx.JXDatePicker dateInfo;
     private javax.swing.JTextArea descriptionText;
     private javax.swing.JTextArea diagnostiqueText;
@@ -998,6 +997,9 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1006,7 +1008,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane3;

@@ -309,12 +309,12 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(revenirButton)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(typeLabel1)
                         .addComponent(dateLabel1)
-                        .addComponent(patientLabel1)))
+                        .addComponent(patientLabel1))
+                    .addComponent(revenirButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -378,7 +378,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         ));
         jScrollPane2.setViewportView(infosTable);
 
-        plusInfoPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 299, 110));
+        plusInfoPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 299, 120));
 
         jLabel12.setText("Allergies");
         plusInfoPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, -1));

@@ -433,13 +433,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="revenirButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="typeLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="dateLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="patientLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="revenirButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -606,7 +606,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="230" width="299" height="110"/>
+                  <AbsoluteConstraints x="20" y="220" width="299" height="120"/>
                 </Constraint>
               </Constraints>
 
