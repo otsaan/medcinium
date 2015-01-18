@@ -106,7 +106,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         patientsListPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         patientsTable = new javax.swing.JTable();
-        addPatientButton = new javax.swing.JButton();
         patientInfoPanel = new javax.swing.JPanel();
         patientNumberLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -128,15 +127,16 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         birthDateLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
         cityLabel = new javax.swing.JLabel();
-        searchTextField = new javax.swing.JTextField();
+        searchPanel = new javax.swing.JPanel();
         searchButton = new javax.swing.JButton();
+        searchTextField = new javax.swing.JTextField();
+        addPatientButton = new javax.swing.JButton();
         profilePanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         patientName = new javax.swing.JLabel();
         patientSex = new javax.swing.JLabel();
         patientAge = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        plusDetails = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -145,15 +145,16 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         visitsTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         infoTable = new javax.swing.JTable();
-        addRemindButton = new javax.swing.JButton();
-        startVisitButton = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         diagnosticsListe = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         allergiesListe = new javax.swing.JTable();
+        startVisitButton = new javax.swing.JButton();
+        addRemindButton = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        mainPanel.setPreferredSize(new java.awt.Dimension(889, 550));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         patientsListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des patients", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
@@ -175,49 +176,51 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         patientsListPanel.setLayout(patientsListPanelLayout);
         patientsListPanelLayout.setHorizontalGroup(
             patientsListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, patientsListPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+            .addGroup(patientsListPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
+                .addContainerGap())
         );
         patientsListPanelLayout.setVerticalGroup(
             patientsListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(patientsListPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        mainPanel.add(patientsListPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 286, -1));
-
-        addPatientButton.setText("Ajouter un patient");
-        addPatientButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPatientButtonActionPerformed(evt);
-            }
-        });
-        mainPanel.add(addPatientButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 373, -1, -1));
+        mainPanel.add(patientsListPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 790, 210));
 
         patientInfoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        patientInfoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         patientNumberLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         patientNumberLabel.setText("Patient N˚");
+        patientInfoPanel.add(patientNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
         jLabel2.setText("Nom");
+        patientInfoPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel3.setText("Age");
+        patientInfoPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel4.setText("Prénom");
+        patientInfoPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         jLabel5.setText("Date de naissance");
+        patientInfoPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, -1, -1));
 
         jLabel6.setText("Sexe");
+        patientInfoPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jLabel7.setText("CIN");
+        patientInfoPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, -1, -1));
 
         jLabel8.setText("Adresse");
+        patientInfoPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, -1, -1));
 
         jLabel9.setText("Ville");
+        patientInfoPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, -1, -1));
 
         displayProfileButton.setText("Afficher le profil");
         displayProfileButton.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +228,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 displayProfileButtonActionPerformed(evt);
             }
         });
+        patientInfoPanel.add(displayProfileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
 
         modifyPatientButton.setText("Modifier");
         modifyPatientButton.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +236,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 modifyPatientButtonActionPerformed(evt);
             }
         });
+        patientInfoPanel.add(modifyPatientButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
 
         deletePatientButton.setText("Supprimer");
         deletePatientButton.addActionListener(new java.awt.event.ActionListener() {
@@ -239,153 +244,83 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
                 deletePatientButtonActionPerformed(evt);
             }
         });
+        patientInfoPanel.add(deletePatientButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, -1));
+        patientInfoPanel.add(lastNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 180, 30));
+        patientInfoPanel.add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 180, 30));
+        patientInfoPanel.add(ageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 180, 30));
+        patientInfoPanel.add(genderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 180, 30));
+        patientInfoPanel.add(cinLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 230, 30));
+        patientInfoPanel.add(birthDateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 230, 20));
+        patientInfoPanel.add(addressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 230, 30));
+        patientInfoPanel.add(cityLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, 230, 30));
 
-        javax.swing.GroupLayout patientInfoPanelLayout = new javax.swing.GroupLayout(patientInfoPanel);
-        patientInfoPanel.setLayout(patientInfoPanelLayout);
-        patientInfoPanelLayout.setHorizontalGroup(
-            patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(displayProfileButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(modifyPatientButton))
-                    .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deletePatientButton)
-                    .addComponent(lastNameLabel)
-                    .addComponent(nameLabel)
-                    .addComponent(ageLabel)
-                    .addComponent(genderLabel)
-                    .addComponent(cityLabel)
-                    .addComponent(cinLabel)
-                    .addComponent(birthDateLabel)
-                    .addComponent(addressLabel))
-                .addContainerGap())
-            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(patientNumberLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        patientInfoPanelLayout.setVerticalGroup(
-            patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(patientInfoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(patientNumberLabel)
-                .addGap(43, 43, 43)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lastNameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(nameLabel))
-                .addGap(18, 18, 18)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(ageLabel))
-                .addGap(18, 18, 18)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(genderLabel))
-                .addGap(18, 18, 18)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(birthDateLabel))
-                .addGap(18, 18, 18)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cinLabel))
-                .addGap(18, 18, 18)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(addressLabel))
-                .addGap(18, 18, 18)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(cityLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(patientInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(displayProfileButton)
-                    .addComponent(modifyPatientButton)
-                    .addComponent(deletePatientButton))
-                .addContainerGap())
-        );
-
-        mainPanel.add(patientInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 6, -1, -1));
-        mainPanel.add(searchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 12, 204, -1));
+        mainPanel.add(patientInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 790, 240));
 
         searchButton.setText("Rechercher");
-        mainPanel.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 13, -1, -1));
 
-        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        addPatientButton.setText("Ajouter un patient");
+        addPatientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPatientButtonActionPerformed(evt);
+            }
+        });
 
+        javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
+        searchPanel.setLayout(searchPanelLayout);
+        searchPanelLayout.setHorizontalGroup(
+            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPatientButton)
+                .addContainerGap(213, Short.MAX_VALUE))
+        );
+        searchPanelLayout.setVerticalGroup(
+            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchPanelLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchButton)
+                    .addComponent(addPatientButton)
+                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 700, 40));
+
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
+
+        profilePanel.setPreferredSize(new java.awt.Dimension(889, 550));
         profilePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("patient info"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informations du Patient", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 14))); // NOI18N
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         patientName.setText("Mohamed Ell Alami");
+        jPanel1.add(patientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         patientSex.setText("M");
+        jPanel1.add(patientSex, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, -1));
 
         patientAge.setText("23");
+        jPanel1.add(patientAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
         jLabel10.setText("ans");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(patientName)
-                .addGap(18, 18, 18)
-                .addComponent(patientSex)
-                .addGap(18, 18, 18)
-                .addComponent(patientAge)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
-                .addComponent(plusDetails)
-                .addGap(38, 38, 38))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(patientName)
-                    .addComponent(patientSex)
-                    .addComponent(patientAge)
-                    .addComponent(jLabel10)
-                    .addComponent(plusDetails))
-                .addGap(0, 11, Short.MAX_VALUE))
-        );
+        jLabel11.setText("Consultations");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
-        profilePanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 656, -1));
-
-        jLabel11.setText("visites");
-        profilePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
-
-        jLabel12.setText("informations");
-        profilePanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jLabel12.setText("Informations ");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
         jLabel13.setText("Diagnostics");
-        profilePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 140, -1));
 
         jLabel14.setText("Allergies");
-        profilePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
         visitsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -402,7 +337,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane2.setViewportView(visitsTable);
 
-        profilePanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 294, 126));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 290, 126));
 
         infoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -419,23 +354,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane3.setViewportView(infoTable);
 
-        profilePanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 303, 128));
-
-        addRemindButton.setText("Ajouter Un rappel");
-        addRemindButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addRemindButtonActionPerformed(evt);
-            }
-        });
-        profilePanel.add(addRemindButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, -1, -1));
-
-        startVisitButton.setText("Commencer une visite");
-        startVisitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startVisitButtonActionPerformed(evt);
-            }
-        });
-        profilePanel.add(startVisitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 290, 128));
 
         diagnosticsListe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -447,7 +366,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane4.setViewportView(diagnosticsListe);
 
-        profilePanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 209, 123));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 290, 130));
 
         allergiesListe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -459,7 +378,25 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane5.setViewportView(allergiesListe);
 
-        profilePanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 209, 128));
+        jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, 290, 128));
+
+        profilePanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 710, 440));
+
+        startVisitButton.setText("Commencer une visite");
+        startVisitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startVisitButtonActionPerformed(evt);
+            }
+        });
+        profilePanel.add(startVisitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, 190, -1));
+
+        addRemindButton.setText("Ajouter Un rappel");
+        addRemindButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRemindButtonActionPerformed(evt);
+            }
+        });
+        profilePanel.add(addRemindButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 170, -1));
 
         add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -598,9 +535,9 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel patientSex;
     private javax.swing.JPanel patientsListPanel;
     private javax.swing.JTable patientsTable;
-    private javax.swing.JLabel plusDetails;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JButton searchButton;
+    private javax.swing.JPanel searchPanel;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JButton startVisitButton;
     private javax.swing.JTable visitsTable;
