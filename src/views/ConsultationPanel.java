@@ -515,7 +515,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
             
             try {
-                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                int val = JOptionPane.showConfirmDialog(this, "Etes vous sûr de vouloir supprimer cette consultation?", "Validation", JOptionPane.OK_CANCEL_OPTION);
 
                 if(val == 0) {
                     Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
@@ -537,7 +537,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 consultationsTable.repaint();
             }
          } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
         
@@ -549,7 +549,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             TableModel model = (TableModel)consultationsTable.getModel();
             num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
         if(num != null) {

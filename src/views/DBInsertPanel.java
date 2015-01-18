@@ -450,7 +450,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
         if(!text.getText().equalsIgnoreCase("")) {
             if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
             {
-                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer ce médicament?", "Validation", JOptionPane.OK_CANCEL_OPTION);
                 if(val == 0) {
                     if(DAOFactory.getDrugDAO().delete(drug)) {
                         text.setText("");
@@ -467,7 +467,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
                 }
 
             }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
-                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer cette allergie?", "Validation", JOptionPane.OK_CANCEL_OPTION);
                 if(val == 0) {
                     if(DAOFactory.getAllergyDAO().delete(allergy))
                     {
@@ -487,7 +487,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
                     this.repaint();
                 }
             }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
-                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer cet info?", "Validation", JOptionPane.OK_CANCEL_OPTION);
                 if(val == 0) {
                     if(DAOFactory.getPatientInfoDAO().delete(info)) {
                         text.setText("");
@@ -527,9 +527,9 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
                 if(DAOFactory.getUserDAO().findUser(newUser)<0) {
 
                     if(DAOFactory.getUserDAO().create(newUser)) {
-                        JOptionPane.showMessageDialog(this, " utilisateur crée  avec succès ");
+                        JOptionPane.showMessageDialog(this, "Utilisateur créé avec succès ");
                     }else {
-                        JOptionPane.showMessageDialog(this, "Ereur de creation","ereur", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Erreur lors de la création","Erreur", JOptionPane.ERROR_MESSAGE);
 
                     }
                     lastName.setText("");
@@ -538,13 +538,13 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
                     password.setText("");
                 }else {
 
-                    JOptionPane.showMessageDialog(this, "Utilisateur Exist Déja","ereur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Utilisateur existe déjà","Erreur", JOptionPane.ERROR_MESSAGE);
 
                 }
 
             }else {
 
-                JOptionPane.showMessageDialog(this, "Vous n'avez pas droit de création","ereur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Vous n'avez pas le droit de création","Erreur", JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -566,13 +566,13 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
 
             if(DAOFactory.getUserDAO().findUser(temp)<0 || temp.getUserId()==User.getConnectedUser().getUserId()) {
                 if(DAOFactory.getUserDAO().update(User.getConnectedUser())) {
-                    JOptionPane.showMessageDialog(this, " utilisateur modifié  avec succès ");
+                    JOptionPane.showMessageDialog(this, "Utilisateur modifié avec succès ");
                 }else {
-                    JOptionPane.showMessageDialog(this, "Ereur de D'isertion","ereur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Erreur lors de l'insertion","Erreur", JOptionPane.ERROR_MESSAGE);
 
                 }
             }else {
-                JOptionPane.showMessageDialog(this, "Utilisateur exist Déja","ereur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Utilisateur existe déjà","ereur", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -584,7 +584,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
             updateTest=true;
             ajouter.setText("Modifier");
             title.setText("Modifier Le Compte");
-            jToggleButton1.setText("Ajouter un Assistant");
+            jToggleButton1.setText("Ajouter un assistant");
             firstName.setText(User.getConnectedUser().getName());
             lastName.setText(User.getConnectedUser().getLastName());
             username.setText(User.getConnectedUser().getUsername());
@@ -675,7 +675,6 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
            info = DAOFactory.getPatientInfoDAO().findAlone(num);
            text.setText(info.getProperty());
            choice.setSelectedIndex(2);
-           System.out.println("selected");
            choice.setEditable(false);
         }
     

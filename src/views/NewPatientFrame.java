@@ -229,13 +229,13 @@ public class NewPatientFrame extends javax.swing.JFrame {
             if(DAOFactory.getPatientDAO().update(patient)) {
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Erreur De mise à jour", "Erreur", JOptionPane.ERROR_MESSAGE);        
+                JOptionPane.showMessageDialog(this, "Erreur lors de la mise à jour", "Erreur", JOptionPane.ERROR_MESSAGE);        
             }
         } else {
             if (DAOFactory.getPatientDAO().create(patient)) {
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Erreur de création", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erreur lors de la création", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
         

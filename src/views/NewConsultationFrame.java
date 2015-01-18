@@ -134,7 +134,7 @@ public class NewConsultationFrame extends javax.swing.JFrame {
         
         if(reminderDatePicker.getDate().compareTo(new java.util.Date()) < 0)
         {
-            JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Veuillez choisir une date future", "Erreur", JOptionPane.ERROR_MESSAGE);
             
         }else
         {
@@ -144,7 +144,7 @@ public class NewConsultationFrame extends javax.swing.JFrame {
                
            }else
            {
-                JOptionPane.showMessageDialog(this, "Erreur de la création", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erreur lors de la création", "Erreur", JOptionPane.ERROR_MESSAGE);
 
            }
            

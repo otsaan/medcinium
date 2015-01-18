@@ -407,7 +407,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
         if(num != null) {
@@ -431,10 +431,10 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
          } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         if(num != null) {
-            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer ce patient?", "Validation", JOptionPane.OK_CANCEL_OPTION);
             if(val == 0) {
                 Patient currentPatient = DAOFactory.getPatientDAO().find(num);
                 DAOFactory.getPatientDAO().delete(currentPatient);
@@ -455,7 +455,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             TableModel model = (TableModel)patientsTable.getModel();
             num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
         
         if(num != null) {

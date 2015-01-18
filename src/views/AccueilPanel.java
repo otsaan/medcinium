@@ -776,7 +776,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                     if( DAOFactory.getConsultationDAO().create(consultation)) {
                         JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
                 } 
             }
@@ -799,7 +799,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                     if( DAOFactory.getConsultationDAO().create(consultation)) {
                         JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
@@ -912,7 +912,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
             }
             
         } else {
-            JOptionPane.showMessageDialog(this, "Erreur de création", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erreur lors de la création", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         
         prescriptionPanel.setVisible(false);
