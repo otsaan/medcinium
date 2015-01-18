@@ -40,8 +40,24 @@ public class LoginFrame extends javax.swing.JFrame {
         
         initComponents();
         configPanel.setVisible(false);
+        User user = new User();
+        usernameTextField.addKeyListener(new KeyAdapter() {    
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER ) {        
+                    user.setUsername(usernameTextField.getText());
+                    MessageDigest md5 = null;
+                    try {
+                        md5 = MessageDigest.getInstance("md5");
+                    } catch (NoSuchAlgorithmException ex) {
+                        Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    user.setPassword(new String(md5.digest(new String(password.getPassword()).getBytes())));
+                    notifyObservers(user,"login");
+                }
+            } 
+        });
         password.addKeyListener(new KeyAdapter() {
-            User user = new User();
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER ) {        
