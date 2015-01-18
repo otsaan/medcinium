@@ -140,7 +140,6 @@ public class ReminderDAO implements DAO<Reminder>{
                 reminder.setDescription(rs.getString("desc_rappel"));
                 reminder.setPatient(patientDAO.find(rs.getString("id_patient")));
                 reminder.setDate(rs.getDate("date_rappel"));
-                System.out.println(reminder.getDate());
                 reminders.add(reminder);
             }
             

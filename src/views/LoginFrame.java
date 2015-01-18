@@ -108,19 +108,15 @@ public class LoginFrame extends javax.swing.JFrame {
         User user = new User();
         user.setUsername(usernameTextField.getText());
         user.setPassword(new String(password.getPassword()));
-        System.out.println(user.getPassword());
-        System.out.println("Login Button Clicked!");
         notifyObservers(user,"login");
     }//GEN-LAST:event_backgroundLabelMouseClicked
     
     
     public void addObserver(Observer observer) {
        observers.add(observer);
-       System.out.println("Observer added!");
     }
     
     public void notifyObservers(User user, String action ) {
-        System.out.println("Notifying this user: " + user);
         for (Observer observer : observers) {
             observer.execute(this, user,action);
         }
