@@ -354,7 +354,6 @@
                     <StringItem index="6" value="Sam"/>
                   </StringArray>
                 </Property>
-                <Property name="firstDayOfWeek" type="int" value="2"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="16" style="0"/>
                 </Property>

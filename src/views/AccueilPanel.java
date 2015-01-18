@@ -27,6 +27,7 @@ import models.Consultation;
 import models.Drug;
 import models.Patient;
 import models.PatientInfo;
+import models.User;
 import models.dao.DAO;
 import models.dao.DAOFactory;
 import static views.Utils.buildTableModel;
@@ -65,7 +66,10 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         refreshModels();
         searchPatientPanel.setVisible(false);
         prescriptionPanel.setVisible(false);
-        
+        if(!User.getConnectedUser().getRole().equals("docteur"))
+        {
+            beginConsultationButton.setEnabled(false);
+        }
          // create a ListSelectionListener to listen for rows clicked in the table
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
