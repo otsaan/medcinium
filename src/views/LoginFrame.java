@@ -39,7 +39,7 @@ public class LoginFrame extends javax.swing.JFrame {
         
         
         initComponents();
-        
+        jPanel1.setVisible(true);
         password.addKeyListener(new KeyAdapter() {
             User user = new User();
             @Override
@@ -131,7 +131,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jlabel3.setText("Utilisateur");
 
-        jLabel4.setText("Prot");
+        jLabel4.setText("Port");
 
         jLabel5.setText("Mot de Pass");
 
