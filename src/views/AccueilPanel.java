@@ -723,7 +723,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
             selectedDate = jXMonthView1.getSelectionDate();
         }
         
-        this.remindersTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(selectedDate))));
+        this.remindersTable.setModel(TableModelBuilder.buildConsultationsHoursTableModel(DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(selectedDate))));
     }//GEN-LAST:event_consultationsButtonActionPerformed
 
     private void rappelsButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rappelsButtonsActionPerformed
