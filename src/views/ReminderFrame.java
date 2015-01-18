@@ -40,7 +40,7 @@ public class ReminderFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         reminderText = new javax.swing.JTextArea();
-        reminderDate = new org.jdesktop.swingx.JXDatePicker();
+        reminderDatePicker = new org.jdesktop.swingx.JXDatePicker();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -74,7 +74,7 @@ public class ReminderFrame extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1)
-                            .addComponent(reminderDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(reminderDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
@@ -83,7 +83,7 @@ public class ReminderFrame extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(reminderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(reminderDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -101,14 +101,14 @@ public class ReminderFrame extends javax.swing.JFrame {
 //        System.out.println(patient.getPatientId());
 //        System.out.println(dateFormat.format(reminderDate.getDate()));
 //        System.out.println(reminderText.getText());
-         Reminder reminder= new Reminder();
-        reminder.setDate( new Date(reminderDate.getDate().getTime()));
+        Reminder reminder= new Reminder();
+        reminder.setDate(new Date(reminderDatePicker.getDate().getTime()));
         reminder.setDescription(reminderText.getText());
         reminder.setPatient(patient);
         
         if(reminder.getDate().compareTo(new java.util.Date())<0)
         {
-            JOptionPane.showMessageDialog(this, "veuillez choisir une date anterieur  postérieur ");
+            JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur");
         }else
         {
            if( DAOFactory.getReminderDAO().create(reminder))
@@ -163,7 +163,7 @@ public class ReminderFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXDatePicker reminderDate;
+    private org.jdesktop.swingx.JXDatePicker reminderDatePicker;
     private javax.swing.JTextArea reminderText;
     private org.jdesktop.swingx.painter.TextPainter textPainter1;
     // End of variables declaration//GEN-END:variables

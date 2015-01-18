@@ -11,6 +11,7 @@ import static java.lang.String.format;
 import static java.lang.String.format;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
@@ -814,7 +815,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 consultation.setStatus("pending");
                 consultation.setDiagnostics("");
                 java.util.Date date = (java.util.Date)(visitDate.getValue());
-                consultation.setConsultationDate(new Date(date.getTime()));
+                consultation.setConsultationDate(new Timestamp(date.getTime()));
 
                 if((date).compareTo(new java.util.Date()) < 0) {
                      JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -837,7 +838,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 consultation.setStatus("pending");
                 consultation.setDiagnostics("");
                 java.util.Date date = (java.util.Date)(visitDate.getValue());
-                consultation.setConsultationDate(new Date(date.getTime()));
+                consultation.setConsultationDate(new Timestamp(date.getTime()));
 
                 if((date).compareTo(new java.util.Date()) < 0) {
                     JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);

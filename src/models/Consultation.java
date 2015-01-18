@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Vector;
 
 /**
@@ -17,7 +17,7 @@ public class Consultation {
     private String type;
     private String description;
     private String diagnostics;
-    private Date consultationDate;
+    private Timestamp consultationDate;
     private String status;
     private int prix;
     private Patient patient;
@@ -57,11 +57,11 @@ public class Consultation {
         this.diagnostics = diagnostics;
     }
 
-    public Date getConsultationDate() {
+    public Timestamp getConsultationDate() {
         return consultationDate;
     }
 
-    public void setConsultationDate(Date consultationDate) {
+    public void setConsultationDate(Timestamp consultationDate) {
         this.consultationDate = consultationDate;
     }
 

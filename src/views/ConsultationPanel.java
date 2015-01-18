@@ -167,6 +167,11 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         });
 
         updateButton.setText("Modifier");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Supprimer");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -544,6 +549,10 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         consultationInfoPanel.setVisible(false);
         consultationPanel.setVisible(true);
     }//GEN-LAST:event_revenirButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
