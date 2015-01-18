@@ -39,7 +39,7 @@ public class LoginFrame extends javax.swing.JFrame {
         
         
         initComponents();
-        jPanel1.setVisible(true);
+        jPanel1.setVisible(false);
         password.addKeyListener(new KeyAdapter() {
             User user = new User();
             @Override
@@ -133,7 +133,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Port");
 
-        jLabel5.setText("Mot de Pass");
+        jLabel5.setText("Mot de Passe");
 
         save.setText("Enregistrer");
         save.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +171,7 @@ public class LoginFrame extends javax.swing.JFrame {
                             .addComponent(port)
                             .addComponent(dbUser)
                             .addComponent(dbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(login)
