@@ -53,6 +53,7 @@ public class View extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         logoutLabel = new javax.swing.JLabel();
         accueilLabel = new javax.swing.JLabel();
         patientsLabel = new javax.swing.JLabel();
@@ -68,35 +69,41 @@ public class View extends javax.swing.JFrame {
 
         mainPanel.setBackground(new java.awt.Color(51, 0, 51));
 
-        logoutLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        logoutLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutLabelMouseClicked(evt);
             }
         });
 
-        accueilLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        accueilLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         accueilLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 accueilLabelMouseClicked(evt);
             }
         });
 
-        patientsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        patientsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         patientsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 patientsLabelMouseClicked(evt);
             }
         });
 
-        consultationsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultationsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         consultationsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 consultationsLabelMouseClicked(evt);
             }
         });
 
-        statistiquesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        statistiquesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         statistiquesLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 statistiquesLabelMouseClicked(evt);
@@ -104,7 +111,7 @@ public class View extends javax.swing.JFrame {
         });
 
         paiementsLabel.setForeground(new java.awt.Color(255, 255, 255));
-        paiementsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paiementsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         paiementsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 paiementsLabelMouseClicked(evt);
@@ -140,6 +147,8 @@ public class View extends javax.swing.JFrame {
                 .addGap(349, 349, 349)
                 .addComponent(welcomeNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,15 +171,14 @@ public class View extends javax.swing.JFrame {
                 .addComponent(paiementsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addComponent(welcomeNameLabel)
-                        .addGap(18, 26, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logoutLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -262,11 +270,24 @@ public class View extends javax.swing.JFrame {
         rightPanel.revalidate(); 
     }//GEN-LAST:event_paiementsLabelMouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/paiements.png")));
+        // removing panel
+        rightPanel.removeAll();
+        rightPanel.repaint();
+        rightPanel.revalidate();
+        // adding panels
+        rightPanel.add(new DBInsertPanel());
+        rightPanel.repaint();
+        rightPanel.revalidate(); 
+    }//GEN-LAST:event_jLabel1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accueilLabel;
     private javax.swing.JLabel background;
     private javax.swing.JLabel consultationsLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel logoutLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel paiementsLabel;

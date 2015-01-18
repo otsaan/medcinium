@@ -20,19 +20,16 @@ import models.dao.DAOFactory;
  *
  * @author otm
  */
-public class InsertingIntoDB extends javax.swing.JFrame implements ListSelectionListener{
+public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionListener{
 
-    
-    /**
-     * Creates new form InsertingIntoDB
-     */
-    Drug drug;
+     Drug drug;
     PatientInfo info;
     Allergy allergy;
-    public InsertingIntoDB() {
-        
-        
-        
+    /**
+     * Creates new form DBInsertPanel
+     */
+    public DBInsertPanel() {
+          
         initComponents();
         
         update.setEnabled(false);
@@ -46,6 +43,7 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
         selectionModelDrugs.addListSelectionListener(this);
         selectionModelInfos.addListSelectionListener(this);
         selectionModelAllergies.addListSelectionListener(this);
+    
     }
 
     /**
@@ -68,14 +66,6 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
         addButton = new javax.swing.JButton();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("medcinium");
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
 
         choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Medicament", "Allergie", "Info" }));
 
@@ -130,12 +120,12 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,123 +165,57 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
+
         drug= new Drug();
         info= new PatientInfo();
         allergy= new Allergy();
         drugs.clearSelection();
-        
-        if(!text.getText().equalsIgnoreCase("")) {
-        if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
-        {
-            
-            drug.setDrugName(text.getText());
-            if(DAOFactory.getDrugDAO().create(drug)) {
-                text.setText("");
-                try {
-                    drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
-                }catch(Exception e){
-                   drugs.repaint();
-                }
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-        }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
-            allergy.setAllergyName(text.getText());
-            if(DAOFactory.getAllergyDAO().create(allergy))
-            {
-                text.setText("");
-                try {
-                    allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-                }catch(Exception e){
-                   allergies.repaint();
-                }
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-        }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
-            info.setProperty(text.getText());
-            if(DAOFactory.getPatientInfoDAO().create(info)) {
-                text.setText("");
-                try {
-                    infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
-                }catch(Exception e){
-                   infos.repaint();
-                }
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-        }
-        }else {
-            JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);        
-            
-        }
-        
-    }//GEN-LAST:event_addButtonActionPerformed
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        
         if(!text.getText().equalsIgnoreCase("")) {
-        if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
-        {
-            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
-            if(val == 0) {
-                if(DAOFactory.getDrugDAO().delete(drug)) {
+            if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
+            {
+
+                drug.setDrugName(text.getText());
+                if(DAOFactory.getDrugDAO().create(drug)) {
                     text.setText("");
-                    try{
+                    try {
                         drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
                     }catch(Exception e){
                         drugs.repaint();
                     }
                 }
-                    SwingUtilities.updateComponentTreeUI(this);
-                    this.invalidate();
-                    this.validate();
-                    this.repaint();
-            }
-            
-        }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
-            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
-            if(val == 0) {
-                if(DAOFactory.getAllergyDAO().delete(allergy))
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+            }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
+                allergy.setAllergyName(text.getText());
+                if(DAOFactory.getAllergyDAO().create(allergy))
                 {
                     text.setText("");
-
                     try {
                         allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-
                     }catch(Exception e){
-                       allergies.repaint();
+                        allergies.repaint();
                     }
-
                 }
                 SwingUtilities.updateComponentTreeUI(this);
                 this.invalidate();
                 this.validate();
                 this.repaint();
-            }
-        }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
-            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
-            if(val == 0) {
-                if(DAOFactory.getPatientInfoDAO().delete(info)) {
+            }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
+                info.setProperty(text.getText());
+                if(DAOFactory.getPatientInfoDAO().create(info)) {
                     text.setText("");
                     try {
                         infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
                     }catch(Exception e){
-                       allergies.repaint();
+                        infos.repaint();
                     }
                 }
                 SwingUtilities.updateComponentTreeUI(this);
@@ -299,124 +223,132 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
                 this.validate();
                 this.repaint();
             }
-        }
         }else {
-            JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);        
-            
+            JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        if(!text.getText().equalsIgnoreCase("")) {
+            if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
+            {
+
+                drug.setDrugName(text.getText());
+                if(DAOFactory.getDrugDAO().update(drug)) {
+                    text.setText("");
+                    try {
+                        drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
+                    }catch(Exception e){
+                        drugs.repaint();
+                    }
+                }
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+            }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
+                allergy.setAllergyName(text.getText());
+                if(DAOFactory.getAllergyDAO().update(allergy))
+                {
+                    text.setText("");
+                    try {
+                        allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+                    }catch(Exception e){
+                        allergies.repaint();
+                    }
+                }
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+            }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
+                info.setProperty(text.getText());
+                if(DAOFactory.getPatientInfoDAO().update(info)) {
+                    text.setText("");
+                    try {
+                        infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
+                    }catch(Exception e){
+                        allergies.repaint();
+                    }
+                }
+                SwingUtilities.updateComponentTreeUI(this);
+                this.invalidate();
+                this.validate();
+                this.repaint();
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+
+        if(!text.getText().equalsIgnoreCase("")) {
+            if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
+            {
+                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                if(val == 0) {
+                    if(DAOFactory.getDrugDAO().delete(drug)) {
+                        text.setText("");
+                        try{
+                            drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
+                        }catch(Exception e){
+                            drugs.repaint();
+                        }
+                    }
+                    SwingUtilities.updateComponentTreeUI(this);
+                    this.invalidate();
+                    this.validate();
+                    this.repaint();
+                }
+
+            }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
+                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                if(val == 0) {
+                    if(DAOFactory.getAllergyDAO().delete(allergy))
+                    {
+                        text.setText("");
+
+                        try {
+                            allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
+
+                        }catch(Exception e){
+                            allergies.repaint();
+                        }
+
+                    }
+                    SwingUtilities.updateComponentTreeUI(this);
+                    this.invalidate();
+                    this.validate();
+                    this.repaint();
+                }
+            }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
+                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+                if(val == 0) {
+                    if(DAOFactory.getPatientInfoDAO().delete(info)) {
+                        text.setText("");
+                        try {
+                            infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
+                        }catch(Exception e){
+                            allergies.repaint();
+                        }
+                    }
+                    SwingUtilities.updateComponentTreeUI(this);
+                    this.invalidate();
+                    this.validate();
+                    this.repaint();
+                }
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        update.setEnabled(false);
-        delete.setEnabled(false);
-        choice.setEditable(true);
-        text.setText("");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.invalidate();
-        this.validate();
-        this.repaint();
-        try {
-            drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
-            allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-            infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
-        }catch(Exception e){
-           this.repaint();
-        }
-        SwingUtilities.updateComponentTreeUI(this);
-        this.invalidate();
-        this.validate();
-        this.repaint();
-    }//GEN-LAST:event_formMouseClicked
-
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-            if(!text.getText().equalsIgnoreCase("")) {
-        if(choice.getSelectedItem().toString().equalsIgnoreCase("Medicament"))
-        {
-            
-            drug.setDrugName(text.getText());
-            if(DAOFactory.getDrugDAO().update(drug)) {
-                text.setText("");
-                try {
-                    drugs.setModel(TableModelBuilder.buildDBdrugsTableModel(DAOFactory.getDrugDAO().all()));
-                }catch(Exception e){
-                   drugs.repaint();
-                }
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-        }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Allergie")){
-            allergy.setAllergyName(text.getText());
-            if(DAOFactory.getAllergyDAO().update(allergy))
-            {
-                text.setText("");
-                try {
-                    allergies.setModel(TableModelBuilder.buildDBAllergiesTableModel(DAOFactory.getAllergyDAO().all()));
-                }catch(Exception e){
-                   allergies.repaint();
-                }
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-        }else if(choice.getSelectedItem().toString().equalsIgnoreCase("Info")) {
-            info.setProperty(text.getText());
-            if(DAOFactory.getPatientInfoDAO().update(info)) {
-                text.setText("");
-                try {
-                    infos.setModel(TableModelBuilder.buildDBinfosTableModel(DAOFactory.getPatientInfoDAO().all()));
-                }catch(Exception e){
-                   allergies.repaint();
-                }
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-            this.invalidate();
-            this.validate();
-            this.repaint();
-        }
-        }else {
-            JOptionPane.showMessageDialog(this, "Le champ est vide", "Erreur", JOptionPane.ERROR_MESSAGE);        
-            
-        }
-        
-    }//GEN-LAST:event_updateActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertingIntoDB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertingIntoDB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertingIntoDB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertingIntoDB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InsertingIntoDB().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -432,7 +364,7 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 
-    @Override
+        @Override
     public void valueChanged(ListSelectionEvent e) {
         
         update.setEnabled(true);
@@ -472,4 +404,5 @@ public class InsertingIntoDB extends javax.swing.JFrame implements ListSelection
         }
     
     }
+
 }
