@@ -1,12 +1,9 @@
 package views;
 
-import controllers.UserController;
 import core.App;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import java.io.IOException;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import models.Model;
 import models.User;
 
@@ -28,9 +25,14 @@ public class View extends javax.swing.JFrame {
     /**
      * Creates new form View
      */
-    public View(Model model, User loggedInUser) {
+    public View(Model model, User loggedInUser) throws IOException {
         
         this.model = model;
+        
+        URL iconURL = getClass().getResource("/assets/ico.png");
+        // iconURL is null when not found
+        ImageIcon icon = new ImageIcon(iconURL);
+        this.setIconImage(icon.getImage());
         
         initComponents();
         this.welcomeNameLabel.setText(loggedInUser.getUsername());
@@ -39,6 +41,8 @@ public class View extends javax.swing.JFrame {
         rightPanel.add(new AccueilPanel());
         rightPanel.repaint();
         rightPanel.revalidate();
+        
+        
         
     }
     
@@ -70,42 +74,42 @@ public class View extends javax.swing.JFrame {
 
         mainPanel.setBackground(new java.awt.Color(51, 0, 51));
 
-        settingsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        settingsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         settingsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 settingsLabelMouseClicked(evt);
             }
         });
 
-        logoutLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutLabelMouseClicked(evt);
             }
         });
 
-        accueilLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        accueilLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         accueilLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 accueilLabelMouseClicked(evt);
             }
         });
 
-        patientsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        patientsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         patientsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 patientsLabelMouseClicked(evt);
             }
         });
 
-        consultationsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultationsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         consultationsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 consultationsLabelMouseClicked(evt);
             }
         });
 
-        statistiquesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        statistiquesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         statistiquesLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 statistiquesLabelMouseClicked(evt);
@@ -113,7 +117,7 @@ public class View extends javax.swing.JFrame {
         });
 
         paiementsLabel.setForeground(new java.awt.Color(255, 255, 255));
-        paiementsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paiementsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         paiementsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 paiementsLabelMouseClicked(evt);
