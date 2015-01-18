@@ -191,6 +191,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         revenirButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(241, 241, 241));
+        setPreferredSize(new java.awt.Dimension(889, 550));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         mainPanel.setBackground(new java.awt.Color(241, 241, 241));
@@ -218,7 +219,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -229,7 +230,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 .addContainerGap())
         );
 
-        mainPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        mainPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 330, -1));
 
         jPanel2.setBackground(new java.awt.Color(241, 241, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dernières consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
@@ -331,14 +332,14 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         jXMonthView1.setBackground(new java.awt.Color(241, 241, 241));
         jXMonthView1.setDaysOfTheWeek(new String[] {"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"});
         jXMonthView1.setFirstDayOfWeek(2);
-        jXMonthView1.setFont(new java.awt.Font("Norwester", 0, 16)); // NOI18N
+        jXMonthView1.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jXMonthView1.setTraversable(true);
         jXMonthView1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jXMonthView1ActionPerformed(evt);
             }
         });
-        jPanel5.add(jXMonthView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 250, 220));
+        jPanel5.add(jXMonthView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 260, 240));
 
         mainPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 280, -1));
 
@@ -358,7 +359,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         });
         mainPanel.add(reserverButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 520));
 
         newReservationPanel.setBackground(new java.awt.Color(241, 241, 241));
         newReservationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
