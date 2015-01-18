@@ -5,6 +5,9 @@
  */
 package views;
 
+import java.awt.event.ItemEvent;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -14,6 +17,7 @@ import javax.swing.table.TableModel;
 import models.Allergy;
 import models.Drug;
 import models.PatientInfo;
+import models.User;
 import models.dao.DAOFactory;
 
 /**
@@ -25,6 +29,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
      Drug drug;
     PatientInfo info;
     Allergy allergy;
+    boolean updateTest=false;
     /**
      * Creates new form DBInsertPanel
      */
@@ -43,7 +48,9 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
         selectionModelDrugs.addListSelectionListener(this);
         selectionModelInfos.addListSelectionListener(this);
         selectionModelAllergies.addListSelectionListener(this);
-    
+        
+        
+        LoginPanel.setVisible(false);
     }
 
     /**
@@ -55,6 +62,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        DBinsert = new javax.swing.JPanel();
         choice = new javax.swing.JComboBox();
         text = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -66,6 +74,20 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
         addButton = new javax.swing.JButton();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
+        userConfig = new javax.swing.JButton();
+        LoginPanel = new javax.swing.JPanel();
+        title = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lastName = new javax.swing.JTextField();
+        firstName = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
+        ajouter = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         choice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Medicament", "Allergie", "Info" }));
 
@@ -120,52 +142,190 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
             }
         });
 
+        userConfig.setText("Compte Utilisateur");
+        userConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userConfigActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DBinsertLayout = new javax.swing.GroupLayout(DBinsert);
+        DBinsert.setLayout(DBinsertLayout);
+        DBinsertLayout.setHorizontalGroup(
+            DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DBinsertLayout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(addButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(update)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(delete)
+                .addContainerGap(251, Short.MAX_VALUE))
+            .addGroup(DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DBinsertLayout.createSequentialGroup()
+                    .addGap(182, 182, 182)
+                    .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(choice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(DBinsertLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(userConfig, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DBinsertLayout.createSequentialGroup()
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        DBinsertLayout.setVerticalGroup(
+            DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DBinsertLayout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addGroup(DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(addButton)
+                    .addComponent(update)
+                    .addComponent(delete))
+                .addContainerGap(260, Short.MAX_VALUE))
+            .addGroup(DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DBinsertLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(userConfig)
+                    .addGap(32, 32, 32)
+                    .addGroup(DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(choice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                    .addGroup(DBinsertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()))
+        );
+
+        title.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        title.setText("Ajouter un assistant");
+
+        jLabel2.setText("Nom");
+
+        jLabel3.setText("Prénom");
+
+        jLabel4.setText("Username");
+
+        jLabel5.setText("Password");
+
+        ajouter.setText("Ajouter");
+        ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterActionPerformed(evt);
+            }
+        });
+
+        jToggleButton1.setText("Modifier Mon Compte");
+        jToggleButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jToggleButton1ItemStateChanged(evt);
+            }
+        });
+
+        jButton1.setText("Retour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
+        LoginPanel.setLayout(LoginPanelLayout);
+        LoginPanelLayout.setHorizontalGroup(
+            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginPanelLayout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(36, 36, 36))
+            .addGroup(LoginPanelLayout.createSequentialGroup()
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(ajouter)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(26, 26, 26)
+                        .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(password)
+                            .addComponent(username)
+                            .addComponent(firstName)
+                            .addComponent(lastName)))
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(278, 278, 278))
+        );
+        LoginPanelLayout.setVerticalGroup(
+            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginPanelLayout.createSequentialGroup()
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(title))
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jButton1)))
+                .addGap(49, 49, 49)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ajouter)
+                    .addComponent(jToggleButton1))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(update))
-                    .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(delete)
-                    .addComponent(choice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE)
+                .addComponent(DBinsert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 18, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(choice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addButton)
-                            .addComponent(update)
-                            .addComponent(delete))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(DBinsert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -349,19 +509,135 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
         }
     }//GEN-LAST:event_deleteActionPerformed
 
+    private void ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterActionPerformed
+        if(!updateTest) {
+            if(User.getConnectedUser().getRole().equals("docteur")) {
+
+                User newUser= new User();
+                newUser.setLastName(lastName.getText());
+                newUser.setName(firstName.getText());
+                newUser.setUsername(username.getText());
+                newUser.setRole("assistant");
+                try {
+                    MessageDigest md5 = MessageDigest.getInstance("md5");
+                    newUser.setPassword(new String(md5.digest(password.getText().getBytes())));
+                } catch (NoSuchAlgorithmException ex) {
+                    System.out.println(ex);
+                }
+                if(DAOFactory.getUserDAO().findUser(newUser)<0) {
+
+                    if(DAOFactory.getUserDAO().create(newUser)) {
+                        JOptionPane.showMessageDialog(this, " utilisateur crée  avec succès ");
+                    }else {
+                        JOptionPane.showMessageDialog(this, "Ereur de creation","ereur", JOptionPane.ERROR_MESSAGE);
+
+                    }
+                    lastName.setText("");
+                    firstName.setText("");
+                    username.setText("");
+                    password.setText("");
+                }else {
+
+                    JOptionPane.showMessageDialog(this, "Utilisateur Exist Déja","ereur", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+            }else {
+
+                JOptionPane.showMessageDialog(this, "Vous n'avez pas droit de création","ereur", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+        if(updateTest)
+        {
+            User temp = new User();
+            User.getConnectedUser().setLastName(lastName.getText());
+            User.getConnectedUser().setName(firstName.getText());
+            User.getConnectedUser().setUsername(username.getText());
+            temp.setUsername(username.getText());
+
+            try {
+                MessageDigest md5 = MessageDigest.getInstance("md5");
+                User.getConnectedUser().setPassword(new String(md5.digest(password.getText().getBytes())));
+                temp.setPassword(new String(md5.digest(password.getText().getBytes())));
+            } catch (NoSuchAlgorithmException ex) {
+                System.out.println(ex);
+            }
+
+            if(DAOFactory.getUserDAO().findUser(temp)<0 || temp.getUserId()==User.getConnectedUser().getUserId()) {
+                if(DAOFactory.getUserDAO().update(User.getConnectedUser())) {
+                    JOptionPane.showMessageDialog(this, " utilisateur modifié  avec succès ");
+                }else {
+                    JOptionPane.showMessageDialog(this, "Ereur de D'isertion","ereur", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }else {
+                JOptionPane.showMessageDialog(this, "Utilisateur exist Déja","ereur", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+    }//GEN-LAST:event_ajouterActionPerformed
+
+    private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+            updateTest=true;
+            ajouter.setText("Modifier");
+            title.setText("Modifier Le Compte");
+            jToggleButton1.setText("Ajouter un Assistant");
+            firstName.setText(User.getConnectedUser().getName());
+            lastName.setText(User.getConnectedUser().getLastName());
+            username.setText(User.getConnectedUser().getUsername());
+        } else if(evt.getStateChange()==ItemEvent.DESELECTED){
+            updateTest=false;
+            ajouter.setText("Ajouter");
+            title.setText("Ajouter un assistant");
+            firstName.setText("");
+            lastName.setText("");
+            username.setText("");
+            jToggleButton1.setText("Modifier Mon Compte");
+        }
+    }//GEN-LAST:event_jToggleButton1ItemStateChanged
+
+    private void userConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userConfigActionPerformed
+        LoginPanel.setVisible(true);
+        DBinsert.setVisible(false);
+       
+    }//GEN-LAST:event_userConfigActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        LoginPanel.setVisible(false);
+        DBinsert.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel DBinsert;
+    private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton addButton;
+    private javax.swing.JButton ajouter;
     private javax.swing.JTable allergies;
     private javax.swing.JComboBox choice;
     private javax.swing.JButton delete;
     private javax.swing.JTable drugs;
+    private javax.swing.JTextField firstName;
     private javax.swing.JTable infos;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField lastName;
+    private javax.swing.JTextField password;
     private javax.swing.JTextField text;
+    private javax.swing.JLabel title;
     private javax.swing.JButton update;
+    private javax.swing.JButton userConfig;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 
         @Override

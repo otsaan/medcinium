@@ -39,6 +39,7 @@ public class View extends javax.swing.JFrame {
         rightPanel.add(new AccueilPanel());
         rightPanel.repaint();
         rightPanel.revalidate();
+        
     }
     
     
