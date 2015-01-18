@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import models.dao.DAOFactory;
 import models.Patient;
+import models.User;
 
 /**
  *
@@ -36,7 +37,10 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
      */
     public PatientPanel() {
         initComponents();
-        
+         if(!User.getConnectedUser().getRole().equals("docteur"))
+        {
+            startVisitButton.setEnabled(false);
+        }
         refreshTable(DAOFactory.getPatientDAO().all());
         
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
