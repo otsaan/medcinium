@@ -6,6 +6,8 @@
 package views;
 
 
+import com.xeiam.xchart.BitmapEncoder;
+import com.xeiam.xchart.BitmapEncoder.BitmapFormat;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.QuickChart;
@@ -15,6 +17,9 @@ import com.xeiam.xchart.StyleManager.LegendPosition;
 import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.XChartPanel;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,8 +31,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import models.Consultation;
 import models.dao.DAOFactory;
 /**
@@ -36,6 +45,8 @@ import models.dao.DAOFactory;
  */
 public class StatisticsPanel extends javax.swing.JPanel {
 
+    Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
+    
     /**
      * Creates new form StatisticsPanel
      */
@@ -48,6 +59,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
         deDatePicker.setEditable(true);
         aDatePicker.setLocale(Locale.FRENCH);
         aDatePicker.setEditable(true);
+        exportButton.setVisible(false);
         long deTmp;
         long aTmp;
     }
@@ -67,6 +79,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         aDatePicker = new org.jdesktop.swingx.JXDatePicker();
         displayButton = new javax.swing.JButton();
+        exportButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -86,6 +99,13 @@ public class StatisticsPanel extends javax.swing.JPanel {
             }
         });
 
+        exportButton.setText("Exporter");
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -101,7 +121,9 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(displayButton)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(exportButton)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +136,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
-                        .addComponent(displayButton)))
+                        .addComponent(displayButton)
+                        .addComponent(exportButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -145,18 +168,16 @@ public class StatisticsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
-//        jPanel1.setVisible(false);
-//        
-//        jPanel2.repaint();
-//        jPanel2.revalidate();
-        jPanel2.setVisible(true);       
 
+        jPanel2.setVisible(true);   
+        exportButton.setVisible(true);
+        
         Collection<String> xData = new ArrayList<String>();
         Collection<Double> yData = new ArrayList<Double>();
         Collection<Double> yData2 = new ArrayList<Double>();
         
         long deTmp = 0, aTmp = 0;
-        
+        chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
         deTmp = deDatePicker.getDate().getTime();
         aTmp = aDatePicker.getDate().getTime();
         
@@ -175,11 +196,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 yData2.add((double)con2.size());
             }
 
-            // Create Chart
-            Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
-
             Series series = chart.addSeries("Consultations", xData, yData);
-            Series series2 = chart.addSeries("Reservations", xData, yData2);
+            Series series2 = chart.addSeries("Réservations", xData, yData2);
             // Customize Chart
             chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
             chart.getStyleManager().setChartBackgroundColor(new Color(241,241,241));
@@ -190,11 +208,42 @@ public class StatisticsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_displayButtonActionPerformed
 
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        try {
+            showSaveAsDialog();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_exportButtonActionPerformed
+
+    private void showSaveAsDialog() {
+
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileNameExtensionFilter pngFileFilter = new FileNameExtensionFilter("PNG File","png");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        fileChooser.setFileFilter(pngFileFilter);
+
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+
+            if (fileChooser.getSelectedFile() != null) {
+                File theFileToSave = fileChooser.getSelectedFile();
+                try {
+                    BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath().toString(), BitmapFormat.PNG);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker aDatePicker;
     private org.jdesktop.swingx.JXDatePicker deDatePicker;
     private javax.swing.JButton displayButton;
+    private javax.swing.JButton exportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
