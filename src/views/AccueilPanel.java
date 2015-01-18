@@ -36,14 +36,17 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private Vector<Consultation> pendingConsultation;
     private Vector<Consultation> finishedConsultation;
     
+    private boolean ajouterButtonClicked = false;
+    private boolean chercherButtonClicked = false;
+    
     Patient patientFoundBySearch = new Patient();
+    models.Model model;
     
     /**
      * Creates new form AccueilPanel
      */
-    public AccueilPanel(Vector<Consultation> pendingConsultation, Vector<Consultation> finishedConsultation ) {
-        this.pendingConsultation = pendingConsultation;
-        this.finishedConsultation = finishedConsultation;
+    public AccueilPanel(models.Model model) {
+        this.model = model;
         
         initComponents();
         refreshModels();
@@ -54,11 +57,11 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         selectionModel.addListSelectionListener(this);
     }
     
-    public void refreshModels () {        
+    public void refreshModels() {        
 
 //        System.out.println("Refresh Model");        
-        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(pendingConsultation));
-        finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(finishedConsultation));
+        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(model.getPendingConsultations()));
+        finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(model.getFinishedConsultations()));
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getToday())), DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(jXMonthView1.getToday()))));
         
     }
@@ -555,12 +558,16 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 System.out.println("Erreur lors de la modification");
             }
         }
+        model.load();
+        refreshModels();
     }//GEN-LAST:event_beginConsultationButtonActionPerformed
 
     private void addPatientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButton1ActionPerformed
         patientsListPanel.setVisible(false);
         newPatientPanel.setVisible(true);
         newConsultationPanel.setVisible(true);
+        ajouterButtonClicked = true;
+        chercherButtonClicked = false;
     }//GEN-LAST:event_addPatientButton1ActionPerformed
 
     private void reserverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserverButtonActionPerformed
@@ -578,29 +585,73 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         patientsListPanel.setVisible(true);
         newPatientPanel.setVisible(false);
         newConsultationPanel.setVisible(true);
+        chercherButtonClicked = true;
+        ajouterButtonClicked = false;
     }//GEN-LAST:event_searchButton1ActionPerformed
 
     private void validerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerButtonActionPerformed
         
         Consultation consultation = new Consultation();
         
-        consultation.setPatient(patientFoundBySearch);
-        consultation.setType(typeChoice.getSelectedItem().toString());
-        consultation.setStatus("pending");
-        consultation.setDiagnostics("");
-        java.util.Date date = (java.util.Date)(visitDate.getValue());
-        consultation.setConsultationDate(new Date(date.getTime()));
-       
-        if((date).compareTo(new java.util.Date()) < 0) {
-            JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if( DAOFactory.getConsultationDAO().create(consultation)) {
-                JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
+        if (ajouterButtonClicked) {
+            Patient patientAdded = new Patient();
+            
+            patientAdded.setName(FirstNameText.getText());
+            patientAdded.setLastName(lastNameText.getText());
+            patientAdded.setAddress(addressText.getText());
+            patientAdded.setCin(cinText.getText());
+            patientAdded.setCity(CityText.getText());
+            patientAdded.setSexe(sexChoice.getSelectedItem().toString());
+            patientAdded.setTelephone(PhoneText.getText());
+            patientAdded.setBirthDate(new Date(Integer.parseInt(YearText.getText()),Integer.parseInt(monthChoice.getSelectedItem().toString()), Integer.parseInt(DayChoice.getSelectedItem().toString())));
+            
+            if (DAOFactory.getPatientDAO().create(patientAdded)) {
+                System.out.println("Patient cree dans base donnee" + patientAdded);
+                consultation.setPatient(patientAdded);
+                consultation.setType(typeChoice.getSelectedItem().toString());
+                consultation.setStatus("pending");
+                consultation.setDiagnostics("");
+                java.util.Date date = (java.util.Date)(visitDate.getValue());
+                consultation.setConsultationDate(new Date(date.getTime()));
+
+                if((date).compareTo(new java.util.Date()) < 0) {
+                     JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if( DAOFactory.getConsultationDAO().create(consultation)) {
+                        JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
             }
         }
         
+        if (chercherButtonClicked) {
+            
+            if (patientFoundBySearch != null) {
+                
+                consultation.setPatient(patientFoundBySearch);
+                consultation.setType(typeChoice.getSelectedItem().toString());
+                consultation.setStatus("pending");
+                consultation.setDiagnostics("");
+                java.util.Date date = (java.util.Date)(visitDate.getValue());
+                consultation.setConsultationDate(new Date(date.getTime()));
+
+                if((date).compareTo(new java.util.Date()) < 0) {
+                    JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if( DAOFactory.getConsultationDAO().create(consultation)) {
+                        JOptionPane.showMessageDialog(this, "Réservation ajoutée", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selectionner d'abord un patient", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        
+   
     }//GEN-LAST:event_validerButtonActionPerformed
 
     
@@ -675,7 +726,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
            
            
            patientFoundBySearch = DAOFactory.getPatientDAO().find(id);
-            System.out.println(patientFoundBySearch);
+           System.out.println(patientFoundBySearch);
            
         }
     }

@@ -35,7 +35,7 @@ public class View extends javax.swing.JFrame {
         initComponents();
         this.welcomeNameLabel.setText(loggedInUser.getUsername());
         this.setVisible(true);
-        rightPanel.add(new AccueilPanel(model.getPendingConsultations(), model.getFinishedConsultations()));
+        rightPanel.add(new AccueilPanel(model));
         rightPanel.repaint();
         rightPanel.revalidate();
     }
@@ -203,7 +203,7 @@ public class View extends javax.swing.JFrame {
         rightPanel.repaint();
         rightPanel.revalidate();
         // adding panels
-        rightPanel.add(new AccueilPanel(model.getPendingConsultations(), model.getFinishedConsultations()));
+        rightPanel.add(new AccueilPanel(model));
         rightPanel.repaint();
         rightPanel.revalidate();
     }//GEN-LAST:event_accueilLabelMouseClicked

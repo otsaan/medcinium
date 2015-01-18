@@ -131,7 +131,8 @@ public class PatientDAO implements DAO<Patient>{
                             + "'" + p.getCin()           + "', "
                             + p.getCredit()              + ");";
         
-        return (Database.getInstance().dmlQuery(insertQuery) != 0);
+        p.setPatientId(Database.getInstance().dmlQuery2(insertQuery));
+        return (p.getPatientId()!=0);
     }
 
     
