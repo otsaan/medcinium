@@ -39,9 +39,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="priceText" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="visitDate" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="typeChoice" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="typeChoice" min="-2" max="-2" attributes="0"/>
+                          <Component id="reminderDatePicker" min="-2" max="-2" attributes="0"/>
+                          <Component id="priceText" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -67,7 +67,7 @@
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="visitDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="reminderDatePicker" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -128,12 +128,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="visitDate">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="now" minimum="now" stepSize="5" type="date"/>
-        </Property>
-      </Properties>
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="reminderDatePicker">
     </Component>
   </SubComponents>
 </Form>

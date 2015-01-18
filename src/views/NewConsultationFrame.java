@@ -6,6 +6,7 @@
 package views;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.MessageFormat;
 import javax.swing.JOptionPane;
 import models.Consultation;
@@ -43,7 +44,7 @@ public class NewConsultationFrame extends javax.swing.JFrame {
         addButton = new javax.swing.JToggleButton();
         priceText = new javax.swing.JTextField();
         typeChoice = new javax.swing.JComboBox();
-        visitDate = new javax.swing.JSpinner();
+        reminderDatePicker = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Medcinium");
@@ -68,8 +69,6 @@ public class NewConsultationFrame extends javax.swing.JFrame {
 
         typeChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Visite Normale", "Contôle" }));
 
-        visitDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_MONTH));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,18 +86,15 @@ public class NewConsultationFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(priceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(visitDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(typeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(reminderDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(priceText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addComponent(jLabel1)
                 .addGap(0, 96, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {priceText, typeChoice, visitDate});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -111,7 +107,7 @@ public class NewConsultationFrame extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(visitDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(reminderDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -131,14 +127,14 @@ public class NewConsultationFrame extends javax.swing.JFrame {
         consultation.setPatient(patient);
         consultation.setType(typeChoice.getSelectedItem().toString());
         consultation.setPrix(Integer.parseInt(priceText.getText()));
-        consultation.setStatus("réserver");
+        consultation.setStatus("pending");
         consultation.setDiagnostics("");
-        java.util.Date date=   (java.util.Date)(visitDate.getValue());
-        consultation.setConsultationDate(new Date(date.getTime()));
-       
-        if((date).compareTo(new java.util.Date())<0)
+        consultation.setConsultationDate(new Timestamp(reminderDatePicker.getDate().getTime()));
+        System.out.println(consultation.getConsultationDate());
+        
+        if(reminderDatePicker.getDate().compareTo(new java.util.Date()) < 0)
         {
-            JOptionPane.showMessageDialog(this, "veuillez choisir une date anterieur  postérieur", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Veuillez choisir une date futur", "Erreur", JOptionPane.ERROR_MESSAGE);
             
         }else
         {
@@ -165,7 +161,7 @@ public class NewConsultationFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField priceText;
+    private org.jdesktop.swingx.JXDatePicker reminderDatePicker;
     private javax.swing.JComboBox typeChoice;
-    private javax.swing.JSpinner visitDate;
     // End of variables declaration//GEN-END:variables
 }
