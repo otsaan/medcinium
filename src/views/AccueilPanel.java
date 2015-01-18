@@ -21,8 +21,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
+import models.Allergy;
 import models.Consultation;
+import models.Drug;
 import models.Patient;
+import models.PatientInfo;
 import models.dao.DAO;
 import models.dao.DAOFactory;
 import static views.Utils.buildTableModel;
@@ -42,28 +45,57 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     Patient patientFoundBySearch = new Patient();
     models.Model model;
     
+    // For prescriptionPanel
+    Consultation consultation;
+    Vector<PatientInfo> allInfos ;
+    Vector<Drug> allDrugs ;
+    Vector<Allergy> allAllergies;
+    Vector<PatientInfo> selectedInfos ;
+    Vector<Drug> selectedDrugs ;
+    Vector<Allergy> selectedAllergies;
+    // ---------
+    
     /**
      * Creates new form AccueilPanel
      */
-    public AccueilPanel(models.Model model) {
-        this.model = model;
+    public AccueilPanel() {
         
         initComponents();
         refreshModels();
         searchPatientPanel.setVisible(false);
+        prescriptionPanel.setVisible(false);
         
          // create a ListSelectionListener to listen for rows clicked in the table
         ListSelectionModel selectionModel = patientsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
     }
     
-    public void refreshModels() {        
-
-//        System.out.println("Refresh Model");        
-        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(model.getPendingConsultations()));
-        finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(model.getFinishedConsultations()));
+    public void refreshModels() {
+        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+        finishedConsultationsTable.setModel(TableModelBuilder.buildLastConsultationTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getToday())), DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(jXMonthView1.getToday()))));
+    }
+    
+    public void loadPrescriptionPanel(Consultation consultation) {
+        this.consultation = consultation;
+        selectedInfos = new Vector<PatientInfo>();
+        selectedDrugs = new Vector<Drug>();
+        selectedAllergies= new Vector<Allergy>();
+        allInfos = DAOFactory.getPatientInfoDAO().all();
+       
+        for (PatientInfo Info : allInfos) {
+            infoChoice.addItem(Info.getProperty());
+        }
         
+        allDrugs = DAOFactory.getDrugDAO().all();
+        for (Drug Drug : allDrugs) {
+            drugChoice.addItem(Drug.getDrugName());
+        }
+        
+        allAllergies = DAOFactory.getAllergyDAO().all();
+        for (Allergy Allergy : allAllergies) {
+            allergyChoice.addItem(Allergy.getAllergyName());
+        }
     }
 
     /**
@@ -126,6 +158,36 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         visitDate = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         validerButton = new javax.swing.JButton();
+        prescriptionPanel = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        descriptionText = new javax.swing.JTextArea();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        diagnostiqueText = new javax.swing.JTextArea();
+        allergyChoice = new javax.swing.JComboBox();
+        jPanel4 = new javax.swing.JPanel();
+        drugChoice = new javax.swing.JComboBox();
+        addDrug = new javax.swing.JButton();
+        undoDrug = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        drugDesc = new javax.swing.JTextArea();
+        valueText = new javax.swing.JTextField();
+        dateInfo = new org.jdesktop.swingx.JXDatePicker();
+        infoChoice = new javax.swing.JComboBox();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        addAllergy = new javax.swing.JButton();
+        undoAllergy = new javax.swing.JLabel();
+        undoinfo = new javax.swing.JLabel();
+        allergies = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        drugList = new javax.swing.JTextArea();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        infos = new javax.swing.JTextArea();
+        addInfoButton = new javax.swing.JButton();
+        valider = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -505,6 +567,158 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         newReservationPanel.add(searchPatientPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 780, 430));
 
         add(newReservationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
+
+        prescriptionPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        descriptionText.setColumns(20);
+        descriptionText.setRows(5);
+        jScrollPane6.setViewportView(descriptionText);
+
+        prescriptionPanel.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 252, 90));
+
+        jLabel11.setText("Diagnostique");
+        prescriptionPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+
+        jLabel12.setText("Description");
+        prescriptionPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 25, -1, -1));
+
+        jLabel13.setText("Alllergie");
+        prescriptionPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+
+        diagnostiqueText.setColumns(20);
+        diagnostiqueText.setRows(5);
+        jScrollPane7.setViewportView(diagnostiqueText);
+
+        prescriptionPanel.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 252, 90));
+
+        prescriptionPanel.add(allergyChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 160, -1));
+
+        addDrug.setText("+");
+        addDrug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDrugActionPerformed(evt);
+            }
+        });
+
+        undoDrug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
+        undoDrug.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                undoDrugMouseClicked(evt);
+            }
+        });
+
+        drugDesc.setColumns(20);
+        drugDesc.setRows(5);
+        jScrollPane8.setViewportView(drugDesc);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(drugChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addDrug)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(undoDrug)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(undoDrug)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(drugChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addDrug)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        prescriptionPanel.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, 130));
+
+        valueText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valueTextActionPerformed(evt);
+            }
+        });
+        prescriptionPanel.add(valueText, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 80, -1));
+        prescriptionPanel.add(dateInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, -1, -1));
+
+        infoChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoChoiceActionPerformed(evt);
+            }
+        });
+        prescriptionPanel.add(infoChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, -1, -1));
+
+        jLabel14.setText("Infos");
+        prescriptionPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, -1));
+
+        jLabel15.setText("médicament");
+        prescriptionPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 14, -1, -1));
+
+        addAllergy.setText("+");
+        addAllergy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAllergyActionPerformed(evt);
+            }
+        });
+        prescriptionPanel.add(addAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 40, -1));
+
+        undoAllergy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
+        undoAllergy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                undoAllergyMouseClicked(evt);
+            }
+        });
+        prescriptionPanel.add(undoAllergy, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, 23));
+
+        undoinfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Undo.png"))); // NOI18N
+        undoinfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                undoinfoMouseClicked(evt);
+            }
+        });
+        prescriptionPanel.add(undoinfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 320, -1, -1));
+        prescriptionPanel.add(allergies, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 590, 284, -1));
+
+        drugList.setEditable(false);
+        drugList.setColumns(20);
+        drugList.setRows(5);
+        jScrollPane9.setViewportView(drugList);
+
+        prescriptionPanel.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 360, -1));
+
+        infos.setColumns(20);
+        infos.setRows(5);
+        jScrollPane10.setViewportView(infos);
+
+        prescriptionPanel.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 360, -1));
+
+        addInfoButton.setText("+");
+        addInfoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addInfoButtonActionPerformed(evt);
+            }
+        });
+        prescriptionPanel.add(addInfoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 310, 40, -1));
+
+        valider.setText("Valider");
+        valider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validerActionPerformed(evt);
+            }
+        });
+        prescriptionPanel.add(valider, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 450, 100, -1));
+
+        add(prescriptionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jXMonthView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXMonthView1ActionPerformed
@@ -552,14 +766,19 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         if(num != null) {
             try {
                 Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
-                new prescriptionFrame(currentConsultation).setVisible(true);
+                loadPrescriptionPanel(currentConsultation);
+                //new prescriptionFrame(currentConsultation).setVisible(true);
             
             } catch (Exception e) {
                 System.out.println("Erreur lors de la modification");
             }
+            
+            refreshModels();
+            mainPanel.setVisible(false);
+            newReservationPanel.setVisible(false);
+            prescriptionPanel.setVisible(true);
         }
-        model.load();
-        refreshModels();
+        
     }//GEN-LAST:event_beginConsultationButtonActionPerformed
 
     private void addPatientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButton1ActionPerformed
@@ -654,6 +873,120 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
    
     }//GEN-LAST:event_validerButtonActionPerformed
 
+    private void addDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDrugActionPerformed
+        String chaine="";
+        selectedDrugs.add(allDrugs.get(drugChoice.getSelectedIndex()));
+        selectedDrugs.get(selectedDrugs.size()-1).setDrugDescription(drugDesc.getText());
+        for (Drug d : selectedDrugs) {
+            chaine += d.getDrugName()+" : "+d.getDrugDescription()+"\n";
+        }
+        drugList.setText(chaine);
+        drugDesc.setText("");
+    }//GEN-LAST:event_addDrugActionPerformed
+
+    private void undoDrugMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_undoDrugMouseClicked
+        try {
+            selectedDrugs.remove(selectedDrugs.size()-1);
+            String chaine="";
+            for (Drug d : selectedDrugs) {
+                chaine += d.getDrugName()+" : "+d.getDrugDescription()+"\n";
+            }
+            drugList.setText(chaine);
+            drugDesc.setText("");
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_undoDrugMouseClicked
+
+    private void infoChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoChoiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_infoChoiceActionPerformed
+
+    private void addAllergyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAllergyActionPerformed
+        String chaine="";
+        selectedAllergies.add(allAllergies.get(allergyChoice.getSelectedIndex()));
+        for (Allergy S : selectedAllergies) {
+            chaine += S.getAllergyName()+"; ";
+        }
+        allergies.setText(chaine);
+    }//GEN-LAST:event_addAllergyActionPerformed
+
+    private void undoAllergyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_undoAllergyMouseClicked
+        try {
+            selectedAllergies.remove(selectedAllergies.size()-1);
+            System.out.println(selectedAllergies);
+            String chaine="";
+            for (Allergy S : selectedAllergies) {
+                chaine += S.getAllergyName()+"; ";
+            }
+            allergies.setText(chaine);
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_undoAllergyMouseClicked
+
+    private void undoinfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_undoinfoMouseClicked
+
+        try {
+            selectedInfos.remove(selectedInfos.size()-1);
+            String chaine="";
+            for (PatientInfo info : selectedInfos) {
+                chaine += info.getProperty()+"   "+info.getValue()+"   "+info.getDateAdded()+"\n";
+            }
+            infos.setText(chaine);
+            valueText.setText("");
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_undoinfoMouseClicked
+
+    private void addInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInfoButtonActionPerformed
+
+        String chaine="";
+        selectedInfos.add(allInfos.get(infoChoice.getSelectedIndex()));
+        selectedInfos.get(selectedInfos.size()-1).setValue(valueText.getText());
+        selectedInfos.get(selectedInfos.size()-1).setDateAdded(new Date(dateInfo.getDate().getTime()));
+        for (PatientInfo info : selectedInfos) {
+            chaine += info.getProperty()+"   "+info.getValue()+"   "+info.getDateAdded()+"\n";
+        }
+        infos.setText(chaine);
+        valueText.setText("");
+    }//GEN-LAST:event_addInfoButtonActionPerformed
+
+    private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
+        consultation.setDescription(descriptionText.getText());
+        consultation.setDiagnostics(diagnostiqueText.getText());
+        consultation.setStatus("finished");
+
+        if(DAOFactory.getConsultationDAO().update(consultation)) {
+            
+            for (PatientInfo selAllInfo : selectedInfos) {
+                DAOFactory.getConsultationDAO().contient(consultation, selAllInfo);
+            }
+
+            for (Drug drug : selectedDrugs) {
+                DAOFactory.getConsultationDAO().introduit(consultation, drug);
+            }
+            
+            for (Allergy allergy : selectedAllergies) {
+                DAOFactory.getConsultationDAO().renseigne(consultation, allergy);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Erreur de création", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        prescriptionPanel.setVisible(false);
+        mainPanel.setVisible(true);
+        refreshModels();
+    }//GEN-LAST:event_validerActionPerformed
+
+    private void valueTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valueTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valueTextActionPerformed
+
     
     public void refreshTable(Vector<Patient> patients) {
         try {
@@ -671,14 +1004,32 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JPanel MenuPanel;
     private javax.swing.JTextField PhoneText;
     private javax.swing.JTextField YearText;
+    private javax.swing.JButton addAllergy;
+    private javax.swing.JButton addDrug;
+    private javax.swing.JButton addInfoButton;
     private javax.swing.JButton addPatientButton1;
     private javax.swing.JTextArea addressText;
+    private javax.swing.JLabel allergies;
+    private javax.swing.JComboBox allergyChoice;
     private javax.swing.JButton beginConsultationButton;
     private javax.swing.JTextField cinText;
     private javax.swing.JButton consultationsButton;
+    private org.jdesktop.swingx.JXDatePicker dateInfo;
+    private javax.swing.JTextArea descriptionText;
+    private javax.swing.JTextArea diagnostiqueText;
+    private javax.swing.JComboBox drugChoice;
+    private javax.swing.JTextArea drugDesc;
+    private javax.swing.JTextArea drugList;
     private javax.swing.JTable finishedConsultationsTable;
+    private javax.swing.JComboBox infoChoice;
+    private javax.swing.JTextArea infos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -690,12 +1041,18 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private org.jdesktop.swingx.JXMonthView jXMonthView1;
     private javax.swing.JTextField lastNameText;
     private javax.swing.JPanel mainPanel;
@@ -706,6 +1063,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JPanel patientsListPanel;
     private javax.swing.JTable patientsTable;
     private javax.swing.JTable pendingConsultationsTable;
+    private javax.swing.JPanel prescriptionPanel;
     private javax.swing.JButton rappelsButtons;
     private javax.swing.JTable remindersTable;
     private javax.swing.JButton reserverButton;
@@ -714,7 +1072,12 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JTextField searchTextField1;
     private javax.swing.JComboBox sexChoice;
     private javax.swing.JComboBox typeChoice;
+    private javax.swing.JLabel undoAllergy;
+    private javax.swing.JLabel undoDrug;
+    private javax.swing.JLabel undoinfo;
+    private javax.swing.JButton valider;
     private javax.swing.JButton validerButton;
+    private javax.swing.JTextField valueText;
     private javax.swing.JSpinner visitDate;
     // End of variables declaration//GEN-END:variables
 
@@ -723,8 +1086,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         if (e.getSource() == patientsTable.getSelectionModel() && e.getValueIsAdjusting()) {
            TableModel model = (TableModel)patientsTable.getModel();
            String id = model.getValueAt(patientsTable.getSelectedRow(), 0).toString();
-           
-           
            patientFoundBySearch = DAOFactory.getPatientDAO().find(id);
            System.out.println(patientFoundBySearch);
            
