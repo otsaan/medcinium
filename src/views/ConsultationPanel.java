@@ -8,6 +8,7 @@ package views;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -30,6 +31,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     public ConsultationPanel() {
         initComponents();
         
+        consultationDatePicker.setLocale(Locale.FRENCH);
         buttonGroup.setSelected(consultationsRadioButton.getModel(), true);
         
         listeConsultations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des Consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N

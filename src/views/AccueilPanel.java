@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ import models.PatientInfo;
 import models.User;
 import models.dao.DAO;
 import models.dao.DAOFactory;
+import org.jdesktop.swingx.JXMonthView;
 import static views.Utils.buildTableModel;
 
 /**
@@ -66,6 +68,8 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         refreshModels();
         searchPatientPanel.setVisible(false);
         prescriptionPanel.setVisible(false);
+        jXMonthView1.setLocale(Locale.FRENCH);
+        
         if(!User.getConnectedUser().getRole().equals("docteur"))
         {
             beginConsultationButton.setEnabled(false);

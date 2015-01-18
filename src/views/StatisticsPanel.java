@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 import javax.swing.JPanel;
 import models.Consultation;
@@ -41,6 +42,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
         
         jPanel1.setVisible(true);
         jPanel2.setVisible(false);
+        deDatePicker.setLocale(Locale.FRENCH);
+        aDatePicker.setLocale(Locale.FRENCH);
         long deTmp;
         long aTmp;
     }

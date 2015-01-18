@@ -330,7 +330,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         searchButton.setText("Rechercher");
         mainPanel.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 13, -1, -1));
 
-        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 3, -1, -1));
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         profilePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -461,7 +461,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
         profilePanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 209, 128));
 
-        add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProfileButtonActionPerformed
