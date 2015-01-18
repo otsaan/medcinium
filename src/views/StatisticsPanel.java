@@ -14,6 +14,7 @@ import com.xeiam.xchart.StyleManager.ChartType;
 import com.xeiam.xchart.StyleManager.LegendPosition;
 import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.XChartPanel;
+import java.awt.Color;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -69,6 +70,9 @@ public class StatisticsPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(241, 241, 241));
+
+        jPanel3.setBackground(new java.awt.Color(241, 241, 241));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setText("De:");
@@ -114,9 +118,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(241, 241, 241));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
-
-        jLabel1.setText("jLabel1");
         jPanel2.add(jLabel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -179,7 +182,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
             Series series2 = chart.addSeries("Reservations", xData, yData2);
             // Customize Chart
             chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
-
+            chart.getStyleManager().setChartBackgroundColor(new Color(241,241,241));
             JPanel pnlChart = new XChartPanel(chart);
             jPanel2.removeAll(); 
             jPanel2.add(pnlChart);
