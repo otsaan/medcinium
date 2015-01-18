@@ -8,6 +8,8 @@ package views;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import models.Allergy;
@@ -43,7 +45,35 @@ public class TableModelBuilder {
             Vector<Object> line = new Vector<Object>();
 
             line.add(c.getConsultationId());
-            line.add(c.getConsultationDate());
+            line.add(String.valueOf(c.getConsultationDate()));
+            line.add(c.getPatient().getLastName() + " " + c.getPatient().getName());
+
+            data.add(0,line);
+        }
+
+        return new DefaultTableModel(data, columnNames);
+    }
+    
+    
+    public static DefaultTableModel buildConsultationsHoursTableModel(Vector<Consultation> Consultations) {
+        
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        
+        columnNames.add("Numéro");
+        columnNames.add("Heure");
+        columnNames.add("Patient");
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+
+        for (Consultation c : Consultations) {
+            
+            Vector<Object> line = new Vector<Object>();
+            
+            DateFormat df = new SimpleDateFormat("HH:mm");
+            line.add(c.getConsultationId());
+            line.add(df.format(c.getConsultationDate().getTime()));
             line.add(c.getPatient().getLastName() + " " + c.getPatient().getName());
 
             data.add(0,line);
@@ -130,7 +160,7 @@ public class TableModelBuilder {
             
             Vector<Object> line = new Vector<Object>();
 
-            line.add(c.getConsultationDate());
+            line.add(String.valueOf(c.getConsultationDate()));
             line.add(c.getType());
             
             data.add(0,line);
@@ -334,9 +364,9 @@ public class TableModelBuilder {
         for (Consultation c : consultations) {
             
             Vector<Object> line = new Vector<Object>();
-
+            DateFormat df = new SimpleDateFormat("HH:mm");
             line.add(c.getType());
-            line.add(c.getConsultationDate().toString());
+            line.add(df.format(c.getConsultationDate().getTime()));
             line.add(c.getPatient().getName() + " " + c.getPatient().getLastName());
             line.add("Réservation");
 

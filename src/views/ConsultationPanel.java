@@ -23,13 +23,18 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
  * @author zianwar
  */
 public class ConsultationPanel extends javax.swing.JPanel implements ListSelectionListener{
-
+    
     /**
      * Creates new form ConsultationPanel
      */
     public ConsultationPanel() {
         initComponents();
-        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
+        
+        buttonGroup.setSelected(consultationsRadioButton.getModel(), true);
+        
+        listeConsultations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des Consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        actualiserInfo();
+        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
         
         ListSelectionModel selectionModel = consultationsTable.getSelectionModel();
         selectionModel.addListSelectionListener(this);
@@ -59,20 +64,25 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         consultationPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        searchConsultationPanel = new javax.swing.JPanel();
+        consultationDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        selectionnerDateDatePicker = new javax.swing.JLabel();
+        actualiserButton = new javax.swing.JButton();
+        consultationsRadioButton = new javax.swing.JRadioButton();
+        reservationsRadioButton = new javax.swing.JRadioButton();
+        listeConsultations = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         consultationsTable = new javax.swing.JTable();
-        consultationDatePicker = new org.jdesktop.swingx.JXDatePicker();
-        jPanel2 = new javax.swing.JPanel();
+        infoPanel = new javax.swing.JPanel();
         consultationNumberLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        patientInfoLabel = new javax.swing.JLabel();
+        typeInfoLabel = new javax.swing.JLabel();
+        descriptionInfoLabel = new javax.swing.JLabel();
+        dateInfoLabel = new javax.swing.JLabel();
+        diagnosticsInfoLabel = new javax.swing.JLabel();
+        prixInfoLabel = new javax.swing.JLabel();
         patientLabel = new javax.swing.JLabel();
         typeLabel = new javax.swing.JLabel();
         descriptionLabel = new javax.swing.JLabel();
@@ -82,7 +92,6 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         displayButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        displayAllButton = new javax.swing.JButton();
         consultationInfoPanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         typeLabel1 = new javax.swing.JLabel();
@@ -103,9 +112,75 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         jLabel11 = new javax.swing.JLabel();
         revenirButton = new javax.swing.JButton();
 
-        jLabel1.setText("Selectionner:");
+        consultationPanel.setPreferredSize(new java.awt.Dimension(889, 550));
+        consultationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        consultationDatePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultationDatePickerActionPerformed(evt);
+            }
+        });
+
+        selectionnerDateDatePicker.setText("Selectionner une date");
+
+        actualiserButton.setText("Actualiser");
+        actualiserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualiserButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(consultationsRadioButton);
+        consultationsRadioButton.setText("Consultations");
+        consultationsRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultationsRadioButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(reservationsRadioButton);
+        reservationsRadioButton.setText("Réservations");
+        reservationsRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reservationsRadioButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout searchConsultationPanelLayout = new javax.swing.GroupLayout(searchConsultationPanel);
+        searchConsultationPanel.setLayout(searchConsultationPanelLayout);
+        searchConsultationPanelLayout.setHorizontalGroup(
+            searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchConsultationPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(consultationsRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservationsRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(selectionnerDateDatePicker)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(actualiserButton)
+                .addGap(28, 28, 28))
+        );
+        searchConsultationPanelLayout.setVerticalGroup(
+            searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchConsultationPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(consultationsRadioButton)
+                        .addComponent(reservationsRadioButton))
+                    .addGroup(searchConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(selectionnerDateDatePicker)
+                        .addComponent(actualiserButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        consultationPanel.add(searchConsultationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 800, 40));
+
+        listeConsultations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
         consultationsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,45 +195,55 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         ));
         jScrollPane1.setViewportView(consultationsTable);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout listeConsultationsLayout = new javax.swing.GroupLayout(listeConsultations);
+        listeConsultations.setLayout(listeConsultationsLayout);
+        listeConsultationsLayout.setHorizontalGroup(
+            listeConsultationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listeConsultationsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
                 .addContainerGap())
         );
+        listeConsultationsLayout.setVerticalGroup(
+            listeConsultationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listeConsultationsLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        consultationDatePicker.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultationDatePickerActionPerformed(evt);
-            }
-        });
+        consultationPanel.add(listeConsultations, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 800, 220));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        infoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        infoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         consultationNumberLabel.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         consultationNumberLabel.setText("Consultation N˚");
+        infoPanel.add(consultationNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
-        jLabel2.setText("Patient");
+        patientInfoLabel.setText("Patient");
+        infoPanel.add(patientInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
-        jLabel4.setText("Type de consultation");
+        typeInfoLabel.setText("Type de consultation");
+        infoPanel.add(typeInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
 
-        jLabel3.setText("Description");
+        descriptionInfoLabel.setText("Description");
+        infoPanel.add(descriptionInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
 
-        jLabel6.setText("Date");
+        dateInfoLabel.setText("Date");
+        infoPanel.add(dateInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, -1, -1));
 
-        jLabel7.setText("Diagnostics");
+        diagnosticsInfoLabel.setText("Diagnostics");
+        infoPanel.add(diagnosticsInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, -1, -1));
 
-        jLabel8.setText("Prix");
+        prixInfoLabel.setText("Prix");
+        infoPanel.add(prixInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, -1, -1));
+        infoPanel.add(patientLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 160, 20));
+        infoPanel.add(typeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 160, 30));
+        infoPanel.add(descriptionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 161, 20));
+        infoPanel.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 180, 20));
+        infoPanel.add(diagnosticsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 180, 30));
+        infoPanel.add(priceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 180, 20));
 
         displayButton.setText("Afficher");
         displayButton.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +251,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 displayButtonActionPerformed(evt);
             }
         });
+        infoPanel.add(displayButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
 
         updateButton.setText("Modifier");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +259,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 updateButtonActionPerformed(evt);
             }
         });
+        infoPanel.add(updateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         deleteButton.setText("Supprimer");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -180,126 +267,9 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 deleteButtonActionPerformed(evt);
             }
         });
+        infoPanel.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(consultationNumberLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(displayButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(updateButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(deleteButton)
-                .addGap(33, 33, 33))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(priceLabel)
-                    .addComponent(dateLabel)
-                    .addComponent(diagnosticsLabel)
-                    .addComponent(descriptionLabel)
-                    .addComponent(patientLabel)
-                    .addComponent(typeLabel))
-                .addGap(57, 57, 57))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(consultationNumberLabel)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(patientLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(typeLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(descriptionLabel))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(dateLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(diagnosticsLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(priceLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(displayButton)
-                    .addComponent(updateButton)
-                    .addComponent(deleteButton)))
-        );
-
-        displayAllButton.setText("Afficher tous");
-        displayAllButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayAllButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout consultationPanelLayout = new javax.swing.GroupLayout(consultationPanel);
-        consultationPanel.setLayout(consultationPanelLayout);
-        consultationPanelLayout.setHorizontalGroup(
-            consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(consultationPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(consultationPanelLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(consultationDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(consultationPanelLayout.createSequentialGroup()
-                            .addGap(87, 87, 87)
-                            .addComponent(displayAllButton)))
-                    .addGap(56, 56, 56)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(96, Short.MAX_VALUE)))
-        );
-        consultationPanelLayout.setVerticalGroup(
-            consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(consultationPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(consultationPanelLayout.createSequentialGroup()
-                            .addGroup(consultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(consultationDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(displayAllButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap()))
-        );
+        consultationPanel.add(infoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 800, 220));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consultation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
 
@@ -486,41 +456,89 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     }// </editor-fold>//GEN-END:initComponents
 
     private void consultationDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationDatePickerActionPerformed
+        try {
+            
+            if (consultationsRadioButton.isSelected()) {
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(consultationDatePicker.getDate().getTime()),"finished")));
+            }
+            if (reservationsRadioButton.isSelected()) {
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(consultationDatePicker.getDate().getTime()),"pending")));
+            }
+            
+        } catch (Exception e) {
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
+        }
+        
         consultationsTable.repaint();
-        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byDate(new Timestamp(consultationDatePicker.getDate().getTime()))));
     }//GEN-LAST:event_consultationDatePickerActionPerformed
 
-    private void displayAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllButtonActionPerformed
-        consultationsTable.repaint();
-        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
-    }//GEN-LAST:event_displayAllButtonActionPerformed
+    private void actualiserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualiserButtonActionPerformed
+        try {
+            
+            if (consultationsRadioButton.isSelected()) {
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
+            }
+            if (reservationsRadioButton.isSelected()) {
+                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+            }
+            
+        } catch (Exception e) {
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
+        }
+        
+        
+    }//GEN-LAST:event_actualiserButtonActionPerformed
 
+    public void actualiserInfo() {
+        consultationNumberLabel.setText("");
+        consultationNumberLabel.setText("");
+        patientLabel.setText("");
+        typeLabel.setText("");
+        descriptionLabel.setText("");
+        dateLabel.setText("");
+        diagnosticsLabel.setText("");
+        priceLabel.setText("");
+    }
+    
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         String num = null;
         try {
             TableModel model = (TableModel)consultationsTable.getModel();
             num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
-         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
-        }
-        
-        try {
-            int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
+            
+            try {
+                int val = JOptionPane.showConfirmDialog(this, "Etes vous sur?", "Validation", JOptionPane.OK_CANCEL_OPTION);
 
-            if(val == 0) {
-                Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
-                DAOFactory.getConsultationDAO().delete(currentConsultation);
+                if(val == 0) {
+                    Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                    DAOFactory.getConsultationDAO().delete(currentConsultation);
 
+                    if (consultationsRadioButton.isSelected()) {
+                        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
+                    }
+                    if (reservationsRadioButton.isSelected()) {
+                        consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+                    }
+                }
+                
+            } catch(Exception e) {
                 SwingUtilities.updateComponentTreeUI(this);
                 this.invalidate();
                 this.validate();
                 this.repaint();
-
-                consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().all()));
+                consultationsTable.repaint();
             }
-        } catch(Exception e) {
-            consultationsTable.repaint();
+         } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner une consultation", "Erreur", JOptionPane.ERROR_MESSAGE);        
         }
+        
+        
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
@@ -553,48 +571,85 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         // TODO add your handling code here:
     }//GEN-LAST:event_updateButtonActionPerformed
 
+    private void consultationsRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationsRadioButtonActionPerformed
+        
+        buttonGroup.setSelected(consultationsRadioButton.getModel(), true);
+        
+        try {
+            listeConsultations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des Consultations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+            consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("finished")));
+        } catch (Exception e) {
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
+        }
+        actualiserInfo();
+        
+
+    }//GEN-LAST:event_consultationsRadioButtonActionPerformed
+
+    private void reservationsRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationsRadioButtonActionPerformed
+        
+        buttonGroup.setSelected(reservationsRadioButton.getModel(), true);
+        try {
+            listeConsultations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des Réservations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+            consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+        } catch (Exception e) {
+            SwingUtilities.updateComponentTreeUI(this);
+            this.invalidate();
+            this.validate();
+            this.repaint();
+        }
+        actualiserInfo();
+    }//GEN-LAST:event_reservationsRadioButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actualiserButton;
     private javax.swing.JTable allergiesTable;
+    private javax.swing.ButtonGroup buttonGroup;
     private org.jdesktop.swingx.JXDatePicker consultationDatePicker;
     private javax.swing.JPanel consultationInfoPanel;
     private javax.swing.JLabel consultationNumberLabel;
     private javax.swing.JPanel consultationPanel;
+    private javax.swing.JRadioButton consultationsRadioButton;
     private javax.swing.JTable consultationsTable;
+    private javax.swing.JLabel dateInfoLabel;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel dateLabel1;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel descLabel;
+    private javax.swing.JLabel descriptionInfoLabel;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JLabel diagLabel;
+    private javax.swing.JLabel diagnosticsInfoLabel;
     private javax.swing.JLabel diagnosticsLabel;
-    private javax.swing.JButton displayAllButton;
     private javax.swing.JButton displayButton;
     private javax.swing.JTable drugsTable;
+    private javax.swing.JPanel infoPanel;
     private javax.swing.JTable infosTable;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPanel listeConsultations;
+    private javax.swing.JLabel patientInfoLabel;
     private javax.swing.JLabel patientLabel;
     private javax.swing.JLabel patientLabel1;
     private javax.swing.JLabel priceLabel;
+    private javax.swing.JLabel prixInfoLabel;
+    private javax.swing.JRadioButton reservationsRadioButton;
     private javax.swing.JButton revenirButton;
+    private javax.swing.JPanel searchConsultationPanel;
+    private javax.swing.JLabel selectionnerDateDatePicker;
+    private javax.swing.JLabel typeInfoLabel;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel typeLabel1;
     private javax.swing.JButton updateButton;
@@ -603,19 +658,30 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource() == consultationsTable.getSelectionModel() && e.getValueIsAdjusting()) {
-            
+                
             TableModel model = (TableModel)consultationsTable.getModel();
             String num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
-           
+
             Consultation consultationSelected = DAOFactory.getConsultationDAO().find(num);
-            
-            consultationNumberLabel.setText("Consultation N˚ " + num);
-            patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
-            typeLabel.setText(consultationSelected.getType());
-            descriptionLabel.setText(consultationSelected.getDescription());
-            dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
-            diagnosticsLabel.setText(consultationSelected.getDiagnostics());
-            priceLabel.setText(String.valueOf(consultationSelected.getPrix()));
+
+            if (consultationSelected.getStatus().equalsIgnoreCase("finished")) {
+                consultationNumberLabel.setText("Consultation N˚ " + num);
+                patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
+                typeLabel.setText(consultationSelected.getType());
+                descriptionLabel.setText(consultationSelected.getDescription());
+                dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
+                diagnosticsLabel.setText(consultationSelected.getDiagnostics());
+                priceLabel.setText(String.valueOf(consultationSelected.getPrix()));
+            } else {
+                consultationNumberLabel.setText("Réservation N˚ " + num);
+                patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
+                typeLabel.setText(consultationSelected.getType());
+                descriptionLabel.setText(consultationSelected.getDescription());
+                dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
+                diagnosticsLabel.setText(consultationSelected.getDiagnostics());
+                priceLabel.setText("");
+                prixInfoLabel.setVisible(false);
+            }
         }
     }
 }

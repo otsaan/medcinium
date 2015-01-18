@@ -39,7 +39,7 @@ public class LoginFrame extends javax.swing.JFrame {
         
         
         initComponents();
-        jPanel1.setVisible(true);
+        jPanel1.setVisible(false);
         password.addKeyListener(new KeyAdapter() {
             User user = new User();
             @Override

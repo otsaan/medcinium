@@ -63,7 +63,10 @@ public class StatisticsPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(204, 204, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel2.setText("De");
 
@@ -128,9 +131,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
         
         jPanel2.repaint();
         jPanel2.revalidate();
-        jPanel2.setVisible(true);
-        
-                
+        jPanel2.setVisible(true);       
 
         Collection<String> xData = new ArrayList<String>();
         Collection<Double> yData = new ArrayList<Double>();
@@ -157,7 +158,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
         }
         
         // Create Chart
-        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(500).title("Les Consultations").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
+        Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(850).height(530).title("Les Consultations").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
         
         Series series = chart.addSeries("Données", xData, yData);
         // Customize Chart
