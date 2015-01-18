@@ -161,7 +161,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="146" max="32767" attributes="0"/>
+                  <EmptySpace pref="140" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
@@ -230,7 +230,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mot de Pass"/>
+            <Property name="text" type="java.lang.String" value="Mot de Passe"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="driver">

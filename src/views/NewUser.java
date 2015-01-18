@@ -24,7 +24,7 @@ public class NewUser extends javax.swing.JFrame {
     /**
      * Creates new form NewUser
      */
-    boolean update=true;
+    boolean update=false;
     public NewUser() {
         initComponents();
     }
@@ -152,22 +152,30 @@ public class NewUser extends javax.swing.JFrame {
             newUser.setName(firstName.getText());
             newUser.setUsername(username.getText());
             newUser.setRole("assistant");
-            try {
+             try {
                 MessageDigest md5 = MessageDigest.getInstance("md5");
                 newUser.setPassword(new String(md5.digest(password.getText().getBytes())));
-            } catch (NoSuchAlgorithmException ex) {
-                System.out.println(ex);
-            }
-            if(DAOFactory.getUserDAO().create(newUser)) {
-                JOptionPane.showMessageDialog(this, " utilisateur crée  avec succès ");
+                } catch (NoSuchAlgorithmException ex) {
+                    System.out.println(ex);
+                }
+            if(DAOFactory.getUserDAO().findUser(newUser)<0) {
+               
+                if(DAOFactory.getUserDAO().create(newUser)) {
+                    JOptionPane.showMessageDialog(this, " utilisateur crée  avec succès ");
+                }else {
+                    JOptionPane.showMessageDialog(this, "Ereur de creation","ereur", JOptionPane.ERROR_MESSAGE);        
+
+                }
+                lastName.setText("");
+                firstName.setText("");
+                username.setText("");
+                password.setText("");
             }else {
-                JOptionPane.showMessageDialog(this, "Ereur de creation","ereur", JOptionPane.ERROR_MESSAGE);        
+                    
+                JOptionPane.showMessageDialog(this, "Utilisateur Exist Déja","ereur", JOptionPane.ERROR_MESSAGE);        
 
             }
-            lastName.setText("");
-            firstName.setText("");
-            username.setText("");
-            password.setText("");
+            
         }else {
             
             JOptionPane.showMessageDialog(this, "Vous n'avez pas droit de création","ereur", JOptionPane.ERROR_MESSAGE);        
@@ -176,25 +184,32 @@ public class NewUser extends javax.swing.JFrame {
        }
        if(update)
        {
+           User temp = new User();
            User.getConnectedUser().setLastName(lastName.getText());
             User.getConnectedUser().setName(firstName.getText());
             User.getConnectedUser().setUsername(username.getText());
+            temp.setUsername(username.getText());
+            
           try {
                 MessageDigest md5 = MessageDigest.getInstance("md5");
                User.getConnectedUser().setPassword(new String(md5.digest(password.getText().getBytes())));
-            } catch (NoSuchAlgorithmException ex) {
+               temp.setPassword(new String(md5.digest(password.getText().getBytes())));
+          } catch (NoSuchAlgorithmException ex) {
                 System.out.println(ex);
             }
+         
+          
+          if(DAOFactory.getUserDAO().findUser(temp)<0 || temp.getUserId()==User.getConnectedUser().getUserId()) {
             if(DAOFactory.getUserDAO().update(User.getConnectedUser())) {
                 JOptionPane.showMessageDialog(this, " utilisateur modifié  avec succès ");
             }else {
-                JOptionPane.showMessageDialog(this, "Ereur de creation","ereur", JOptionPane.ERROR_MESSAGE);        
+                JOptionPane.showMessageDialog(this, "Ereur de D'isertion","ereur", JOptionPane.ERROR_MESSAGE);        
 
             }
-            lastName.setText("");
-            firstName.setText("");
-            username.setText("");
-            password.setText("");
+          }else {
+              JOptionPane.showMessageDialog(this, "Utilisateur exist Déja","ereur", JOptionPane.ERROR_MESSAGE);  
+          }
+            
        }
       
     }//GEN-LAST:event_ajouterActionPerformed
