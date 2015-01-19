@@ -557,9 +557,9 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
             
-            String resultat = JOptionPane.showInputDialog("Changer la date form yyyy-mm-dd hh:mm");
-            if(Utils.isThisDateValid(resultat, "yyyy-mm-dd hh:mm")) {
-              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+            String resultat = JOptionPane.showInputDialog("Changer la date forme yyyy-MM-dd hh:mm");
+            if(Utils.isThisDateValid(resultat, "yyyy-MM-dd hh:mm")) {
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                 try {
                     date = sdf.parse(resultat);
                 } catch (ParseException ex) {
@@ -572,8 +572,16 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                     currentConsultation.setConsultationDate(new Timestamp(date.getTime()));
                     if(DAOFactory.getConsultationDAO().update(currentConsultation))
                     {
-                        dateLabel.setText(date.toString());
-                        System.out.println("done");
+                        try {
+                            dateLabel.setText(date.toString());
+                            consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+                        } catch(Exception e) {
+                            SwingUtilities.updateComponentTreeUI(this);
+                            this.invalidate();
+                            this.validate();
+                            this.repaint();
+                            consultationsTable.repaint();
+                        }
                     }
                 } catch (Exception e) {
                     System.out.println("Erreur lors de l'affichage" + e);
