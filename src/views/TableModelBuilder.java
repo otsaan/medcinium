@@ -95,8 +95,9 @@ public class TableModelBuilder {
         columnNames.add("Nom");
         columnNames.add("Prenom");
         columnNames.add("Type");
-
-        // data of the table
+        columnNames.add("Heure");
+        
+// data of the table
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Consultation c : pendingConsultations) {
@@ -106,6 +107,9 @@ public class TableModelBuilder {
             line.add(c.getPatient().getName());
             line.add(c.getPatient().getLastName());
             line.add(c.getType());
+            
+            DateFormat df = new SimpleDateFormat("HH:mm");
+            line.add(df.format(c.getConsultationDate().getTime()));
 
             data.add(0,line);
         }

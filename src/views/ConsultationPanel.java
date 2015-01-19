@@ -263,7 +263,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         });
         infoPanel.add(displayButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
 
-        updateButton.setText("Facture");
+        updateButton.setText("Modifier");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
@@ -620,6 +620,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         try {
             listeConsultations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Liste des Réservations", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
             consultationsTable.setModel(TableModelBuilder.buildConsultationsTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+            
         } catch (Exception e) {
             SwingUtilities.updateComponentTreeUI(this);
             this.invalidate();
@@ -705,7 +706,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 consultationNumberLabel.setText("Réservation N˚ " + num);
                 patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
                 typeLabel.setText(consultationSelected.getType());
-                descriptionLabel.setText(consultationSelected.getDescription());
+                descriptionLabel.setText("");
                 dateLabel.setText(df.format(consultationSelected.getConsultationDate()));
                 diagnosticsLabel.setText(consultationSelected.getDiagnostics());
                 priceLabel.setText("");

@@ -44,7 +44,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private Vector<Consultation> finishedConsultation;
     
     private boolean ajouterButtonClicked = false;
-    private boolean chercherButtonClicked = false;
+    private boolean chercherButtonClicked = true;
     
     Patient patientFoundBySearch = new Patient();
     models.Model model;
@@ -82,7 +82,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     }
     
     public void refreshModels() {
-        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(DAOFactory.getConsultationDAO().byStatus("pending")));
+        pendingConsultationsTable.setModel(TableModelBuilder.buildPendingConsultationTableModel(DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(new java.util.Date().getTime()),"pending")));
         this.remindersTable.setModel(TableModelBuilder.buildRemindersConsultationsTableModel(DAOFactory.getReminderDAO().allByDate(Utils.dateFormatter(jXMonthView1.getToday())), DAOFactory.getConsultationDAO().byDate(Utils.dateFormatter(jXMonthView1.getToday()))));
     }
     

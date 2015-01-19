@@ -346,7 +346,7 @@ public class ConsultationDAO implements DAO<Consultation>{
                             + "FROM consultations "
                             + "WHERE status = '" + status + "' "
                             + "AND date_consultation "
-                            + "BETWEEN '" + DayStart + "' AND '"+ DayEnd + "'";
+                            + "BETWEEN '" + DayStart + "' AND '"+ DayEnd + "' ORDER BY date_consultation DESC";
         
         ResultSet rs = Database.getInstance().query(findAllQuery);
         

@@ -47,7 +47,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         initComponents();
          if(!User.getConnectedUser().getRole().equals("docteur"))
         {
-            startVisitButton.setEnabled(false);
+            
         }
         refreshTable(DAOFactory.getPatientDAO().all());
         
@@ -158,7 +158,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         diagnosticsListe = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         allergiesListe = new javax.swing.JTable();
-        startVisitButton = new javax.swing.JButton();
         addRemindButton = new javax.swing.JButton();
         createUpdatePatientPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -413,21 +412,13 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
         profilePanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 710, 440));
 
-        startVisitButton.setText("Commencer une visite");
-        startVisitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startVisitButtonActionPerformed(evt);
-            }
-        });
-        profilePanel.add(startVisitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, 190, -1));
-
         addRemindButton.setText("Ajouter Un rappel");
         addRemindButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addRemindButtonActionPerformed(evt);
             }
         });
-        profilePanel.add(addRemindButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 170, -1));
+        profilePanel.add(addRemindButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 170, -1));
 
         add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
@@ -676,12 +667,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
     }//GEN-LAST:event_addRemindButtonActionPerformed
 
-    private void startVisitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startVisitButtonActionPerformed
-
-        new  NewConsultationFrame(patient).setVisible(true);
-        
-    }//GEN-LAST:event_startVisitButtonActionPerformed
-
     private void addOrUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateButtonActionPerformed
         
         
@@ -869,7 +854,6 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JComboBox sexChoice;
-    private javax.swing.JButton startVisitButton;
     private javax.swing.JTable visitsTable;
     private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
