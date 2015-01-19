@@ -33,6 +33,8 @@ import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,7 +46,7 @@ import models.dao.DAOFactory;
  * @author zianwar
  */
 public class StatisticsPanel extends javax.swing.JPanel {
-
+    
     Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
     
     /**
@@ -52,6 +54,12 @@ public class StatisticsPanel extends javax.swing.JPanel {
      */
     public StatisticsPanel() {
         initComponents();
+        
+        ButtonGroup group = new ButtonGroup();
+        group.add(byDayRadioButton);
+        group.add(ByWeekRadioButton);
+        
+        group.setSelected(byDayRadioButton.getModel(), true);
         
         jPanel3.setVisible(true);
         jPanel2.setVisible(false);
@@ -73,6 +81,12 @@ public class StatisticsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
+        buttonGroup6 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         deDatePicker = new org.jdesktop.swingx.JXDatePicker();
@@ -80,6 +94,8 @@ public class StatisticsPanel extends javax.swing.JPanel {
         aDatePicker = new org.jdesktop.swingx.JXDatePicker();
         displayButton = new javax.swing.JButton();
         exportButton = new javax.swing.JButton();
+        ByWeekRadioButton = new javax.swing.JRadioButton();
+        byDayRadioButton = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -106,16 +122,38 @@ public class StatisticsPanel extends javax.swing.JPanel {
             }
         });
 
+        ByWeekRadioButton.setText("Par semaine");
+        ByWeekRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ByWeekRadioButtonActionPerformed(evt);
+            }
+        });
+
+        byDayRadioButton.setText("Par jour");
+        byDayRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                byDayRadioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(byDayRadioButton)
+                        .addGap(32, 32, 32)
+                        .addComponent(ByWeekRadioButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel3)
                 .addGap(28, 28, 28)
                 .addComponent(aDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,12 +161,15 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 .addComponent(displayButton)
                 .addGap(18, 18, 18)
                 .addComponent(exportButton)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ByWeekRadioButton)
+                    .addComponent(byDayRadioButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(deDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,7 +179,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addComponent(displayButton)
                         .addComponent(exportButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(241, 241, 241));
@@ -154,12 +195,12 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(781, Short.MAX_VALUE))
+                .addContainerGap(834, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
@@ -168,44 +209,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayButtonActionPerformed
-
-        jPanel2.setVisible(true);   
-        exportButton.setVisible(true);
-        
-        Collection<String> xData = new ArrayList<String>();
-        Collection<Double> yData = new ArrayList<Double>();
-        Collection<Double> yData2 = new ArrayList<Double>();
-        
-        long deTmp = 0, aTmp = 0;
-        chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
-        deTmp = deDatePicker.getDate().getTime();
-        aTmp = aDatePicker.getDate().getTime();
-        
-        //Loop from deDatePicked to aDatePicked incrementing by one day
-        if(deTmp > aTmp) {
-            JOptionPane.showMessageDialog(this, "Veuillez entrer des dates valides", "Erreur", JOptionPane.ERROR_MESSAGE);        
-        } else {
-            for(long current = deTmp ; current <= aTmp ; current += 24*3600*1000) {
-                DateFormat df = new SimpleDateFormat("dd/MM");
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(current);
-                xData.add(df.format(cal.getTime()));
-                Vector<Consultation> con = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "finished");
-                Vector<Consultation> con2 = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "pending");
-                yData.add((double)con.size());
-                yData2.add((double)con2.size());
-            }
-
-            Series series = chart.addSeries("Consultations", xData, yData);
-            Series series2 = chart.addSeries("Réservations", xData, yData2);
-            // Customize Chart
-            chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
-            chart.getStyleManager().setChartBackgroundColor(new Color(241,241,241));
-            JPanel pnlChart = new XChartPanel(chart);
-            jPanel2.removeAll(); 
-            jPanel2.add(pnlChart);
-            jPanel2.validate(); 
-        }
+        displayChart();
     }//GEN-LAST:event_displayButtonActionPerformed
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
@@ -215,6 +219,14 @@ public class StatisticsPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_exportButtonActionPerformed
+
+    private void ByWeekRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByWeekRadioButtonActionPerformed
+        displayChart();
+    }//GEN-LAST:event_ByWeekRadioButtonActionPerformed
+
+    private void byDayRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_byDayRadioButtonActionPerformed
+        displayChart();
+    }//GEN-LAST:event_byDayRadioButtonActionPerformed
 
     private void showSaveAsDialog() {
 
@@ -239,8 +251,85 @@ public class StatisticsPanel extends javax.swing.JPanel {
         }
     }
 
+    public void displayChart() {
+        
+        Collection<String> xData = new ArrayList<String>();
+        Collection<Double> yData = new ArrayList<Double>();
+        Collection<Double> yData2 = new ArrayList<Double>();
+        
+        long deTmp = 0, aTmp = 0;
+        chart = new ChartBuilder().chartType(ChartType.Bar).width(800).height(300).title("Statistiques").xAxisTitle("Les jours").yAxisTitle("Nombre").build();
+        try{
+            deTmp = deDatePicker.getDate().getTime();
+            aTmp = aDatePicker.getDate().getTime();
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner les dates", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        
+
+        if(deTmp != 0 && aTmp != 0) {
+        
+            jPanel2.setVisible(true);   
+            exportButton.setVisible(true);
+            //Loop from deDatePicked to aDatePicked incrementing by one day
+            if(deTmp > aTmp) {
+                JOptionPane.showMessageDialog(this, "Veuillez entrer des dates valides", "Erreur", JOptionPane.ERROR_MESSAGE);        
+            } else {
+                if(byDayRadioButton.isSelected()) {
+                    for(long current = deTmp ; current <= aTmp ; current += 24*3600*1000) {
+                        DateFormat df = new SimpleDateFormat("dd/MM");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(current);
+                        xData.add(df.format(cal.getTime()));
+                        Vector<Consultation> con = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "finished");
+                        Vector<Consultation> con2 = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(current), "pending");
+                        yData.add((double)con.size());
+                        yData2.add((double)con2.size());
+                    }
+                } else if(ByWeekRadioButton.isSelected()) {
+                    double cons, reservs;
+                    for(long current = deTmp ; current <= aTmp ; current += 24*3600*1000*7) {
+                        cons = 0;
+                        reservs = 0;
+                        for(long cur = current; cur <= current+24*3600*1000*7; cur += 24*3600*1000) {
+
+                            Vector<Consultation> con = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(cur), "finished");
+                            Vector<Consultation> con2 = DAOFactory.getConsultationDAO().byDateAndStatus(new Timestamp(cur), "pending");
+                            cons += con.size();
+                            reservs += con2.size();
+                        }
+                        DateFormat df = new SimpleDateFormat("dd/MM");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(current);
+                        xData.add(df.format(cal.getTime()));
+                        yData.add(cons);
+                        yData2.add(reservs);
+                    }
+                }
+
+                Series series = chart.addSeries("Consultations", xData, yData);
+                Series series2 = chart.addSeries("Réservations", xData, yData2);
+                // Customize Chart
+                chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
+                chart.getStyleManager().setChartBackgroundColor(new Color(241,241,241));
+                JPanel pnlChart = new XChartPanel(chart);
+                jPanel2.removeAll(); 
+                jPanel2.add(pnlChart);
+                jPanel2.validate(); 
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton ByWeekRadioButton;
     private org.jdesktop.swingx.JXDatePicker aDatePicker;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroup6;
+    private javax.swing.JRadioButton byDayRadioButton;
     private org.jdesktop.swingx.JXDatePicker deDatePicker;
     private javax.swing.JButton displayButton;
     private javax.swing.JButton exportButton;
