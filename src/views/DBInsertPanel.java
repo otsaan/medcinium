@@ -531,6 +531,10 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
     }//GEN-LAST:event_deleteActionPerformed
 
     private void ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterActionPerformed
+        if(lastName.getText().equalsIgnoreCase("") || firstName.getText().equalsIgnoreCase("") || username.getText().equals("") || password.getText().length()<6) {
+            JOptionPane.showMessageDialog(this, "Tous les champs doit etre rempli et e mot doit etre supperieur à 6 char ", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+        }else { 
         if(!updateTest) {
             if(User.getConnectedUser().getRole().equals("docteur")) {
 
@@ -597,7 +601,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
             }
 
         }
-
+        }
     }//GEN-LAST:event_ajouterActionPerformed
 
     private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
