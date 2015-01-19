@@ -9,9 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.sql.SQLClientInfoException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -19,6 +24,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import models.Consultation;
 import models.dao.DAOFactory;
 import models.Patient;
 import models.User;
@@ -31,6 +37,8 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
 
     
     private Patient patient;
+    private Patient selectedPatient;
+    
     
     /**
      * Creates new form PatientPanel
@@ -70,6 +78,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         
         
         profilePanel.setVisible(false);
+        createUpdatePatientPanel.setVisible(false);
     }
 
     public void refreshTable(Vector<Patient> patients) {
@@ -151,6 +160,28 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         allergiesListe = new javax.swing.JTable();
         startVisitButton = new javax.swing.JButton();
         addRemindButton = new javax.swing.JButton();
+        createUpdatePatientPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        lastNameText = new javax.swing.JTextField();
+        cinText = new javax.swing.JTextField();
+        FirstNameText = new javax.swing.JTextField();
+        monthChoice = new javax.swing.JComboBox();
+        dayChoice = new javax.swing.JComboBox();
+        phoneTextField = new javax.swing.JTextField();
+        cityTextField = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        addressTextFiled = new javax.swing.JTextArea();
+        sexChoice = new javax.swing.JComboBox();
+        yearTextField = new javax.swing.JTextField();
+        addOrUpdateButton = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -308,7 +339,7 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         jPanel1.add(patientAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
         jLabel10.setText("ans");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
         jLabel11.setText("Consultations");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
@@ -399,6 +430,156 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         profilePanel.add(addRemindButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 170, -1));
 
         add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        createUpdatePatientPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setText("Nom");
+
+        jLabel15.setText("Prenom");
+
+        jLabel16.setText("Date Naissance");
+
+        jLabel17.setText("Téléphone");
+
+        jLabel18.setText("Adresse");
+
+        jLabel19.setText("Ville");
+
+        jLabel20.setText("Sexe");
+
+        jLabel21.setText("CIN");
+
+        monthChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+
+        dayChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        addressTextFiled.setColumns(20);
+        addressTextFiled.setRows(3);
+        jScrollPane6.setViewportView(addressTextFiled);
+
+        sexChoice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(monthChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 42, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(lastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(FirstNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(cinText, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(167, 167, 167)
+                            .addComponent(dayChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(cityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(sexChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 42, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(154, 154, 154)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(monthChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(283, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 22, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel1))
+                        .addComponent(lastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(12, 12, 12)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel15))
+                        .addComponent(FirstNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(22, 22, 22)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel21))
+                        .addComponent(cinText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel16))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(dayChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel17)
+                        .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addComponent(jLabel18))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(24, 24, 24)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel19))
+                        .addComponent(cityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(6, 6, 6)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(jLabel20))
+                        .addComponent(sexChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 69, Short.MAX_VALUE)))
+        );
+
+        createUpdatePatientPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 420, 470));
+
+        addOrUpdateButton.setText("Ajouter");
+        addOrUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addOrUpdateButtonActionPerformed(evt);
+            }
+        });
+        createUpdatePatientPanel.add(addOrUpdateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, 100, -1));
+
+        add(createUpdatePatientPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProfileButtonActionPerformed
@@ -460,19 +641,35 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         
         if(num != null) {
             try {
-                Patient currentPatient = DAOFactory.getPatientDAO().find(num);
-                new NewPatientFrame(currentPatient).setVisible(true);
-            
-            } catch (Exception e) {
-                System.out.println("Erreur lors de la modification");
-            }
+                FirstNameText.setText(selectedPatient.getLastName());
+                lastNameText.setText(selectedPatient.getName());
+                addressTextFiled.setText(selectedPatient.getAddress());
+                cinText.setText(selectedPatient.getCin());
+                cityTextField.setText(selectedPatient.getCity());
+                phoneTextField.setText(selectedPatient.getTelephone());
+                sexChoice.setSelectedItem(selectedPatient.getSexe());
+                
+                String yearMonthDay[]=selectedPatient.getBirthDate().toString().split("-");
+        
+                yearTextField.setText(yearMonthDay[0]);
+                monthChoice.setSelectedItem(yearMonthDay[1]);
+                dayChoice.setSelectedItem(yearMonthDay[2]);
+                
+                createUpdatePatientPanel.setVisible(true);
+                addOrUpdateButton.setText("Modifier");
+                mainPanel.setVisible(false);
+                profilePanel.setVisible(false);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'ajout");
+        }
         }
     }//GEN-LAST:event_modifyPatientButtonActionPerformed
 
     private void addPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatientButtonActionPerformed
         try {
-          new NewPatientFrame().setVisible(true);
-            
+            createUpdatePatientPanel.setVisible(true);
+            mainPanel.setVisible(false);
+            profilePanel.setVisible(false);
         } catch (Exception e) {
             System.out.println("Erreur lors de l'ajout");
         }
@@ -490,27 +687,159 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
         
     }//GEN-LAST:event_startVisitButtonActionPerformed
 
+    private void addOrUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateButtonActionPerformed
+        
+        
+        
+        if (addOrUpdateButton.getText().equalsIgnoreCase("Ajouter")) {
+            Patient patientCreated = new Patient();
+       
+            patientCreated.setName(FirstNameText.getText());
+            patientCreated.setLastName(lastNameText.getText());
+            patientCreated.setAddress(addressTextFiled.getText());
+            patientCreated.setCin(cinText.getText());
+            patientCreated.setCity(cityTextField.getText());
+            patientCreated.setSexe(sexChoice.getSelectedItem().toString());
+            patientCreated.setTelephone(phoneTextField.getText());
+            
+            String sdate = yearTextField.getText() + "-" + monthChoice.getSelectedItem().toString() + "-"+dayChoice.getSelectedItem().toString();
+            SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
+            
+            java.util.Date resultDate = null; 
+            
+            try {
+                resultDate = spdf.parse(sdate);
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(PatientPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            patientCreated.setBirthDate(new Date(resultDate.getTime()));
+            
+            if (DAOFactory.getPatientDAO().create(patientCreated)) {
+                JOptionPane.showMessageDialog(this, "Patient crée", "Info", JOptionPane.INFORMATION_MESSAGE);
+                createUpdatePatientPanel.setVisible(false);
+                profilePanel.setVisible(false);
+
+                try {
+                    patientsTable.setModel(TableModelBuilder.buildPatientTableModel(DAOFactory.getPatientDAO().all()));
+                } catch(Exception e) {
+                    SwingUtilities.updateComponentTreeUI(this);
+                    this.invalidate();
+                    this.validate();
+                    this.repaint();
+                    patientsTable.repaint();
+                }
+                        
+                mainPanel.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erreur lors de la création", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+        
+        if (addOrUpdateButton.getText().equalsIgnoreCase("Modifier")) {
+            Patient newPatient = new Patient();
+            
+            if (selectedPatient != null) {
+                
+                newPatient.setName(FirstNameText.getText());
+                newPatient.setLastName(lastNameText.getText());
+                newPatient.setAddress(addressTextFiled.getText());
+                newPatient.setCin(cinText.getText());
+                newPatient.setCity(cityTextField.getText());
+                newPatient.setSexe(sexChoice.getSelectedItem().toString());
+                newPatient.setTelephone(phoneTextField.getText());
+                newPatient.setPatientId(selectedPatient.getPatientId());
+                
+                String sdate = yearTextField.getText() + "-" + monthChoice.getSelectedItem().toString() + "-"+dayChoice.getSelectedItem().toString();
+                SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                java.util.Date resultDate = null; 
+
+                try {
+                    resultDate = spdf.parse(sdate);
+                } catch (ParseException ex) {
+                    Logger.getLogger(PatientPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
+                newPatient.setBirthDate(new Date(resultDate.getTime()));
+                if (DAOFactory.getPatientDAO().update(newPatient)) {
+                    JOptionPane.showMessageDialog(this, "Patient mis a jour.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    createUpdatePatientPanel.setVisible(false);
+                    profilePanel.setVisible(false);
+                    
+                    try {
+                        patientsTable.setModel(TableModelBuilder.buildPatientTableModel(DAOFactory.getPatientDAO().all()));
+                    } catch(Exception e) {
+                        SwingUtilities.updateComponentTreeUI(this);
+                        this.invalidate();
+                        this.validate();
+                        this.repaint();
+                        patientsTable.repaint();
+                    }
+                    
+                    mainPanel.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erreur lors de la mise à jour", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Selectionner d'abord un patient", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+           
+        
+            
+            
+            
+         
+            
+            
+        }
+        
+
+           
+        
+
+    }//GEN-LAST:event_addOrUpdateButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField FirstNameText;
+    private javax.swing.JButton addOrUpdateButton;
     private javax.swing.JButton addPatientButton;
     private javax.swing.JButton addRemindButton;
     private javax.swing.JLabel addressLabel;
+    private javax.swing.JTextArea addressTextFiled;
     private javax.swing.JLabel ageLabel;
     private javax.swing.JTable allergiesListe;
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JLabel cinLabel;
+    private javax.swing.JTextField cinText;
     private javax.swing.JLabel cityLabel;
+    private javax.swing.JTextField cityTextField;
+    private javax.swing.JPanel createUpdatePatientPanel;
+    private javax.swing.JComboBox dayChoice;
     private javax.swing.JButton deletePatientButton;
     private javax.swing.JTable diagnosticsListe;
     private javax.swing.JButton displayProfileButton;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JTable infoTable;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -519,14 +848,18 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextField lastNameText;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton modifyPatientButton;
+    private javax.swing.JComboBox monthChoice;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel patientAge;
     private javax.swing.JPanel patientInfoPanel;
@@ -535,12 +868,15 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JLabel patientSex;
     private javax.swing.JPanel patientsListPanel;
     private javax.swing.JTable patientsTable;
+    private javax.swing.JTextField phoneTextField;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JButton searchButton;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTextField searchTextField;
+    private javax.swing.JComboBox sexChoice;
     private javax.swing.JButton startVisitButton;
     private javax.swing.JTable visitsTable;
+    private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -551,6 +887,10 @@ public class PatientPanel extends javax.swing.JPanel implements ListSelectionLis
             String num = String.valueOf(model.getValueAt(patientsTable.getSelectedRow(), 0));
            
             Patient patientSelected = DAOFactory.getPatientDAO().find(num);
+            patientSelected.setPatientId(Integer.parseInt(num));
+            this.selectedPatient = patientSelected;
+           
+            
             
             patientNumberLabel.setText("Patient N˚ " + num);
             lastNameLabel.setText(patientSelected.getLastName());
