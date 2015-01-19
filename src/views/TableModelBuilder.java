@@ -41,7 +41,7 @@ public class TableModelBuilder {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 
         for (Consultation c : Consultations) {
-            DateFormat df = new SimpleDateFormat("dd/MM HH:mm");
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");   
             Vector<Object> line = new Vector<Object>();
 
             line.add(c.getConsultationId());

@@ -532,7 +532,7 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
 
     private void ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterActionPerformed
         if(lastName.getText().equalsIgnoreCase("") || firstName.getText().equalsIgnoreCase("") || username.getText().equals("") || password.getText().length()<6) {
-            JOptionPane.showMessageDialog(this, "Tous les champs doit etre rempli et e mot doit etre supperieur à 6 char ", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tous les champs doivent être remplis et le mot de passe doit ere supérieur à 6 chars ", "Erreur", JOptionPane.ERROR_MESSAGE);
 
         }else { 
         if(!updateTest) {

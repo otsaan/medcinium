@@ -651,7 +651,9 @@
                       <Component id="yearTextField" min="-2" pref="84" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="monthChoice" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="127" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="dayChoice" min="-2" pref="83" max="-2" attributes="0"/>
+                      <EmptySpace pref="38" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -672,11 +674,7 @@
                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                   <Component id="cinText" min="-2" pref="250" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel16" min="-2" pref="76" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                                  <Component id="dayChoice" min="-2" pref="83" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel16" min="-2" pref="76" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel17" min="-2" pref="76" max="-2" attributes="0"/>
                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -710,6 +708,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="yearTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="monthChoice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dayChoice" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="283" max="32767" attributes="0"/>
                   </Group>
@@ -739,17 +738,9 @@
                               </Group>
                               <Component id="cinText" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                  <Component id="dayChoice" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                               <Component id="phoneTextField" min="-2" max="-2" attributes="0"/>

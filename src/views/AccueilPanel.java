@@ -167,7 +167,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         validerButton = new javax.swing.JButton();
         prescriptionPanel = new javax.swing.JPanel();
         valider = new javax.swing.JButton();
-        revenirButton = new javax.swing.JButton();
         contenaire = new javax.swing.JPanel();
         allergies = new javax.swing.JLabel();
         valueText = new javax.swing.JTextField();
@@ -223,14 +222,14 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         ));
         jScrollPane1.setViewportView(pendingConsultationsTable);
 
-        beginConsultationButton.setText("Commencer consultation");
+        beginConsultationButton.setText("Commencer la consultation");
         beginConsultationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 beginConsultationButtonActionPerformed(evt);
             }
         });
 
-        reserverButton.setText("Reserver");
+        reserverButton.setText("Nouvelle réservation");
         reserverButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reserverButtonActionPerformed(evt);
@@ -242,12 +241,12 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         fileDattentePanelLayout.setHorizontalGroup(
             fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fileDattentePanelLayout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addGroup(fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reserverButton)
-                    .addComponent(beginConsultationButton))
+                .addGroup(fileDattentePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(beginConsultationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reserverButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(59, 59, 59))
         );
         fileDattentePanelLayout.setVerticalGroup(
@@ -295,7 +294,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         });
 
         conRapButtonGroup.add(consultationsRadioButton);
-        consultationsRadioButton.setText("Consultations");
+        consultationsRadioButton.setText("Réservations");
         consultationsRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultationsRadioButtonActionPerformed(evt);
@@ -531,16 +530,8 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         });
         prescriptionPanel.add(valider, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, 100, -1));
 
-        revenirButton.setText("Revenir");
-        revenirButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                revenirButtonActionPerformed(evt);
-            }
-        });
-        prescriptionPanel.add(revenirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, -1, -1));
-
         contenaire.setBackground(new java.awt.Color(241, 241, 241));
-        contenaire.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        contenaire.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prescription", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 14))); // NOI18N
         contenaire.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         allergies.setBackground(new java.awt.Color(204, 204, 204));
@@ -922,10 +913,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
         // TODO add your handling code here:
     }//GEN-LAST:event_valueTextActionPerformed
 
-    private void revenirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenirButtonActionPerformed
-       prescriptionPanel.setVisible(false);
-    }//GEN-LAST:event_revenirButtonActionPerformed
-
     private void consultationsRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationsRadioButtonActionPerformed
          
         java.util.Date selectedDate;
@@ -1031,7 +1018,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private javax.swing.JRadioButton rappelsRadioButton1;
     private javax.swing.JTable remindersTable;
     private javax.swing.JButton reserverButton;
-    private javax.swing.JButton revenirButton;
     private javax.swing.JButton searchButton1;
     private javax.swing.JPanel searchPatientPanel;
     private javax.swing.JTextField searchTextField1;

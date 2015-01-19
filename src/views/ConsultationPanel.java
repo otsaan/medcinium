@@ -7,6 +7,7 @@ package views;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -688,13 +689,15 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             String num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
 
             Consultation consultationSelected = DAOFactory.getConsultationDAO().find(num);
-
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");           
+            
             if (consultationSelected.getStatus().equalsIgnoreCase("finished")) {
+                
                 consultationNumberLabel.setText("Consultation N˚ " + num);
                 patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
                 typeLabel.setText(consultationSelected.getType());
                 descriptionLabel.setText(consultationSelected.getDescription());
-                dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
+                dateLabel.setText(df.format(consultationSelected.getConsultationDate()));
                 diagnosticsLabel.setText(consultationSelected.getDiagnostics());
                 priceLabel.setText(String.valueOf(consultationSelected.getPrix()));
                
@@ -703,7 +706,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
                 typeLabel.setText(consultationSelected.getType());
                 descriptionLabel.setText(consultationSelected.getDescription());
-                dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
+                dateLabel.setText(df.format(consultationSelected.getConsultationDate()));
                 diagnosticsLabel.setText(consultationSelected.getDiagnostics());
                 priceLabel.setText("");
                 prixInfoLabel.setVisible(false);

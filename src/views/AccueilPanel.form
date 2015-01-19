@@ -69,12 +69,12 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="reserverButton" min="-2" max="-2" attributes="0"/>
-                          <Component id="beginConsultationButton" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="beginConsultationButton" max="32767" attributes="0"/>
+                          <Component id="reserverButton" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   </Group>
@@ -145,7 +145,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="beginConsultationButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Commencer consultation"/>
+                <Property name="text" type="java.lang.String" value="Commencer la consultation"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="beginConsultationButtonActionPerformed"/>
@@ -153,7 +153,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="reserverButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reserver"/>
+                <Property name="text" type="java.lang.String" value="Nouvelle r&#xe9;servation"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reserverButtonActionPerformed"/>
@@ -292,7 +292,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="conRapButtonGroup"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Consultations"/>
+                <Property name="text" type="java.lang.String" value="R&#xe9;servations"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultationsRadioButtonActionPerformed"/>
@@ -841,27 +841,16 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="revenirButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Revenir"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="revenirButtonActionPerformed"/>
-          </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="670" y="10" width="-1" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
         <Container class="javax.swing.JPanel" name="contenaire">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f1" green="f1" red="f1" type="rgb"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder/>
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder justification="2" title="Prescription">
+                  <Font PropertyName="font" name="Lucida Grande" size="14" style="1"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
