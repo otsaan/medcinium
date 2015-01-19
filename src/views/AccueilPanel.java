@@ -1052,7 +1052,6 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
            TableModel model = (TableModel)patientsTable.getModel();
            String id = model.getValueAt(patientsTable.getSelectedRow(), 0).toString();
            patientFoundBySearch = DAOFactory.getPatientDAO().find(id);
-           System.out.println(patientFoundBySearch);
            
         }
     }
