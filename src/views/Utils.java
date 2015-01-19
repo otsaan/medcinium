@@ -89,8 +89,6 @@ public class Utils {
 			System.out.println(date);
  
 		} catch (ParseException e) {
- 
-			e.printStackTrace();
 			return false;
 		}
  

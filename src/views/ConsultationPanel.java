@@ -262,7 +262,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         });
         infoPanel.add(displayButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
 
-        updateButton.setText("Modifier");
+        updateButton.setText("Facture");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
@@ -530,7 +530,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-              int resultat = Integer.parseInt(JOptionPane.showInputDialog("Changer le prix"));
+              int resultat = Integer.parseInt(JOptionPane.showInputDialog("Entrer le prix"));
               
             if(num != null) {
                 try {
