@@ -117,8 +117,8 @@ public class ConsultationDAO implements DAO<Consultation>{
     public boolean update(Consultation con) {
         String updateQuery = "UPDATE consultations "
                            + "SET type_consultation = " + "'" + con.getType() + "', "
-                           + "desc_consultation = '" + con.getDescription() + "', "
-                           + "diagnostics = '" + con.getDiagnostics()+ "', "
+                           + "desc_consultation = '" + con.getDescription().replaceAll("'","\"") + "', "
+                           + "diagnostics = '" + con.getDiagnostics().replaceAll("'","\"")+ "', "
                            + "date_consultation = '" + con.getConsultationDate()+ "', "
                            + "status = '" + con.getStatus() + "', "
                            + "prix = '" + con.getPrix() + "', "
