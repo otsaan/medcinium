@@ -737,8 +737,14 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
     private void validerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerButtonActionPerformed
         
         Consultation consultation = new Consultation();
+        java.util.Date date = (java.util.Date)(visitDate.getValue());
+        String hour = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(date);
+        Vector<Consultation> con =  DAOFactory.getConsultationDAO().byHour(hour);
         
         if (ajouterButtonClicked) {
+            if(con.size() != 0) {
+                JOptionPane.showMessageDialog(this, "Il existe une autre réservation à cette heure ci", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
             Patient patientAdded = new Patient();
             
             patientAdded.setName(FirstNameText.getText());
@@ -756,7 +762,7 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 consultation.setType(typeChoice.getSelectedItem().toString());
                 consultation.setStatus("pending");
                 consultation.setDiagnostics("");
-                java.util.Date date = (java.util.Date)(visitDate.getValue());
+                
                 consultation.setConsultationDate(new Timestamp(date.getTime()));
 
                 if((date).compareTo(new java.util.Date()) < 0) {
@@ -770,16 +776,19 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                 } 
             }
         }
+        }
         
         if (chercherButtonClicked) {
             
             if (patientFoundBySearch != null) {
-                
+                if(con.size() != 0) {
+                JOptionPane.showMessageDialog(this, "Il existe une autre réservation à cette heure ci", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
                 consultation.setPatient(patientFoundBySearch);
                 consultation.setType(typeChoice.getSelectedItem().toString());
                 consultation.setStatus("pending");
                 consultation.setDiagnostics("");
-                java.util.Date date = (java.util.Date)(visitDate.getValue());
+                date = (java.util.Date)(visitDate.getValue());
                 consultation.setConsultationDate(new Timestamp(date.getTime()));
 
                 if((date).compareTo(new java.util.Date()) < 0) {
@@ -791,12 +800,11 @@ public class AccueilPanel extends javax.swing.JPanel implements ListSelectionLis
                         JOptionPane.showMessageDialog(this, "La réservation n'a pas été ajoutée", "Erreur", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            } else {
+            } }else {
                 JOptionPane.showMessageDialog(this, "Sélectionner d'abord un patient", "Info", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         
-   
     }//GEN-LAST:event_validerButtonActionPerformed
 
     private void addDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDrugActionPerformed
