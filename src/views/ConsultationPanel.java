@@ -56,9 +56,10 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         allergiesTable.setModel(TableModelBuilder.buildConsultationAllergiesTableModel(consultation.getAllergyList()));
         drugsTable.setModel(TableModelBuilder.buildConsultationDrugsTableModel(DAOFactory.getDrugDAO().all(consultation.getConsultationId())));
         
-        typeLabel.setText(consultation.getType());
-        dateLabel.setText(String.valueOf(consultation.getConsultationDate()));
-        patientLabel.setText(consultation.getPatient().getLastName() + " " + consultation.getPatient().getName());
+        
+        typeLabel1.setText(consultation.getType());
+        dateLabel1.setText(String.valueOf(consultation.getConsultationDate()));
+        patientLabel1.setText(consultation.getPatient().getLastName() + " " + consultation.getPatient().getName());
         diagLabel.setText(consultation.getDiagnostics());
         descLabel.setText(consultation.getDescription());
     }
@@ -104,7 +105,6 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         typeLabel1 = new javax.swing.JLabel();
         dateLabel1 = new javax.swing.JLabel();
         patientLabel1 = new javax.swing.JLabel();
-        revenirButton = new javax.swing.JButton();
         plusInfoPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -119,6 +119,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         jScrollPane2 = new javax.swing.JScrollPane();
         infosTable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        revenirButton = new javax.swing.JButton();
 
         consultationPanel.setPreferredSize(new java.awt.Dimension(889, 550));
         consultationPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -289,13 +290,6 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
 
         patientLabel1.setText("Patient");
 
-        revenirButton.setText("Revenir");
-        revenirButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                revenirButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -305,25 +299,22 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 .addComponent(typeLabel1)
                 .addGap(106, 106, 106)
                 .addComponent(dateLabel1)
-                .addGap(135, 135, 135)
-                .addComponent(patientLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(revenirButton))
+                .addGap(78, 78, 78)
+                .addComponent(patientLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(typeLabel1)
-                        .addComponent(dateLabel1)
-                        .addComponent(patientLabel1))
-                    .addComponent(revenirButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeLabel1)
+                    .addComponent(dateLabel1)
+                    .addComponent(patientLabel1))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        consultationInfoPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 6, 700, -1));
+        consultationInfoPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 700, -1));
 
         plusInfoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         plusInfoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -388,7 +379,15 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
         jLabel12.setText("Allergies");
         plusInfoPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, -1));
 
-        consultationInfoPanel.add(plusInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 700, 390));
+        consultationInfoPanel.add(plusInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 700, 390));
+
+        revenirButton.setText("Revenir");
+        revenirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                revenirButtonActionPerformed(evt);
+            }
+        });
+        consultationInfoPanel.add(revenirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
