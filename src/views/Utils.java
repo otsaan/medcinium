@@ -73,5 +73,29 @@ public class Utils {
     public static String dateFormatter(Date dateToParse){
         return new SimpleDateFormat("yyyy-MM-dd").format(dateToParse);
     }
+    public static boolean isThisDateValid(String dateToValidate, String dateFromat){
+ 
+		if(dateToValidate == null){
+			return false;
+		}
+ 
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+		sdf.setLenient(false);
+ 
+		try {
+ 
+			//if not valid, it will throw ParseException
+			Date date = sdf.parse(dateToValidate);
+			System.out.println(date);
+ 
+		} catch (ParseException e) {
+ 
+			e.printStackTrace();
+			return false;
+		}
+ 
+		return true;
+	}
+ 
     
 }

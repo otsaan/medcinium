@@ -7,8 +7,13 @@ package views;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -516,7 +521,71 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     }//GEN-LAST:event_revenirButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        // TODO add your handling code here:
+        if(consultationsRadioButton.isSelected())
+        {
+          
+            String num = null;
+            try {
+                TableModel model = (TableModel)consultationsTable.getModel();
+                num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+              int resultat = Integer.parseInt(JOptionPane.showInputDialog("Changer le prix"));
+              
+            if(num != null) {
+                try {
+                    Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                    currentConsultation.getPatient().setCredit(currentConsultation.getPatient().getCredit()-currentConsultation.getPrix()+resultat);
+                    currentConsultation.setPrix(resultat);
+                    DAOFactory.getConsultationDAO().update(currentConsultation);
+                    DAOFactory.getPatientDAO().update(currentConsultation.getPatient());
+                    priceLabel.setText(Integer.toString(currentConsultation.getPrix()));
+                } catch (Exception e) {
+                    System.out.println("Erreur lors de l'affichage" + e);
+                }
+            }
+        }
+        
+        if(reservationsRadioButton.isSelected())
+        {
+             Date date = null ;
+            String num = null;
+            try {
+                TableModel model = (TableModel)consultationsTable.getModel();
+                num = String.valueOf(model.getValueAt(consultationsTable.getSelectedRow(), 0));
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            String resultat = JOptionPane.showInputDialog("Changer la date form yyyy-mm-dd hh:mm");
+            if(Utils.isThisDateValid(resultat, "yyyy-mm-dd hh:mm")) {
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+                try {
+                    date = sdf.parse(resultat);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ConsultationPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+          //    if(date.compareTo(new Date())<0) {
+            if(num != null) {
+                try {
+                    Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                    currentConsultation.setConsultationDate(new Timestamp(date.getTime()));
+                    if(DAOFactory.getConsultationDAO().update(currentConsultation))
+                    {
+                        dateLabel.setText(date.toString());
+                        System.out.println("done");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Erreur lors de l'affichage" + e);
+                }
+            }
+             // }
+            }else {
+              JOptionPane.showMessageDialog(this, "Date n'est pas valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void consultationsRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationsRadioButtonActionPerformed
@@ -621,6 +690,7 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
                 dateLabel.setText(String.valueOf(consultationSelected.getConsultationDate()));
                 diagnosticsLabel.setText(consultationSelected.getDiagnostics());
                 priceLabel.setText(String.valueOf(consultationSelected.getPrix()));
+               
             } else {
                 consultationNumberLabel.setText("Réservation N˚ " + num);
                 patientLabel.setText(consultationSelected.getPatient().getLastName() + " " + consultationSelected.getPatient().getName());
