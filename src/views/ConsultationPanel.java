@@ -523,7 +523,6 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         if(consultationsRadioButton.isSelected())
         {
-          
             String num = null;
             try {
                 TableModel model = (TableModel)consultationsTable.getModel();
@@ -531,20 +530,23 @@ public class ConsultationPanel extends javax.swing.JPanel implements ListSelecti
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Veuillez sélectionner un patient", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-              int resultat = Integer.parseInt(JOptionPane.showInputDialog("Entrer le prix"));
-              
-            if(num != null) {
-                try {
-                    Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
-                    currentConsultation.getPatient().setCredit(currentConsultation.getPatient().getCredit()-currentConsultation.getPrix()+resultat);
-                    currentConsultation.setPrix(resultat);
-                    DAOFactory.getConsultationDAO().update(currentConsultation);
-                    DAOFactory.getPatientDAO().update(currentConsultation.getPatient());
-                    priceLabel.setText(Integer.toString(currentConsultation.getPrix()));
-                } catch (Exception e) {
-                    System.out.println("Erreur lors de l'affichage" + e);
+            
+            if (JOptionPane.showInputDialog("Entrer le prix") != null) {
+                int resultat = Integer.parseInt(JOptionPane.showInputDialog("Entrer le prix"));
+                
+                if(num != null) {
+                    try {
+                        Consultation currentConsultation = DAOFactory.getConsultationDAO().find(num);
+                        currentConsultation.getPatient().setCredit(currentConsultation.getPatient().getCredit()-currentConsultation.getPrix()+resultat);
+                        currentConsultation.setPrix(resultat);
+                        DAOFactory.getConsultationDAO().update(currentConsultation);
+                        DAOFactory.getPatientDAO().update(currentConsultation.getPatient());
+                        priceLabel.setText(Integer.toString(currentConsultation.getPrix()));
+                    } catch (Exception e) {
+                        System.out.println("Erreur lors de l'affichage" + e);
+                    }
                 }
-            }
+            }  
         }
         
         if(reservationsRadioButton.isSelected())

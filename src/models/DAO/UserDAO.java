@@ -70,7 +70,7 @@ public class UserDAO implements DAO<User>{
         } catch (SQLException ex) {
             System.out.println("Error : UserDAO.find()" + ex);
         }
-        System.out.println(id);
+        
         return id;
     } 
     

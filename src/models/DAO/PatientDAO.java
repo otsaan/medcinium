@@ -76,7 +76,7 @@ public class PatientDAO implements DAO<Patient>{
             }
             
         } catch (Exception ex) {
-            System.out.println("Problem in all - PatientDAO");
+            System.out.println("Problem in all - PatientDAO" + ex);
         }
         
         return patients;
@@ -111,7 +111,7 @@ public class PatientDAO implements DAO<Patient>{
             }
             
         } catch (Exception ex) {
-            System.out.println("Problem in all - PatientDAO");
+            System.out.println("Problem in all - PatientDAO" + ex);
         }
         
         return patients;

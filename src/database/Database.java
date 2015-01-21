@@ -52,13 +52,13 @@ public class Database {
                 String url = String.format(prop.getProperty("url"), prop.getProperty("port"));
                 conn = DriverManager.getConnection(url, prop.getProperty("dbUser"), prop.getProperty("dbPassword"));
 	} catch (IOException io) {
-		io.printStackTrace();
+		System.out.println("IO problem in Database.java");
 	} finally {
 		if (input != null) {
 			try {
 				input.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+                            System.out.println("Error" + e);
 			}
 		}
  
@@ -82,8 +82,7 @@ public class Database {
             rs = st.executeQuery(q);
             
         } catch (Exception e) {
-            System.err.println("Error Message : problem in query() method.");
-            System.out.println(e);
+            System.err.println("Error Message : problem in query() method." + e);
         } 
         
         return rs;
@@ -101,10 +100,9 @@ public class Database {
             return st.executeUpdate(q, Statement.RETURN_GENERATED_KEYS);
             
         } catch (Exception e) {
-            
-            System.err.println("Error Message : problem in dmlQuery() method.");
-            System.out.println(e);
+            System.err.println("Error Message : problem in dmlQuery() method."+e);
         } 
+        
         return 0;
     }
    
@@ -121,10 +119,9 @@ public class Database {
             return insertedId;
             
         } catch (Exception e) {
-            
-            System.err.println("Error Message : problem in dmlQuery() method.");
-            System.out.println(e);
+            System.err.println("Error Message : problem in dmlQuery() method." + e);
         } 
+        
         return 0;
     }
 	
@@ -133,7 +130,7 @@ public class Database {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.out.println("Can't close connection");
+                System.out.println("Can't close connection" + e);
             }
         }
 

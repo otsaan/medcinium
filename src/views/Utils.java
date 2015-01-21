@@ -52,7 +52,6 @@ public class Utils {
     public static  int getAge(Date date) {  
         Calendar calendar=Calendar.getInstance();
         calendar.setTime(date);
-        System.out.println();
         //set up date of birth  
         Calendar calDOB = Calendar.getInstance();  
         calDOB.set(  calendar.get(Calendar.YEAR) , calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));  
@@ -63,37 +62,38 @@ public class Utils {
         int ageYr = (calNow.get(Calendar.YEAR) - calDOB.get(Calendar.YEAR));  
         // calculate additional age in months, possibly adjust years.  
         int ageMo = (calNow.get(Calendar.MONTH) - calDOB.get(Calendar.MONTH));  
+        
         if (ageMo < 0) {  
-        //adjust years by subtracting one  
-        ageYr--;  
+            //adjust years by subtracting one  
+            ageYr--;
         }  
+        
         return ageYr;  
     }
 
     public static String dateFormatter(Date dateToParse){
         return new SimpleDateFormat("yyyy-MM-dd").format(dateToParse);
     }
+    
     public static boolean isThisDateValid(String dateToValidate, String dateFromat){
- 
-		if(dateToValidate == null){
-			return false;
-		}
- 
-		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
-		sdf.setLenient(false);
- 
-		try {
- 
-			//if not valid, it will throw ParseException
-			Date date = sdf.parse(dateToValidate);
-			System.out.println(date);
- 
-		} catch (ParseException e) {
-			return false;
-		}
- 
-		return true;
-	}
+
+        if(dateToValidate == null){
+            return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+        sdf.setLenient(false);
+
+        try {
+            //if not valid, it will throw ParseException
+            Date date = sdf.parse(dateToValidate);
+
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
+    }
  
     
 }
