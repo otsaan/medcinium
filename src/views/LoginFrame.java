@@ -52,13 +52,9 @@ public class LoginFrame extends javax.swing.JFrame {
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER ) {        
                     user.setUsername(usernameTextField.getText());
-                    MessageDigest md5 = null;
-                    try {
-                        md5 = MessageDigest.getInstance("md5");
-                    } catch (NoSuchAlgorithmException ex) {
-                        Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    user.setPassword(new String(md5.digest(new String(password.getPassword()).getBytes())));
+                    
+                    user.setPassword(new String(password.getPassword()));
+                    System.out.println("fff"+user.getPassword());
                     notifyObservers(user,"login");
                 }
             } 
@@ -218,13 +214,8 @@ public class LoginFrame extends javax.swing.JFrame {
         
         User user = new User();
         user.setUsername(usernameTextField.getText());
-         MessageDigest md5 = null;
-        try {
-            md5 = MessageDigest.getInstance("md5");
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        user.setPassword(new String(md5.digest(new String(password.getPassword()).getBytes())));
+      
+        user.setPassword(new String(password.getPassword()));
         notifyObservers(user,"login");
     }//GEN-LAST:event_seConnecterLabelMouseClicked
 

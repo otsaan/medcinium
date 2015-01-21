@@ -543,12 +543,9 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
                 newUser.setName(firstName.getText());
                 newUser.setUsername(username.getText());
                 newUser.setRole("assistant");
-                try {
-                    MessageDigest md5 = MessageDigest.getInstance("md5");
-                    newUser.setPassword(new String(md5.digest(password.getText().getBytes())));
-                } catch (NoSuchAlgorithmException ex) {
-                    System.out.println(ex);
-                }
+                
+                newUser.setPassword(password.getText());
+                
                 if(DAOFactory.getUserDAO().findUser(newUser)<0) {
 
                     if(DAOFactory.getUserDAO().create(newUser)) {
@@ -581,13 +578,10 @@ public class DBInsertPanel extends javax.swing.JPanel  implements ListSelectionL
             User.getConnectedUser().setUsername(username.getText());
             temp.setUsername(username.getText());
 
-            try {
-                MessageDigest md5 = MessageDigest.getInstance("md5");
-                User.getConnectedUser().setPassword(new String(md5.digest(password.getText().getBytes())));
-                temp.setPassword(new String(md5.digest(password.getText().getBytes())));
-            } catch (NoSuchAlgorithmException ex) {
-                System.out.println(ex);
-            }
+          
+            User.getConnectedUser().setPassword(password.getText());
+            temp.setPassword(password.getText());
+            
 
             if(DAOFactory.getUserDAO().findUser(temp)<0 || temp.getUserId()==User.getConnectedUser().getUserId()) {
                 if(DAOFactory.getUserDAO().update(User.getConnectedUser())) {
