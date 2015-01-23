@@ -33,3 +33,14 @@ L’application présente plusieurs fonctionnalités tels que :
 ![Statistiques](screenshots/Statistiques.png)
 ####Paiements:
 ![Paiements](screenshots/Paiements.png)
+
+###Configuration:
+
+Pour pouvoir utiliser l'application veuillez suivre ces [étapes](config).
+
+###Dependencies:
+
+Cette application utilise les bibliothèques:
+
+* [Swingx](https://swingx.java.net/)
+* [XChart](http://xeiam.com/xchart/)
