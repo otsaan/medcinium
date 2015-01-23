@@ -3,7 +3,7 @@ medcinium
 
 Logiciel de gestion d'un cabinet médical.
 
-###Fonctionnalités:
+##Fonctionnalités
 L’application présente plusieurs fonctionnalités tels que :   
 
 
@@ -17,28 +17,28 @@ L’application présente plusieurs fonctionnalités tels que :
 * Configuration avec une base de données.
 * Gestion des assistants.
 
-###Interface de l’application:
+##Interface de l’application
 
-####Login:
+####Login
 ![Login](screenshots/Login.png)
-####Accueil:
+####Accueil
 ![Accueil](screenshots/Accueil.png)
 ####Prescription:
 ![Prescription](screenshots/Prescription.png)
-####Patients:
+####Patients
 ![Patients](screenshots/Patients.png)
-####Consultations:
+####Consultations
 ![Consultations](screenshots/Consultations.png)
-####Statistiques:
+####Statistiques
 ![Statistiques](screenshots/Statistiques.png)
-####Paiements:
+####Paiements
 ![Paiements](screenshots/Paiements.png)
 
-###Configuration:
+##Configuration
 
 Pour pouvoir utiliser l'application veuillez suivre ces [étapes](config).
 
-###Dependencies:
+##Dependencies
 
 Cette application utilise les bibliothèques:
 
